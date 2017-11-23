@@ -23,6 +23,7 @@ public class Ticket {
 	
 	public Ticket(Long ticketId, Long userId, Boolean isDeleted)
 	{
+		super();
 		this.ticketId = ticketId;
 		this.userId = userId;
 		this.isDeleted = isDeleted;

@@ -27,6 +27,7 @@ public class JourneyDetails {
 	
 	public JourneyDetails(Long journeyId, Long trainId, Long ticketId, String source, String destination, Date departureTime)
 	{
+		super();
 		this.journeyId = journeyId;
 		this.trainId = trainId;
 		this.ticketId = ticketId;

@@ -23,6 +23,7 @@ public class Transaction {
 	
 	public Transaction(Long transcationId, Long ticketId, int price)
 	{
+		super();
 		this.transcationId = transcationId;
 		this.ticketId = ticketId;
 		this.price = price;
