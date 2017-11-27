@@ -62,6 +62,47 @@ public class TicketPriceResource {
 		System.out.println("final rate : "+finalRate); // searching time price rate
 		
 		// $1 transaction fees will be shown at booking time.
+		
+		
+		
+		
+		
+		
+		
+		 
+		String f1 = "G";
+		String t1 = "T";
+		
+		//(1) Pre searching of a time
+		
+		// regular trains
+		int u1 = stations.get(f1);
+		int betweenStationTime = (u1 - 1) * 5; // 5 min from 1 station to other
+		int haultTime = (u1 - 1) * 3; // 3 min hault at each station
+		
+		int totalBeforeTravelTime = betweenStationTime + haultTime; // in minutes
+		
+		int searchedTime = 7; // 7:00 AM 
+		
+		// train search time in database at station A
+		int departureTime = searchedTime - totalBeforeTravelTime;  // 7:03 AM 
+		// Search this time in DB : This is departure time at searched station.
+		// SB0615 : It's near to 06:18 AM
+		
+		
+		//(2) Total traveling Time in a train from source to destination
+		departureTime = 7; // 7:03 AM, ex: 7:00 AM
+		int u2 = stations.get(t1) - stations.get(f1);
+		int betweenStationTime2 = (u2) * 5; // 5 min from 1 station to other
+		int haultTime2 = (u2 - 1) * 3; // 3 min hault at each station
+		
+		int totalTravelTime = betweenStationTime2 + haultTime2; // in minutes
+
+		
+		int reachingTime = departureTime + totalTravelTime;
+		
+		
+		
 	}
 	
 	
