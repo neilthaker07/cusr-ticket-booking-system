@@ -15,8 +15,81 @@ public class TicketPriceResource {
 
 	//@RequestMapping(method = RequestMethod.POST, value="/calculatePrice")
 	//public void getPrice(@RequestBody Ticket ticket)
-	public void getPrice()
-	{	
+	public double getFinalPrice(int passengers)
+	{
+		double price = 0;
+		int transactionFee = 1;
+		double journeyFee = ticketPriceBetweenStations("A", "B", "regular");
+		
+		price = transactionFee + journeyFee;
+		return price;
+	}
+	
+	public double ticketPriceBetweenStations(String fromStation, String toStation, String ticketType)
+	{
+		Map<String, Integer> stations = allStations();
+		
+		fromStation = "C";
+		toStation = "P";
+		
+		int stationDiff = Math.abs(stations.get(toStation) - stations.get(fromStation));
+		double d = stationDiff / 5.0;
+	
+        double finalRate = Math.ceil(d);
+        
+        ticketType = "regular";
+		if(ticketType.equals("express"))
+		{
+			finalRate*=2; // express, price double 
+		}
+		
+		System.out.println("final rate : "+finalRate); // searching time price rate
+		return finalRate;
+	}
+	
+	public int timeToSearchForTrain(String fromStation, String toStation, String ticketType, int searchedDepTime)
+	{
+		Map<String, Integer> stations = allStations();
+		
+		fromStation = "G";
+		toStation = "T";
+		
+		//(1) Pre searching of a time
+		// regular trains
+		int u1 = stations.get(fromStation);
+		int betweenStationTime = (u1 - 1) * 5; // 5 min from 1 station to other
+		int haultTime = (u1 - 1) * 3; // 3 min hault at each station
+		
+		int totalBeforeTravelTime = betweenStationTime + haultTime; // in minutes
+		
+		searchedDepTime = 7; // 7:00 AM 
+		
+		// train search time in database at station A
+		int depTime = searchedDepTime - totalBeforeTravelTime;  // 7:03 AM 
+		// Search this time in DB : This is departure time at searched station.
+		// SB0615 : It's near to 06:18 AM
+		return depTime;
+	}
+	
+	public void journeyTime(String fromStation, String toStation, int departureTime)
+	{
+		Map<String, Integer> stations = allStations();
+		
+		fromStation = "G";
+		toStation = "T";
+		
+		//(2) Total traveling Time in a train from source to destination
+		departureTime = 7; // 7:03 AM, ex: 7:00 AM
+		int u2 = stations.get(toStation) - stations.get(fromStation);
+		int betweenStationTime = (u2) * 5; // 5 min from 1 station to other
+		int haultTime = (u2 - 1) * 3; // 3 min hault at each station
+		
+		int journeyTime = betweenStationTime + haultTime; // in minutes
+		int reachingTime = departureTime + journeyTime;
+	}
+	
+	public Map<String, Integer> allStations()
+	{
 		Map<String, Integer> stations = new HashMap<String, Integer>();
 		stations.put("A",1);
 		stations.put("B",2);
@@ -44,66 +117,7 @@ public class TicketPriceResource {
 		stations.put("X",24);
 		stations.put("Y",25);
 		stations.put("Z",26);
-		
-		String fromStation = "C";
-		String toStation = "P";
-		
-		int stationDiff = Math.abs(stations.get(toStation) - stations.get(fromStation));
-		double d = stationDiff / 5.0;
-	
-        double finalRate = Math.ceil(d);
-        
-        String trainType = "reg";
-		if(!trainType.equals("reg"))
-		{
-			finalRate*=2; // express, price double 
-		}
-		
-		System.out.println("final rate : "+finalRate); // searching time price rate
-		
-		// $1 transaction fees will be shown at booking time.
-		
-		
-		
-		
-		
-		
-		
-		 
-		String f1 = "G";
-		String t1 = "T";
-		
-		//(1) Pre searching of a time
-		
-		// regular trains
-		int u1 = stations.get(f1);
-		int betweenStationTime = (u1 - 1) * 5; // 5 min from 1 station to other
-		int haultTime = (u1 - 1) * 3; // 3 min hault at each station
-		
-		int totalBeforeTravelTime = betweenStationTime + haultTime; // in minutes
-		
-		int searchedTime = 7; // 7:00 AM 
-		
-		// train search time in database at station A
-		int departureTime = searchedTime - totalBeforeTravelTime;  // 7:03 AM 
-		// Search this time in DB : This is departure time at searched station.
-		// SB0615 : It's near to 06:18 AM
-		
-		
-		//(2) Total traveling Time in a train from source to destination
-		departureTime = 7; // 7:03 AM, ex: 7:00 AM
-		int u2 = stations.get(t1) - stations.get(f1);
-		int betweenStationTime2 = (u2) * 5; // 5 min from 1 station to other
-		int haultTime2 = (u2 - 1) * 3; // 3 min hault at each station
-		
-		int totalTravelTime = betweenStationTime2 + haultTime2; // in minutes
-
-		
-		int reachingTime = departureTime + totalTravelTime;
-		
-		
-		
+		return stations;
 	}
-	
 	
 }
