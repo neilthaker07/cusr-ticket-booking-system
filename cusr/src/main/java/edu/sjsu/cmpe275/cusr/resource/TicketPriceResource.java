@@ -21,7 +21,7 @@ public class TicketPriceResource {
 		int transactionFee = 1;
 		double journeyFee = ticketPriceBetweenStations("A", "B", "regular");
 		
-		price = transactionFee + journeyFee;
+		price = transactionFee + (journeyFee * passengers);
 		return price;
 	}
 	
