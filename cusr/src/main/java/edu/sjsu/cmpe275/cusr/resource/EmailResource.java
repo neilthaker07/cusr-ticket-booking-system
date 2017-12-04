@@ -37,7 +37,7 @@ public class EmailResource {
 		
 		long userId= emailService.findUserbyTicketId(id);
 		
-		User user=userService.getUser(userId);
+		User user=userService.getUserById(userId);
 		
 		String email="afreens.patel@gmail.com";
 		
@@ -47,7 +47,7 @@ public class EmailResource {
             public void prepare(MimeMessage mimeMessage) throws Exception {
 
                 mimeMessage.setRecipient(Message.RecipientType.TO,
-                        new InternetAddress(user.getUser_email()));
+                        new InternetAddress(user.getEmailAddress()));
                 mimeMessage.setFrom(new InternetAddress("mail@mycompany.com"));
                 mimeMessage.setText(
                         "Dear user " + user + " "
@@ -74,7 +74,7 @@ public class EmailResource {
 		
 		long userId= emailService.findUserbyTicketId(id);
 		
-		User user=userService.getUser(userId);
+		User user=userService.getUserById(userId);
 		
 		String email="afreens.patel@gmail.com";
 		
@@ -84,7 +84,7 @@ public class EmailResource {
             public void prepare(MimeMessage mimeMessage) throws Exception {
 
                 mimeMessage.setRecipient(Message.RecipientType.TO,
-                        new InternetAddress(user.getUser_email()));
+                        new InternetAddress(user.getEmailAddress()));
                 mimeMessage.setFrom(new InternetAddress("mail@mycompany.com"));
                 mimeMessage.setText(
                         "Alert!! Dear user" + user + " "

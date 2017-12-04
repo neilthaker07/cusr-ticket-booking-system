@@ -15,5 +15,10 @@ public class UserService {
 	public void saveUser(User user){
 		userRepository.save(user);
 	}
+	
+	public User getUserById(long userId){
+		// TODO: Change the logic of fetching the userID by its Firebase ID instead of Primary Key
+		return userRepository.getOne(userId);
+	}
 
 }

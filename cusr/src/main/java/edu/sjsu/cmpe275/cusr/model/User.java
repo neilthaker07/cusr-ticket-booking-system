@@ -20,15 +20,7 @@ public class User {
 	private String firebaseId;
 	
 	@Column(name="USER_EMAIL")
-	private String user_email;
-
-	public String getUser_email() {
-		return user_email;
-	}
-
-	public void setUser_email(String user_email) {
-		this.user_email = user_email;
-	}
+	private String emailAddress;
 
 	public Long getId() {
 		return id;
@@ -44,5 +36,13 @@ public class User {
 
 	public void setFirebaseId(String firebaseId) {
 		this.firebaseId = firebaseId;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 }
