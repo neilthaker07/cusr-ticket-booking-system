@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name = "TRAIN")
 public class Train {
 
-	public Train(Long trainId, int trainNo, Date departureTime, String trainType, Boolean isNorthBound, int capacity) {
+	public Train(Long trainId, String trainNo, Date departureTime, String trainType, Boolean isNorthBound, int capacity) {
 		super();
 		this.trainId = trainId;
 		this.trainNo = trainNo;
@@ -28,7 +28,7 @@ public class Train {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long trainId;
-	private int trainNo;
+	private String trainNo;
 	private Date departureTime;
 	private String trainType;
 	private Boolean isNorthBound;
@@ -39,10 +39,10 @@ public class Train {
 	public void setTrainId(Long trainId) {
 		this.trainId = trainId;
 	}
-	public int getTrainNo() {
+	public String getTrainNo() {
 		return trainNo;
 	}
-	public void setTrainNo(int trainNo) {
+	public void setTrainNo(String trainNo) {
 		this.trainNo = trainNo;
 	}
 	public Date getDepartureTime() {
