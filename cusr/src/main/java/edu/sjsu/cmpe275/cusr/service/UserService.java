@@ -13,12 +13,25 @@ public class UserService {
 	UserRepository userRepository;
 	
 	public void saveUser(User user){
-		userRepository.save(user);
+		// Only insert the user if it is not available in database
+		if(!isUserWithEmailAddressExists(user.getEmailAddress()))
+			userRepository.save(user);	
 	}
 	
 	public User getUserById(long userId){
 		// TODO: Change the logic of fetching the userID by its Firebase ID instead of Primary Key
 		return userRepository.getOne(userId);
 	}
-
+	
+	public boolean isUserWithEmailAddressExists(String emailAddress){
+		
+		User user = userRepository.findUserByEmailId(emailAddress);
+		
+		if(user != null){
+			return true;
+		} else{
+			return false;
+		}
+		
+	}
 }
