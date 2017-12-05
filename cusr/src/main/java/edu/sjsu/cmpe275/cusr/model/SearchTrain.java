@@ -6,10 +6,23 @@ import java.util.Arrays;
 
 
 public class SearchTrain {
+	//Contains express trains stattions
 	private HashSet<Character> ExpressStations;
+	/*Contains schedule for each regular train
+	eg: regularTrain[0] = [915,930,945..] where 0=A
+	*/
 	private int[][] regularTrainSchedule;
+	/* contains scheule for express trains
+	eg:expressTrainsSchedule[0]=[9,10,11..] where 0=A;
+	*/
 	private int[][] expressTrainsSchedule;
+	/*
+	to get index of Regular trains in regularTrainsSchedule array.
+	*/
 	private ArrayList<Character> indexmappingRegularTrains;
+	/*
+	to get index of express trains in ExpressTrainsSchedule array.
+	*/
 	private ArrayList<Character> indexmappingExpressTrains;
 
 	public SearchTrain(int regularTrainCount,int expressTrainCount)
@@ -39,7 +52,11 @@ public class SearchTrain {
 	 {
 		 
 	 }
-	public void SerchTrains(Character Departure,Character Arrival,Integer Time)
+	 public void SearchTrain(Character Departure,Character Arrival,Integer Time,String TicketType,int Connections_num, String RoundTrip,int Passanger_num)
+	 {
+
+	 }
+	public void SerchTrainsHelper(Character Departure,Character Arrival,Integer Time)
 	{
 		HashMap<Character,ArrayList<Integer>> trainschedules =  new HashMap<Character,ArrayList<Integer>>();
 		String Bound = "";
@@ -51,20 +68,26 @@ public class SearchTrain {
 		{
 			Bound = "SB";
 		}
+		//Tp get express trains schedules
 		if(this.ExpressStations.contains(Departure) && this.ExpressStations.contains(Arrival))
 		{
 			lookExpressTrains(Departure,Arrival,Time);
 			
 		}
+		// To find closest express train station 
 		else if(Math.abs(this.indexmappingRegularTrains.indexOf(Departure)-this.indexmappingRegularTrains.indexOf(Arrival)) > 5)
 		{
+			//if Departure station is already express station then find closest express station to arrival.
 			if(this.ExpressStations.contains(Departure))
 			{
 				for(int i=this.indexmappingExpressTrains.size();i> this.indexmappingExpressTrains.indexOf(Departure);i--)
 				{
+					//check if arrival station is immediately after express station found
 					if(this.indexmappingExpressTrains.get(i) <= Arrival)
 					{
+						//This finds the expressTrains connections
 						HashMap<Character,ArrayList<Integer>> hm_e = lookExpressTrains(Departure,this.indexmappingExpressTrains.get(i),Time);
+						//This finds all other connections.
 						HashMap<Character,ArrayList<Integer>> hm_r = lookAllTrains(this.indexmappingExpressTrains.get(i),Arrival,Time); 
 						trainschedules.putAll(hm_e);
 						trainschedules.putAll(hm_r);
