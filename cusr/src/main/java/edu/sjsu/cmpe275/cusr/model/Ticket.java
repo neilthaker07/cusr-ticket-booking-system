@@ -14,7 +14,6 @@ public class Ticket {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long ticketId;
 	private Long userId;
-	
 	private boolean isDeleted;
 	
 	public Ticket()
@@ -22,10 +21,9 @@ public class Ticket {
 		
 	}
 	
-	public Ticket(Long ticketId, Long userId, Boolean isDeleted)
+	public Ticket(Long userId, Boolean isDeleted)
 	{
 		super();
-		this.ticketId = ticketId;
 		this.userId = userId;
 		this.isDeleted = isDeleted;
 	}

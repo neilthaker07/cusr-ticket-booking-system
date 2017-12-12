@@ -35,7 +35,7 @@ public class EmailResource {
     }
 
 	
-	@RequestMapping(method=RequestMethod.POST, value="/email/{id}")
+	@RequestMapping(method=RequestMethod.POST, value="/confirmEmail/{id}")
 	public void sendConfrimationEmail(@PathVariable Long id){
 		
 		long userId= emailService.findUserbyTicketId(id);
@@ -72,7 +72,7 @@ public class EmailResource {
 	}
 	
 
-	@RequestMapping(method=RequestMethod.POST, value="/email/{id}")
+	@RequestMapping(method=RequestMethod.POST, value="/cancelEmail/{id}")
 	public void sendCancellationEmail(@PathVariable Long id){
 		
 		long userId= emailService.findUserbyTicketId(id);

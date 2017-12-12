@@ -27,10 +27,9 @@ public class JourneyDetails {
 		
 	}
 	
-	public JourneyDetails(Long journeyId, Long trainId, Long ticketId, int source, int destination, int passengers, Date departureTime, Date journeyDate)
+	public JourneyDetails(Long trainId, Long ticketId, int source, int destination, int passengers, Date departureTime, Date journeyDate)
 	{
 		super();
-		this.journeyId = journeyId;
 		this.trainId = trainId;
 		this.ticketId = ticketId;
 		this.source = source;
