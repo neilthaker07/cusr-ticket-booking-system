@@ -89,3 +89,22 @@ $(function(){
 
 });
 
+
+// variable to show on the train page.
+var jsonVar = {
+	"train_no":"SB0700",
+	"from_station":"A",
+	"to_station":"G"
+};
+/*
+var xhttp = new XMLHttpRequest();
+xhttp.open("GET", "localhost:8080/availableRoutes", false);
+xhttp.setRequestHeader("Content-type", "application/json");
+xhttp.send();
+var response = JSON.parse(xhttp.responseText);
+
+console.log("All availableRoutes : "+ JSON.stringify(response));
+*/
+var output = document.getElementById('output');
+output.innerHTML = jsonVar.train_no + " " +jsonVar.from_station + " "+jsonVar.to_station ;
+

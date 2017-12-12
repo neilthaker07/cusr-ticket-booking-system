@@ -53,6 +53,7 @@ public class SearchHelper {
 		// }
 	 // }
 	 
+
 	 // public Hashtable<String,String> NorthBoundSearch(Character Departure,Character Arrival,String time)
 	 // {
 		//  if(this.ExpressStations.contains(Departure) && this.ExpressStations.contains(Arrival))
@@ -67,7 +68,7 @@ public class SearchHelper {
 	 // }
 	 // public void GetExpressTrainDetails(String Time)
 	 // {
-		 
-	 // }
 	 
+	 
+	 // }
 }
