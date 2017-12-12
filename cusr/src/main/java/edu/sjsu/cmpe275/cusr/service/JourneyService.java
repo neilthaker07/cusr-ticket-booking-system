@@ -20,4 +20,9 @@ public class JourneyService {
 	{
 		journeyRepository.save(journey);
 	}
+	
+	public JourneyDetails getJourneyById(Long journeyId)
+	{
+		return journeyRepository.findOne(journeyId);
+	}
 }

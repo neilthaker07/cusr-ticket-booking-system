@@ -15,7 +15,7 @@ public class JourneyDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long journeyId;
-	private Long trainId;
+	private Long journeyTrainId;
 	private Long ticketId;
 	private int source;
 	private int destination;
@@ -27,10 +27,10 @@ public class JourneyDetails {
 		
 	}
 	
-	public JourneyDetails(Long trainId, Long ticketId, int source, int destination, int passengers, Date departureTime, Date journeyDate)
+	public JourneyDetails(Long journeyTrainId, Long ticketId, int source, int destination, int passengers, Date departureTime, Date journeyDate)
 	{
 		super();
-		this.trainId = trainId;
+		this.journeyTrainId = journeyTrainId;
 		this.ticketId = ticketId;
 		this.source = source;
 		this.destination = destination;
@@ -45,11 +45,11 @@ public class JourneyDetails {
 	public void setJourneyId(Long journeyId) {
 		this.journeyId = journeyId;
 	}
-	public Long getTrainId() {
-		return trainId;
+	public Long getJourneyTrainId() {
+		return journeyTrainId;
 	}
-	public void setTrainId(Long trainId) {
-		this.trainId = trainId;
+	public void setJourneyTrainId(Long journeyTrainId) {
+		this.journeyTrainId = journeyTrainId;
 	}
 	public Long getTicketId() {
 		return ticketId;
