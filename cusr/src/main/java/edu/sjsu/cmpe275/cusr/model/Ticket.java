@@ -21,10 +21,9 @@ public class Ticket {
 		
 	}
 	
-	public Ticket(Long ticketId, Long userId, Boolean isDeleted)
+	public Ticket(Long userId, Boolean isDeleted)
 	{
 		super();
-		this.ticketId = ticketId;
 		this.userId = userId;
 		this.isDeleted = isDeleted;
 	}
@@ -47,5 +46,5 @@ public class Ticket {
 	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-	
+
 }

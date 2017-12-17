@@ -1,6 +1,5 @@
 package edu.sjsu.cmpe275.cusr.resource;
 
-
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -9,14 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import edu.sjsu.cmpe275.cusr.model.User;
 import edu.sjsu.cmpe275.cusr.service.EmailService;
 import edu.sjsu.cmpe275.cusr.service.UserService;
 
+@RestController
+@CrossOrigin
 public class EmailResource {
 	
 	@Autowired
@@ -32,7 +35,7 @@ public class EmailResource {
     }
 
 	
-	@RequestMapping(method=RequestMethod.POST, value="/email/{id}")
+	@RequestMapping(method=RequestMethod.POST, value="/confirmEmail/{id}")
 	public void sendConfrimationEmail(@PathVariable Long id){
 		
 		long userId= emailService.findUserbyTicketId(id);
@@ -69,7 +72,7 @@ public class EmailResource {
 	}
 	
 
-	@RequestMapping(method=RequestMethod.POST, value="/email/{id}")
+	@RequestMapping(method=RequestMethod.POST, value="/cancelEmail/{id}")
 	public void sendCancellationEmail(@PathVariable Long id){
 		
 		long userId= emailService.findUserbyTicketId(id);

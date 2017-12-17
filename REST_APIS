@@ -1,0 +1,19 @@
+POST:
+http://localhost:8080/ticket
+{"userId":"51","isDeleted":"false"}
+
+POST:
+localhost:8080/journey
+{"journeyTrainId":"1000", "ticketId":"56", "source":"3", "destination":"6", "passengers":"38","departureTime":"2012-04-23T18:25:43.511Z", "journeyDate":"2012-04-23T18:25:43.511Z"}
+
+localhost:8080/journey/2
+{
+  "journeyId": 2,
+  "journeyTrainId": 1000,
+  "ticketId": 56,
+  "source": 3,
+  "destination": 6,
+  "passengers": 38,
+  "journeyDate": 1335205544000,
+  "depTime": null
+}

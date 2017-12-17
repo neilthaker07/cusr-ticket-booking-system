@@ -1,5 +1,6 @@
 package edu.sjsu.cmpe275.cusr.resource;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -118,6 +119,27 @@ public class TicketPriceResource {
 		stations.put("Y",25);
 		stations.put("Z",26);
 		return stations;
+	}
+	
+	public boolean isTicketAvailable(int trainId, Date journeyDate, int fromStation, int toStation, int passengers, int totalTrainSeats)
+	{
+		totalTrainSeats = 50;
+		passengers = 3;
+		//int bookedSeats = 48; Query should return false;
+		
+		String qry = "select sum(passengers) from journey_details where journey_train_id = 1000 and journey_date = 2012-04-23 11:25:44 "
+				+ "and 1 = (case when (( 3 >= source && 6<= destination ) OR (  3 < source && 6<= destination && 6>source )"
+				+ " OR ( 3 < source && 6> destination ) OR ( 3 > source && 3< destination && 6>destination )) then 1 else 2 end)";
+		
+		int returnedQry = 48;
+		if(returnedQry > totalTrainSeats - passengers)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 }
