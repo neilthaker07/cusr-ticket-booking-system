@@ -28,8 +28,6 @@ public class JourneyResource {
 	@RequestMapping(method = RequestMethod.GET, value="/journey/{id}")
 	public JourneyDetails getJourney(@PathVariable Long id)
 	{	
-		
-		
 		return journeyService.getJourneyById(id);
 	}
 	

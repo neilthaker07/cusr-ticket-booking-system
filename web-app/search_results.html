@@ -425,7 +425,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="panel panel-widget forms-panel">
 						<div class="progressbar-heading general-heading">
-							<h4>Search My Train:</h4>
+							<h4>Search My Train</h4>
 						</div>
 						<div class="forms">
 								<h3 class="title1"></h3>
@@ -524,12 +524,27 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div  class="panel panel-widget forms-panel">
 						<div class="progressbar-heading general-heading">
-							<h4>Search Result :</h4>
+							<h4>Search Result</h4>
 						</div>
 						<div class="forms">
 							<div class="form-three widget-shadow">
 								<div id="search_result" data-example-id="form-validation-states-with-icons">
-								
+
+									<script src="js/search_results.js"></script>
+											
+									<button id="myButton" class="btn btn-default">Sign in
+									</button>
+									
+									<script type="text/javascript">
+									    document.getElementById("myButton").onclick =function () {
+									    	console.log("bang"+output.innerHTML);
+									        location.href = "ticket_confirm.html?output="+ouput.innerHTML;
+									    };
+									</script>
+
+
+
+
 									<form class="form-horizontal">
 									 <div class="form-group" class="col-sm-4" style="border :1px solid black"> 
 									 	<table style="width:100%" border ="0">
