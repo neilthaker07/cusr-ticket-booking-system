@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Baxster an Admin Panel Category Flat Bootstrap Responsive Website Template | Signup :: w3layouts</title>
+<title>California Ultra Speed Rail | Signup</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Baxster Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
@@ -25,23 +25,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <!--webfonts-->
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 <!--//webfonts-->
+
 <!-- js -->
 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
 <script src="js/jquery-1.11.1.min.js"></script>
-
+<script src="js/firebaseConfig.js"></script>
 <script type="text/javascript">
-
-  	// Initialize Firebase
-	var config = {
-	apiKey: "AIzaSyDp23RJ2lDCGLHOE0YRmPlz82Wpu0nuaNs",
-	authDomain: "california-ultra-speed-rail.firebaseapp.com",
-	databaseURL: "https://california-ultra-speed-rail.firebaseio.com",
-	projectId: "california-ultra-speed-rail",
-	storageBucket: "",
-	messagingSenderId: "447670123887"
-	};
-
-	firebase.initializeApp(config);
 
 	$(document).ready(function(){
 
@@ -54,57 +43,21 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 		  firebase.auth().createUserWithEmailAndPassword(email, password)
 		  	.then(function(user) {
-			  firebaseUser = firebase.auth().currentUser;
-			  saveUserInfoToDatabase(firebaseUser.uid, firebaseUser.email);
-			})
+			       firebaseUser = firebase.auth().currentUser;
+			       saveUserInfoToDatabase(firebaseUser.uid, firebaseUser.email);
+             localStorage.setItem("isUserLoggedIn",true);
+             window.location = "index.html";
+        })
 			.catch(function(error) {
 			  var errorCode = error.code;
 			  var errorMessage = error.message;
+        alert("Error Code: " + errorCode + " " + errorMessage);
 			});
 
 			// to prevent the page from redirecting before the Firebase account creation
 			event.preventDefault();
 		});
-
-		$("#google-signup").click(function(){
-			var provider = new firebase.auth.GoogleAuthProvider();
-			signUpWithSocialPlatform(provider);
-		});
-
-		$("#facebook-signup").click(function(){
-			var provider = new firebase.auth.FacebookAuthProvider();
-			signUpWithSocialPlatform(provider);
-		});
-	});
-
-	function signUpWithSocialPlatform(provider){
-
-		firebase.auth().signInWithPopup(provider).then(function(result) {
-		  var token = result.credential.accessToken;
-		  var firebaseUser = result.user;
-		  saveUserInfoToDatabase(firebaseUser.uid, firebaseUser.email);
-		})
-		.catch(function(error) {
-		  var errorCode = error.code;
-		  var errorMessage = error.message;
-		  alert("Error Code: " + errorCode + " " + errorMessage);
-		});
-	}
-
-	function saveUserInfoToDatabase(userId, emailAddress){
-
-		$.ajax({
-		   url:  'http://localhost:8080/user',
-		   method: "POST",
-       data: jQuery.param({ userId: userId, emailAddress: emailAddress}),
-		   error: function(xhr, status, error) {
-		      alert(error);
-		   },
-		   success: function(data) {
-		   	  alert("Account created successfully");
-		   },
-		});
-	} // end of saveUserInfoToDatabase()
+  });
 
 </script>
 <!-- //js -->
@@ -124,8 +77,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					<h2>Or Sign Up With</h2>
 					<div class="login-icons">
 						<ul>
-							<li><a id="facebook-signup" href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-							<li><a id="google-signup" href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+							<li><a id="facebook-form" href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+							<li><a id="google-form" href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
 						</ul>
 					</div>
 					<div class="signup-text">
