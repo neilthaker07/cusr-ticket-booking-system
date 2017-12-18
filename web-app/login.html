@@ -41,9 +41,9 @@ $(document).ready(function(){
 		firebase.auth().signInWithEmailAndPassword(emailAddress, password)
 		.then(function(user) {
 				 var firebaseUser = firebase.auth().currentUser;
-				 alert("Welcome..!! " + firebaseUser.email);
 				 localStorage.setItem("isUserLoggedIn",true);
-				 window.location = "index.html";
+				 localStorage.setItem("emailAddress",firebaseUser.email);
+				 window.location = "search_results.html";
 		})
 		.catch(function(error) {
 		  var errorCode = error.code;
@@ -83,9 +83,7 @@ $(document).ready(function(){
 				</form>
 			</div>
 		</div>
-		<div class="go-back login-go-back">
-				<a href="index.html">Go To Home</a>
-			</div>
+
 		<div class="copyright login-copyright">
            <p>© 2016 Baxster . All Rights Reserved . Design by <a href="http://w3layouts.com/">W3layouts</a></p>
 		</div>
