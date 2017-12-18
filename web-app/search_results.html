@@ -425,7 +425,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="panel panel-widget forms-panel">
 						<div class="progressbar-heading general-heading">
-							<h4>Search My Train:</h4>
+							<h4>Search My Train</h4>
 						</div>
 						<div class="forms">
 								<h3 class="title1"></h3>
@@ -524,12 +524,43 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div  class="panel panel-widget forms-panel">
 						<div class="progressbar-heading general-heading">
-							<h4>Search Result :</h4>
+							<h4>Search Result</h4>
 						</div>
 						<div class="forms">
 							<div class="form-three widget-shadow">
 								<div id="search_result" data-example-id="form-validation-states-with-icons">
-								
+
+									<div id="
+
+
+									"></div>
+									<div id="output22"></div>
+									<script src="js/search_results.js"></script>
+											
+									<button id="myButton" class="btn btn-default" onclick="getTickets();">Testing Button
+									</button>
+									
+									<script type="text/javascript">
+									   /* document.getElementById("myButton").onclick =function () {
+									    	console.log("bang1111 "+output.innerHTML);*/	
+									    /*	
+									        location.href = "ticket_confirm.html?output="+output.innerHTML;
+									    };*/
+									</script>
+
+									<script>
+										$(document).ready(function(){
+										    $("#myButton").click(function(){
+										    	var lc = localStorage.getItem('trains');
+									    		console.log("bang234 95 : "+lc);
+										        $("output22").show();
+										    });
+										});
+									</script>
+
+
+
+
 									<form class="form-horizontal">
 									 <div class="form-group" class="col-sm-4" style="border :1px solid black"> 
 									 	<table style="width:100%" border ="0">
