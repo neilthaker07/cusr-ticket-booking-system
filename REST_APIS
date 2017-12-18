@@ -17,3 +17,10 @@ localhost:8080/journey/2
   "journeyDate": 1335205544000,
   "depTime": null
 }
+
+Train Searching:
+
+http://localhost:8080/search
+POST
+{"departure_station":"A", "arrival_station":"Z", "dep_time":"600", "ticket_type":"express", 
+"conn_num":"0","round_tr":"false", "pass_num":"1", "exact_time":"true","dep_date":"15-15-2017"}
