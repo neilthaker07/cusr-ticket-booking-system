@@ -28,8 +28,7 @@ public class TicketPriceService {
 	
 	public double ticketPriceBetweenStations(String fromStation, String toStation, String ticketType)
 	{
-		Map<String, Integer> stations = allStations();
-		
+		allStations();
 		fromStation = "C";
 		toStation = "P";
 		
@@ -50,8 +49,7 @@ public class TicketPriceService {
 	
 	public int timeToSearchForTrain(String fromStation, String toStation, String ticketType, int searchedDepTime)
 	{
-		Map<String, Integer> stations = allStations();
-		
+		allStations();
 		fromStation = "G";
 		toStation = "T";
 		
@@ -74,8 +72,7 @@ public class TicketPriceService {
 	
 	public void journeyTime(String fromStation, String toStation, int departureTime)
 	{
-		Map<String, Integer> stations = allStations();
-		
+		allStations();
 		fromStation = "G";
 		toStation = "T";
 		
@@ -89,9 +86,9 @@ public class TicketPriceService {
 		int reachingTime = departureTime + journeyTime;
 	}
 	
-	public Map<String, Integer> allStations()
+	Map<String, Integer> stations = new HashMap<String, Integer>();
+	public void allStations()
 	{
-		Map<String, Integer> stations = new HashMap<String, Integer>();
 		stations.put("A",1);
 		stations.put("B",2);
 		stations.put("C",3);
@@ -118,11 +115,11 @@ public class TicketPriceService {
 		stations.put("X",24);
 		stations.put("Y",25);
 		stations.put("Z",26);
-		return stations;
 	}
 	
-	public boolean isTicketAvailable(int trainId, String journeyDate, char fromStation, char toStation, int passengers, int totalTrainSeats)
+	public boolean isTicketAvailable(Long trainId, String journeyDate, char fromStation, char toStation, int passengers, int totalTrainSeats)
 	{
+		allStations();
 		totalTrainSeats = 50;
 		passengers = 3;
 		//int bookedSeats = 48; Query should return false;
@@ -130,7 +127,8 @@ public class TicketPriceService {
 		String qry = "select sum(passengers) from journey_details where journey_train_id = 1000 and journey_date = 2012-04-23 11:25:44 "
 				+ "and 1 = (case when (( 3 >= source && 6<= destination ) OR (  3 < source && 6<= destination && 6>source )"
 				+ " OR ( 3 < source && 6> destination ) OR ( 3 > source && 3< destination && 6>destination )) then 1 else 2 end)";
-		
+	
+		int bookedTickets = journeyRepository.getTotalBookedSeats(trainId, journeyDate, stations.get(fromStation), stations.get(toStation), passengers);
 		int returnedQry = 48;
 		if(returnedQry > totalTrainSeats - passengers)
 		{

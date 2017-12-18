@@ -1,7 +1,16 @@
 package edu.sjsu.cmpe275.cusr.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class SearchTrain {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long searchTrainId;
 	private Character departure_station;
 	private Character arrival_station;
 	private Integer dep_time;
@@ -12,6 +21,14 @@ public class SearchTrain {
 	private Boolean exact_time;
 	private String dep_date;
 	
+	public Long getSearchTrainId() {
+		return searchTrainId;
+	}
+
+	public void setSearchTrainId(Long searchTrainId) {
+		this.searchTrainId = searchTrainId;
+	}
+
 	public SearchTrain() {
 	}
 	

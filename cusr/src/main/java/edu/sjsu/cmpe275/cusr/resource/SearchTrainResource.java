@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.sjsu.cmpe275.cusr.model.SearchTrain;
 import edu.sjsu.cmpe275.cusr.service.SearchTrainService;
-/*
+
 @RestController
 @CrossOrigin
-*/public class SearchTrainResource {
+public class SearchTrainResource {
 	
 	@Autowired
 	SearchTrainService searchTrainService;
@@ -20,7 +20,7 @@ import edu.sjsu.cmpe275.cusr.service.SearchTrainService;
 	@RequestMapping(method=RequestMethod.POST, value="/search")
 	public String searchTrain(@RequestBody SearchTrain searchTrain)
 	{
-		searchTrainService.findTrain(searchTrain.getDeparture_station(), searchTrain.getArrival_station(), searchTrain.getDep_time(), searchTrain.getTicket_type(), searchTrain.getConn_num(), searchTrain.getRound_tr() , searchTrain.getPass_num(), searchTrain.getDep_date());
+		searchTrainService.findTrain(searchTrain);
 		return "train";
 	}
 }

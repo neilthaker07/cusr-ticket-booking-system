@@ -8,34 +8,39 @@ import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-//@Component
+import edu.sjsu.cmpe275.cusr.model.SearchTrain;
+
+@Component
 public class SearchTrainService {
 
-	private ArrayList<ArrayList<HashMap<String,String>>> searchedTrains;
+	private ArrayList<ArrayList<HashMap<String,String>>> searchedTrains = new ArrayList<ArrayList<HashMap<String,String>>>();
+	int  regularTrainCount=26;
+	int expressTrainCount=5;
 	
 	//Contains express trains stations
-	private HashSet<Character> ExpressStations;
+	private HashSet<Character> ExpressStations =  new HashSet<Character>();
 	/*Contains schedule for each regular train
 	eg: regularTrain[0] = [915,930,945..] where 0=A
 	*/
-	private int[][] regularTrainSchedule;
+	private int[][] regularTrainSchedule = new int [regularTrainCount][60];
 	/* contains scheule for express trains
 	eg:expressTrainsSchedule[0]=[9,10,11..] where 0=A;
 	*/
-	private int[][] expressTrainsSchedule;
+	private int[][] expressTrainsSchedule = new int[expressTrainCount][16];
 	/*
 	to get index of Regular trains in regularTrainsSchedule array.
 	*/
-	private ArrayList<Character> indexmappingRegularTrains;
-	private ArrayList<Character> indexmappingRegularTrainsSB;
+	private ArrayList<Character> indexmappingRegularTrains = new ArrayList<Character>();
+	private ArrayList<Character> indexmappingRegularTrainsSB  = new ArrayList<Character>();
 	/*
 	to get index of express trains in ExpressTrainsSchedule array.
 	*/
-	private ArrayList<Character> indexmappingExpressTrains;
-	private ArrayList<Character> indexmappingExpressTrainsSB;
-	public SearchTrainService()
+	private ArrayList<Character> indexmappingExpressTrains  = new ArrayList<Character>();
+	private ArrayList<Character> indexmappingExpressTrainsSB = new ArrayList<Character>();
+	
+	/*public SearchTrainService()
 	{
-		int  regularTrainCount=26;
+		int regularTrainCount=26;
 		int expressTrainCount=5;
 		
 		this.ExpressStations =  new HashSet<Character>();
@@ -52,7 +57,7 @@ public class SearchTrainService {
 		
 		this.populate_IndexMapping();
 		
-	}
+	}*/
 	public void populateRegularTrainSchedules() 
 	{
 		int start_time=615;
@@ -138,43 +143,40 @@ public class SearchTrainService {
 		 
 	 }
 	 
-
-//	 @Autowired
-//	 TicketPriceService ticketPriceService;
-
-//	 @Autowired
-//	 TicketPriceService ticketPriceService;
-//	 public void findTrain(Character Departure,Character Arrival,Integer Time,String TicketType,int Connections_num, Boolean RoundTrip,int Passanger_num,String Dep_Date)
-//	 {
-//		 ticketPriceService.isTicketAvailable(10000, Dep_Date, Departure, Arrival, Passanger_num, 50);
-//	 }
-	 
-
-//	 public void findTrain(Character Departure,Character Arrival,Integer Time,String TicketType,int Connections_num, Boolean RoundTrip,int Passanger_num,String Dep_Date)
-//	 {
-//		 
-//		 ticketPriceService.isTicketAvailable("10000", Dep_Date, Departure, Arrival, Passanger_num, 50);
-//	 }
-	 
-	 public void findTrain(Character Departure,Character Arrival,Integer Time,String TicketType,int Connections_num, Boolean RoundTrip,int Passanger_num,String Dep_Date)
+	 /*public void findTrain(Character Departure,Character Arrival,Integer Time,String TicketType,int Connections_num, Boolean RoundTrip,int Passanger_num,String Dep_Date)
 	 {
+		 ticketPriceService.isTicketAvailable(10000, Dep_Date, Departure, Arrival, Passanger_num, 50);
+	 }*/
+	 
+	 public void findTrain(SearchTrain searchTrain)
+	 {
+		 Character Departure= searchTrain.getDeparture_station();
+		 Character Arrival = searchTrain.getArrival_station();
+		 Integer Time = searchTrain.getDep_time();
+		 String TicketType = searchTrain.getTicket_type();
+		 int Connections_num = searchTrain.getConn_num();
+		 Boolean RoundTrip =  searchTrain.getRound_tr();
+		 int Passanger_num =  searchTrain.getPass_num();
+		 String Dep_Date = searchTrain.getDep_date();
+		 
+		populateRegularTrainSchedules();
+		populateExpressTrainSchedule();
+		populate_IndexMapping();
+		 
+		 
+		 
 		 HashMap<Character,ArrayList<Integer>> trainSchedules =  new HashMap<Character,ArrayList<Integer>>();
 		 //north bound trains. eg: A->B
 		 if(Departure < Arrival)
-			{
-			 if(TicketType == "Express")
-			 	{
-			 		
-			 	}
-			 	else if(TicketType == "Regular")
-			 	{
-			 		
-			 	}
-			 	else
-			 	{
-			
-			 	}
+		{
+			if (TicketType == "Express") {
+
+			} else if (TicketType == "Regular") {
+
+			} else {
+
 			}
+		}
 		 //southBound trains B->A
 		 else
 		 {
@@ -399,9 +401,9 @@ public class SearchTrainService {
 	
 	public void get_json_data_for_hm(Character Departure,Character Arrival, HashMap<Character,ArrayList<Integer>> hm,String TicketType )
 	 {
-		
+		System.out.println("NEIL TESTING");
 		System.out.println(hm);
-		
+		System.out.println("NEIL TESTING");
 	 }
 	
 //	public HashMap<Character,ArrayList<Integer>> lookExpressTrains(Character Departure,Character Arrival,Integer Time,String Dep_date,int Passanger_num,ArrayList<Character> indexMExTrains)
