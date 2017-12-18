@@ -173,15 +173,16 @@ for(var i=0;i<stations.length;i++)
         else
         {
             var obj = new Object();
-     obj.departure_station = departure_station;
-     obj.arrival_station = arrival_station;
-     obj.dep_time = departure_time;
-     obj.ticket_type = ticket_type;
-     obj.conn_num = train_con_num;
-     obj.round_tr =  round_trip;
-     obj.pass_num = no_of_pass;
-     obj.exact_time = exact_time;
-     obj.dep_date = departure_date;
+         obj.departure_station = departure_station;
+         obj.arrival_station = arrival_station;
+         obj.dep_time = departure_time;
+         obj.ticket_type = ticket_type;
+         obj.conn_num = train_con_num;
+         obj.round_tr =  round_trip;
+         obj.pass_num = no_of_pass;
+         obj.exact_time = exact_time;
+         obj.dep_date = departure_date;
+        }
 
 // { departure_station: departure_station_1
 //     arrival_station : arrival_station,
@@ -190,25 +191,56 @@ for(var i=0;i<stations.length;i++)
 //     conn_num : train_con_num,
 //     round_tr :  round_trip,
 //     pass_num : no_of_pass }
-    var jsonVal = JSON.stringify(obj);
 
-    $.ajax({
-       url:  'http://localhost:8080/search',
-         contentType: "application/json",
-         method: "POST",
-         data: JSON.stringify(jsonVal),
-         dataType: 'json',
-       error: function(xhr, status, error) {
-          console.log(xhr.responseText);
-                alert(error);
-       },
-       success: function(data) {
-             alert("successfully");
-       },
-    });
-        }
 
     });
 
 });
 
+
+
+// my function : Neil Thaker
+// please do not remove this.
+function getTickets()
+{
+    $.ajax({
+     url:  'http://localhost:8080/tickets',
+     method: "GET",
+     //data: jQuery.param({ userId: userId, emailAddress: emailAddress}),
+     error: function(xhr, status, error) {
+        alert(error);
+     },
+     success: function(data) {
+
+        console.log("inside inside---");
+        var jsonVar = {
+            "train_no":"SB0700",
+            "from_station":"A",
+            "to_station":"G"
+        };
+
+        var output = document.getElementById('output');
+        output.innerHTML = jsonVar.train_no + " " +jsonVar.from_station + " "+jsonVar.to_station +" :: ";
+
+        localStorage.setItem("jsonVar2", jsonVar.from_station);
+
+        //[{"journeyId":1,"journeyTrainId":1000,"ticketId":55,"source":3,"destination":6,"passengers":10,"journeyDate":1335205544000,"depTime":null},{"journeyId":2,"journeyTrainId":1000,"ticketId":56,"source":3,"destination":6,"passengers":38,"journeyDate":1335205544000,"depTime":null}]
+
+        var d = data;
+        var fromStation = [];
+        
+        for(var i=0;i<d.length;i++)
+        {
+            console.log("in here t : "+ d[i]['journeyId']);
+
+            fromStation.push(d[i]['journeyId']);
+        }
+        console.log("fromfrom : : : "+fromStation);
+
+        localStorage.setItem("trains", fromStation[0]);
+        //localStorage.setItem("jsonVar2","151515");
+        //alert("151515");
+        //window.location = "index.html";
+        }
+    });
+}
