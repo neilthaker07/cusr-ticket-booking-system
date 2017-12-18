@@ -121,7 +121,7 @@ public class TicketPriceService {
 		return stations;
 	}
 	
-	public boolean isTicketAvailable(int trainId, Date journeyDate, int fromStation, int toStation, int passengers, int totalTrainSeats)
+	public boolean isTicketAvailable(int trainId, String journeyDate, char fromStation, char toStation, int passengers, int totalTrainSeats)
 	{
 		totalTrainSeats = 50;
 		passengers = 3;

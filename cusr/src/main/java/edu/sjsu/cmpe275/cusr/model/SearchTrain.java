@@ -3,7 +3,6 @@ package edu.sjsu.cmpe275.cusr.model;
 public class SearchTrain {
 	
 	private Character departure_station;
-
 	private Character arrival_station;
 	private Integer dep_time;
 	private String ticket_type;

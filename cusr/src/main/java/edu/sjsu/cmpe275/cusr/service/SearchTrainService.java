@@ -8,7 +8,7 @@ import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class SearchTrainService {
 
 	private ArrayList<ArrayList<HashMap<String,String>>> searchedTrains;
@@ -142,8 +142,7 @@ public class SearchTrainService {
 	 TicketPriceService ticketPriceService;
 	 public void findTrain(Character Departure,Character Arrival,Integer Time,String TicketType,int Connections_num, Boolean RoundTrip,int Passanger_num,String Dep_Date)
 	 {
-		 
-		 ticketPriceService.isTicketAvailable("10000", Dep_Date, Departure, Arrival, Passanger_num, 50);
+		 ticketPriceService.isTicketAvailable(10000, Dep_Date, Departure, Arrival, Passanger_num, 50);
 	 }
 	 
 //	 public void findTrain(Character Departure,Character Arrival,Integer Time,String TicketType,int Connections_num, Boolean RoundTrip,int Passanger_num,String Dep_Date)
