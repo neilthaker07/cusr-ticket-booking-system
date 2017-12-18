@@ -1,7 +1,5 @@
 package edu.sjsu.cmpe275.cusr.model;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +10,7 @@ import javax.persistence.Table;
 @Table(name = "TRAIN")
 public class Train {
 
-	public Train(Long trainId, String trainNo, Date departureTime, String trainType, Boolean isNorthBound, int capacity) {
+	public Train(Long trainId, String trainNo, int departureTime, String trainType, Boolean isNorthBound, int capacity) {
 		super();
 		this.trainId = trainId;
 		this.trainNo = trainNo;
@@ -29,7 +27,7 @@ public class Train {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long trainId;
 	private String trainNo;
-	private Date departureTime;
+	private int departureTime;
 	private String trainType;
 	private Boolean isNorthBound;
 	private int capacity;
@@ -45,10 +43,10 @@ public class Train {
 	public void setTrainNo(String trainNo) {
 		this.trainNo = trainNo;
 	}
-	public Date getDepartureTime() {
+	public int getDepartureTime() {
 		return departureTime;
 	}
-	public void setDepartureTime(Date departureTime) {
+	public void setDepartureTime(int departureTime) {
 		this.departureTime = departureTime;
 	}
 	public String getTrainType() {
