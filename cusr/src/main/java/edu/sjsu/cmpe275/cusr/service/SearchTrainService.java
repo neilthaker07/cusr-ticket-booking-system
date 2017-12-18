@@ -105,21 +105,51 @@ public class SearchTrainService {
 	}
 	public void populateExpressTrainSchedule()
 	{
-		int start_time=900;
+		int start_time=615;
 		int next_train = 0;
-		int offset =  28;
-		for(int i=0;i<expressTrainsSchedule.length;i++)
+		int offset =  8;
+		 int[][] regularTrainSchedule = new int[26][45];
+
+	for(int i=0;i<regularTrainSchedule.length;i++)
+	{
+		for(int j=0;j<regularTrainSchedule[i].length;j++)
 		{
-			for(int j=0;i<expressTrainsSchedule[i].length;j++)
+			if(i!=0)
 			{
-				if(i!=0)
+		            next_train =0;
+		            
+				start_time = regularTrainSchedule[i-1][j]+offset;
+			
+				if(start_time % 100 > 60 )
 				{
-					start_time = regularTrainSchedule[i-1][j]+offset;
+				    //System.out.println(start_time +"inside");
+				    start_time -= offset;
+				    int rem = start_time % 100;
+				    start_time -= rem;
+				    int off =  60-rem;
+				    start_time +=100;
+				    start_time += offset-off;
 				}
+				regularTrainSchedule[i][j] = start_time;
+			}
+			else{
+			if(next_train >= 45)
+			{
+			    next_train = 0;
+			    start_time +=100;
+			}
+			
+			if(start_time + next_train %100 != 0)
+			{
 				regularTrainSchedule[i][j] = start_time + next_train;
-				next_train = 100;
+				next_train += 15;
+			}
 			}
 		}
+	
+		next_train =0;
+	}
+	
 	}
 	
 	public void populate_IndexMapping()
