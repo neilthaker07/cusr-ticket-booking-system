@@ -124,3 +124,14 @@ PUT
 {"ticketId":"4", "isCancelled":"0","isDeleted":0, "userId":"55"
 }
 
+response:
+[
+  {
+    "cancelledTicket": {
+      "ticketId": 10,
+      "userId": 13,
+      "cancelled": true,
+      "deleted": false
+    }
+  }
+]
