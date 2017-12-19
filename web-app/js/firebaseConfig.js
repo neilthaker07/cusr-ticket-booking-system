@@ -66,7 +66,23 @@ function saveUserInfoToDatabase(userId, emailAddress){
      success: function(data) {
         localStorage.setItem("isUserLoggedIn",true);
         localStorage.setItem("emailAddress",emailAddress);
-        window.location = "search_results.html";
+        getSystemUserId(emailAddress);
      },
   });
 } // end of saveUserInfoToDatabase()
+
+function getSystemUserId(emailAddress){
+
+  $.ajax({
+     url:  'http://localhost:8080/user',
+     method: "GET",
+     data: jQuery.param({ emailAddress: emailAddress}),
+     error: function(xhr, status, error) {
+        alert(error);
+     },
+     success: function(data) {
+        localStorage.setItem("sysUserId",data);
+        window.location = "search_results.html";
+     },
+  });
+} // end of getSystemUserId()

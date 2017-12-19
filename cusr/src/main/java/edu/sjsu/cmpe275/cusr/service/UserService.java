@@ -15,7 +15,7 @@ public class UserService {
 	public void saveUser(User user){
 		// Only insert the user if it is not available in database
 		if(!isUserWithEmailAddressExists(user.getEmailAddress()))
-			userRepository.save(user);	
+			 userRepository.save(user);	
 	}
 	
 	public User getUserById(long userId){
@@ -32,6 +32,16 @@ public class UserService {
 		} else{
 			return false;
 		}
+	}
+	
+	public long getUserId(String emailAddress){
 		
+		User user = userRepository.findUserByEmailId(emailAddress);
+		
+		if(user != null){
+			return user.getId();
+		} else{
+			return -1;
+		}
 	}
 }

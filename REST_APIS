@@ -135,3 +135,9 @@ response:
     }
   }
 ]
+
+Save Passengers:
+POST http://localhost:8080/passengers
+
+paxData:[{"firstname":"Purvesh","lastname":"Kothari","age":"25"},{"firstname":"Neil","lastname":"Thaker","age":"25"}]
+ticketId:100
