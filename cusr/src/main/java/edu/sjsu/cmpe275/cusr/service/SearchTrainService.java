@@ -178,14 +178,14 @@ public class SearchTrainService {
 		 ticketPriceService.isTicketAvailable(10000, Dep_Date, Departure, Arrival, Passanger_num, 50);
 	 }*/
 	 
-	 public void findTrain(SearchTrain searchTrain)
+	 public ArrayList<HashMap<String,String>> findTrain(SearchTrain searchTrain)
 	 {
 		 Character Departure= searchTrain.getDeparture_station();
 		 Character Arrival = searchTrain.getArrival_station();
 		 Integer Time = searchTrain.getDep_time();
 		 String TicketType = searchTrain.getTicket_type();
 		 int Connections_num = searchTrain.getConn_num();
-		 Boolean RoundTrip =  searchTrain.getRound_tr();
+		 Boolean RoundTrip = searchTrain.getRound_tr();
 		 int Passanger_num =  searchTrain.getPass_num();
 		 String Dep_Date = searchTrain.getDep_date();
 		 
@@ -193,9 +193,8 @@ public class SearchTrainService {
 		populateExpressTrainSchedule();
 		populate_IndexMapping();
 		 
-		 
-		 
 		 HashMap<Character,ArrayList<Integer>> trainSchedules =  new HashMap<Character,ArrayList<Integer>>();
+		 ArrayList<HashMap<String,String>> trainsList = new ArrayList<HashMap<String,String>>();
 		 //north bound trains. eg: A->B
 		 if(Departure < Arrival)
 		{
@@ -211,14 +210,13 @@ public class SearchTrainService {
 		 else
 		 {
 			 
-		 
-	 	if(TicketType == "Express")
+		
+	 	if(TicketType.equals("Express"))
 	 	{
 	 		//Both are express train
 	 		if(this.indexmappingExpressTrainsSB.indexOf(Departure)!= -1 && this.indexmappingExpressTrainsSB.indexOf(Arrival)!= -1 )
 	 		{
-	 			
-	 			lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num);	
+	 			trainsList = lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num);	
 	 		}
 	 		//Departure is express
 	 		else if(this.indexmappingExpressTrainsSB.indexOf(Departure)!= -1)
@@ -272,7 +270,7 @@ public class SearchTrainService {
 					}
 	 		}
 	 	}
-	 	else if(TicketType == "Regular")
+	 	else if(TicketType.equals("Regular"))
 	 	{
 	 		lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num);
 	 	}
@@ -319,6 +317,7 @@ public class SearchTrainService {
 	 	}
 		 }
 		 get_json_data_for_hm( Departure, Arrival,trainSchedules,TicketType);
+		 return trainsList;
 
 	 }
 	public ArrayList<HashMap<String,String>> lookRegularTrainsFinal(Character Departure,Character Arrival,Integer Time,String Dep_date,int Passanger_num,ArrayList<Character> indexMRTrains,int conn_num)
@@ -345,6 +344,12 @@ public class SearchTrainService {
 						hm.put("arrival_station",String.valueOf(indexMRTrains.get(arrival_station_current_ind)));
 						hm.put("departure_time",String.valueOf(current_depture_time));
 						hm.put("departure_date",Dep_date);
+						hm.put("passengers",String.valueOf(Passanger_num));
+						hm.put("arrival_time",String.valueOf(current_depture_time)); // Calculate arrival time: remaining
+						hm.put("price",String.valueOf(Passanger_num)); // price calculation : remaining
+						hm.put("journeyTime",String.valueOf(current_depture_time)); // journey time : remaining
+						hm.put("trainType","NB");  // train type : remaining
+						
 						hm_arr.add(hm);
 						departure_station_current_ind ++;
 						arrival_station_current_ind ++;	

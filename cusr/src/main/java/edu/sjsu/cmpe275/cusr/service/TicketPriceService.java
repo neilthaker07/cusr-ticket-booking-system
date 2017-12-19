@@ -128,7 +128,7 @@ public class TicketPriceService {
 				+ "and 1 = (case when (( 3 >= source && 6<= destination ) OR (  3 < source && 6<= destination && 6>source )"
 				+ " OR ( 3 < source && 6> destination ) OR ( 3 > source && 3< destination && 6>destination )) then 1 else 2 end)";
 	
-		int bookedTickets = journeyRepository.getTotalBookedSeats(trainId, journeyDate, stations.get(fromStation), stations.get(toStation), passengers);
+	//	int bookedTickets = journeyRepository.getTotalBookedSeats(trainId, journeyDate, stations.get(fromStation), stations.get(toStation), passengers);
 		int returnedQry = 48;
 		if(returnedQry > totalTrainSeats - passengers)
 		{
