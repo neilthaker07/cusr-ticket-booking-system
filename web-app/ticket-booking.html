@@ -48,6 +48,24 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 var passengerNumber = 2;
 
 $(document).ready(function(){
+
+	var isUserLoggedIn = localStorage.getItem("isUserLoggedIn");
+
+	// If user directly opens the page, redirect him back to login
+	if(isUserLoggedIn !== "" && isUserLoggedIn !== null){
+		var email = localStorage.getItem("emailAddress");
+		var $greetingMessage = "Welcome, " + email;
+		$(".search-box").append($greetingMessage);
+	} else{
+		window.location="login.html";
+	}
+
+	$("#logout").click(function(){
+		localStorage.removeItem("isUserLoggedIn");
+		localStorage.removeItem("emailAddress");
+		window.location = "login.html";
+	});
+
 	preparePassengerInfoTable(passengerNumber);
 
 	$("#passenger-info-form").submit(function(event) {
@@ -67,6 +85,11 @@ $(document).ready(function(){
 			passengers[i-1] = passengerObj;
 		}
 		event.preventDefault();
+
+		//TODO: To be replaced with the TicketID returned from the First AJAX call
+		var ticketID = 100;
+		savePassengerInforamtion(passengers, ticketID);
+
 	});
 });
 
@@ -82,6 +105,24 @@ function preparePassengerInfoTable(numeberOfPassenger){
 	}
 
 	$("#passenger-information").append(passengerRows);
+}
+
+function savePassengerInforamtion(paxObj, ticketId){
+
+	var paxObjString = JSON.stringify(paxObj);
+
+	$.ajax({
+     url:  'http://localhost:8080/passengers',
+     method: "POST",
+     data: jQuery.param({ paxData: paxObjString, ticketId: ticketId}),
+     error: function(xhr, status, error) {
+        alert(error);
+     },
+     success: function(data) {
+      	alert("Passengers Saved...");
+     },
+  });
+
 }
 
 </script>
@@ -101,7 +142,7 @@ function preparePassengerInfoTable(numeberOfPassenger){
 								<a href="index.html"><i class="fa fa-file-text nav_icon"></i>Booking History</a>
 							</li>
 							<li>
-								<a href="index.html"><i class="fa fa-sign-out nav_icon"></i>Logout</a>
+								<a id="logout" href="#"><i class="fa fa-sign-out nav_icon"></i>Logout</a>
 							</li>
 						</ul>
 					</div>

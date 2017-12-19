@@ -65,7 +65,7 @@ function saveUserInfoToDatabase(userId, emailAddress){
      },
      success: function(data) {
         localStorage.setItem("isUserLoggedIn",true);
-        localStorage.setItem("emailAddress",firebaseUser.email);
+        localStorage.setItem("emailAddress",emailAddress);
         window.location = "search_results.html";
      },
   });
