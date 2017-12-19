@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.sjsu.cmpe275.cusr.model.JourneyDetails;
@@ -17,18 +18,26 @@ public class JourneyResource {
 	
 	@Autowired
 	JourneyService journeyService;
-	
+	/*
 	@RequestMapping(method=RequestMethod.POST, value="/journey")
 	public String saveJourney(@RequestBody JourneyDetails journeyDetails) 
 	{
 		journeyService.saveJourney(journeyDetails);
 		return "journey";
-	}
+	}*/
 	
 	@RequestMapping(method = RequestMethod.GET, value="/journey/{id}")
 	public JourneyDetails getJourney(@PathVariable Long id)
 	{	
 		return journeyService.getJourneyById(id);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/finalTicket/{userId}")
+	public String saveFinalTicket(@PathVariable("userId") Long userId,
+			@RequestBody JourneyDetails journeyDetails, @RequestParam Double price) 
+	{
+		journeyService.saveFinalTicket(journeyDetails, price, userId);
+		return "journey saved";
 	}
 	
 }

@@ -1,9 +1,12 @@
 package edu.sjsu.cmpe275.cusr.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,20 +16,14 @@ public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long transcationId;
-	private Long ticketId;
-	private int price;
+	private Double price;
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="TICKET_ID")
+	private Ticket ticket;
 	
 	public Transaction()
 	{
 		
-	}
-	
-	public Transaction(Long transcationId, Long ticketId, int price)
-	{
-		super();
-		this.transcationId = transcationId;
-		this.ticketId = ticketId;
-		this.price = price;
 	}
 	
 	public Long getTranscationId() {
@@ -35,17 +32,19 @@ public class Transaction {
 	public void setTranscationId(Long transcationId) {
 		this.transcationId = transcationId;
 	}
-	public Long getTicketId() {
-		return ticketId;
-	}
-	public void setTicketId(Long ticketId) {
-		this.ticketId = ticketId;
-	}
-	public Integer getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(Integer price) {
+	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public Ticket getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
 	}
 	
 }
