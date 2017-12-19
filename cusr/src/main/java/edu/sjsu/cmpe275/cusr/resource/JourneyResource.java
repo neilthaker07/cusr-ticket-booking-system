@@ -33,11 +33,11 @@ public class JourneyResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/finalTicket/{userId}")
-	public String saveFinalTicket(@PathVariable("userId") Long userId,
+	public Long saveFinalTicket(@PathVariable("userId") Long userId,
 			@RequestBody JourneyDetails journeyDetails, @RequestParam Double price) 
 	{
-		journeyService.saveFinalTicket(journeyDetails, price, userId);
-		return "journey saved";
+		// returns ticket id
+		return journeyService.saveFinalTicket(journeyDetails, price, userId);
 	}
 	
 }
