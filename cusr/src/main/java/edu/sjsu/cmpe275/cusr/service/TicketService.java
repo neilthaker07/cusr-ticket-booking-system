@@ -41,4 +41,10 @@ public class TicketService {
 		ticketRepository.save(ticket);
 		return ticket;
 	}
+	
+	public Ticket getTicketById(long id)
+	{
+		Ticket ticket = ticketRepository.findOne(id);
+		return ticket;
+	}
 }
