@@ -157,13 +157,13 @@ for(var i=0;i<stations.length;i++)
 
 //Search for the ticket options with given criteria.
     $("#search_btn").on("click",function(){
-        var departure_station = $("#departure_station").val();
-        var arrival_station = $("#arrival_station").val();
-        var departure_time = $("#departure_time").val();
-        var departure_date = $("#departure_date").val();
-        var ticket_type = train_type_selected;
-        var no_of_pass = $("#no_of_passangers").val();
-        var round_trip=$("#checkbox_round_trip").is(":checked");
+        var $departure_station = $("#departure_station").val();
+        var $arrival_station = $("#arrival_station").val();
+        var $departure_time = $("#departure_time").val();
+        var $departure_date = $("#departure_date").val();
+        var $ticket_type = train_type_selected;
+        var $no_of_pass = $("#no_of_passangers").val();
+        var $round_trip = $("#checkbox_round_trip").is(":checked");
 
         if(departure_station == "" || departure_date == "" || departure_time == "" || arrival_station == "")
         {
@@ -172,65 +172,57 @@ for(var i=0;i<stations.length;i++)
         }
         else
         {
-         /*  var obj = new Object();
-             obj.departure_station = departure_station;
-             obj.arrival_station = arrival_station;
-             obj.dep_time = departure_time;
-             obj.ticket_type = ticket_type;
-             obj.conn_num = train_con_num;
-             obj.round_tr =  round_trip;
-             obj.pass_num = no_of_pass;
-             obj.exact_time = exact_time;
-             obj.dep_date = departure_date;
-
-             , 
-                            arrival_station:arrival_station, dep_time:departure_time, 
-                            ticket_type:ticket_type, 
-                            conn_num:train_con_num,round_tr:round_trip, 
-                            pass_num:no_of_pass, exact_time:exact_time,
-                            dep_date:departure_date
-        */
+         
             console.log("inside stage 1 ");
 
-            //{"departure_station":"Z", "arrival_station":"A", "dep_time":"600", "ticket_type":"Express", "conn_num":"0","round_tr":"false", "pass_num":"1", "exact_time":"true","dep_date":"15-15-2017"}
-            var sendData = {};
-            sendData['departure_station']=departure_station;
-            sendData['arrival_station']=arrival_station;
-            sendData['dep_time']=departure_time;
-            sendData['ticket_type']=ticket_type;
-            sendData['conn_num']=train_con_num;
-            sendData['round_tr']=round_trip;
-            sendData['pass_num']=no_of_pass;
-            sendData['exact_time']=exact_time;
-            sendData['dep_date']=departure_date;
+            var sendData = {
 
-            var tt = {
-                no:'4'
+            departure_station : $departure_station,
+            arrival_station : $arrival_station,
+            dep_time: $departure_time,
+            ticket_type: "Express",
+            conn_num: "0",
+            round_tr: $round_trip,
+            pass_num: $no_of_pass,
+            exact_time: exact_time,
+            dep_date: $departure_date
+
             };
-              $.ajax({
-                 url:  'http://localhost:8080/search',
-                 method: "POST",
-                 datatype: "json",
-                 data: tt,//jQuery.param({ sendData: sendData}),
-                 error: function(xhr, status, error) {
-                    console.log("inside stage 2 ");
-                    alert(error);
-                 },
-                 success: function(data) {
-                    //alert("Operation Performed successfully");
-                    //window.location = "index.html";
-                    console.log("inside stage 3 ");
+    
+            console.log(JSON.stringify(sendData));
 
-                    var d = data[0]["fiveTrains"];
-                    var fromStation = [];
+            url = "http://localhost:8080/search";
+            var jqxhr = $.ajax(
+            {
+                headers: { 
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json' 
+             },
+                method: "POST",
+                datatype : "json",
+                url: url,
+                data: JSON.stringify(sendData)
+            }
+            )
+            .done(function(data) {
 
-                    console.log("hey d : testing: "+d);
+                    console.log(data[0]['fiveTrains'].length , data[0]['fiveTrains']);
+                     var showData= data[0]['fiveTrains'];
 
 
-                    localStorage.setItem("fiveTrains", fiveTrains);
+                    for(var i=0; i<showData.length;i++)
+                    {
+                       // console.log("inside loop");
 
-                 }
-              });
+                      
+
+                       $("#search_result").append("<form class='form-horizontal'><div class='form-group' style='border :1px solid black'><table style='width:100%'' border ='0'><tr><th>Source:</th><th>Destination: </th><th>No Of Passenger:</th><th>Departure Time:</th><th>Arrival Time: </th></tr><tr><td>"+ showData[i].departure_station +"</td><td>"+showData[i].arrival_station +"</td><td>"+ showData[i].passengers+"</td><td>"+showData[i].departure_time+"</td><td>"+ showData[i].arrival_time +"</td></tr><tr><th>Date: </th><th>Price:</th><th>Total Time: </th><th>Type: </th><th></th><th></th></tr><tr><td>"+ showData[i].departure_date +"</td><td>"+showData[i].price+"</td><td>"+showData[i].journeyTime+"</td><td>"+showData[i].trainType+"</td></tr></table><div style='border-top-style: dashed'><table style='width:100%' border ='0'><tr><th>Source:</th><th>Destination: </th><th>No Of Passenger:</th><th>Departure Time:</th><th>Arrival Time: </th></tr><tr><td>A</td><td>Z</td><td>1000</td><td>9:00am</td><td>9:30am</td></tr><tr><th>Date: </th><th>Price:</th><th>Total Time: </th><th>Type: </th><th></th><th></th></tr><tr><td>05/12/17</td><td>$3</td><td>11 minute</td><td>SB</td><td><button type='button' id='book_btn' style='color:red'>Book</button></td></tr></table> </div></div></form>");
+
+                    }
+
+                    
+                 });
+             
 
         }
 
