@@ -210,14 +210,25 @@ for(var i=0;i<stations.length;i++)
                      var showData= data[0]['fiveTrains'];
 
 
-                    for(var i=0; i<showData.length;i++)
+                     if(!$round_trip)
+                     {
+                       
+                        for(var i=0; i<showData.length;i++)
+                         {
+                                $("#search_result").append("<form class='form-horizontal'> <div class='form-group' style='border :1px solid black'> <table style='width:100%''> <tr> <th>Source:</th><th>Destination: </th><th>No Of Passenger:</th> <th>Departure Time:</th><th>Arrival Time: </th></tr><tr><td>"+ showData[i].departure_station +"</td><td>"+showData[i].arrival_station +"</td><td>"+ showData[i].passengers+"</td><td>"+showData[i].departure_time+"</td><td>"+ showData[i].arrival_time +"</td></tr><tr><th>Date: </th> <th>Price:</th><th>Total Time: </th><th>Type: </th></tr><tr><td>"+ showData[i].departure_date +"</td><td>"+showData[i].price+"</td><td>"+showData[i].journeyTime+"</td><td>"+showData[i].trainType+"</td><td><button type='button' id='book_btn' style='color:red'>Book</button></td></tr></table></div></form>");
+                        }
+                        
+
+                     }
+                    else
                     {
-                       // console.log("inside loop");
+                        for(var i=0; i<showData.length;i++)
+                         {
 
-                      
+                             $("#search_result").append("<form class='form-horizontal'><div class='form-group' style='border :1px solid black'><table style='width:100%'' border ='0'><tr><th>Source:</th><th>Destination: </th><th>No Of Passenger:</th><th>Departure Time:</th><th>Arrival Time: </th></tr><tr><td>"+ showData[i].departure_station +"</td><td>"+showData[i].arrival_station +"</td><td>"+ showData[i].passengers+"</td><td>"+showData[i].departure_time+"</td><td>"+ showData[i].arrival_time +"</td></tr><tr><th>Date: </th><th>Price:</th><th>Total Time: </th><th>Type: </th><th></th><th></th></tr><tr><td>"+ showData[i].departure_date +"</td><td>"+showData[i].price+"</td><td>"+showData[i].journeyTime+"</td><td>"+showData[i].trainType+"</td></tr></table><div style='border-top-style: dashed'><table style='width:100%' border ='0'><tr><th>Source:</th><th>Destination: </th><th>No Of Passenger:</th><th>Departure Time:</th><th>Arrival Time: </th></tr><tr><td>A</td><td>Z</td><td>1000</td><td>9:00am</td><td>9:30am</td></tr><tr><th>Date: </th><th>Price:</th><th>Total Time: </th><th>Type: </th><th></th><th></th></tr><tr><td>05/12/17</td><td>$3</td><td>11 minute</td><td>SB</td><td><button type='button' id='book_btn' style='color:red'>Book</button></td></tr></table> </div></div></form>");
 
-                       $("#search_result").append("<form class='form-horizontal'><div class='form-group' style='border :1px solid black'><table style='width:100%'' border ='0'><tr><th>Source:</th><th>Destination: </th><th>No Of Passenger:</th><th>Departure Time:</th><th>Arrival Time: </th></tr><tr><td>"+ showData[i].departure_station +"</td><td>"+showData[i].arrival_station +"</td><td>"+ showData[i].passengers+"</td><td>"+showData[i].departure_time+"</td><td>"+ showData[i].arrival_time +"</td></tr><tr><th>Date: </th><th>Price:</th><th>Total Time: </th><th>Type: </th><th></th><th></th></tr><tr><td>"+ showData[i].departure_date +"</td><td>"+showData[i].price+"</td><td>"+showData[i].journeyTime+"</td><td>"+showData[i].trainType+"</td></tr></table><div style='border-top-style: dashed'><table style='width:100%' border ='0'><tr><th>Source:</th><th>Destination: </th><th>No Of Passenger:</th><th>Departure Time:</th><th>Arrival Time: </th></tr><tr><td>A</td><td>Z</td><td>1000</td><td>9:00am</td><td>9:30am</td></tr><tr><th>Date: </th><th>Price:</th><th>Total Time: </th><th>Type: </th><th></th><th></th></tr><tr><td>05/12/17</td><td>$3</td><td>11 minute</td><td>SB</td><td><button type='button' id='book_btn' style='color:red'>Book</button></td></tr></table> </div></div></form>");
-
+                         }
+                        
                     }
 
                     
