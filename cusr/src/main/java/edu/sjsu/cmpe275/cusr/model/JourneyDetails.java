@@ -1,9 +1,12 @@
 package edu.sjsu.cmpe275.cusr.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,27 +17,17 @@ public class JourneyDetails {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long journeyId;
 	private Long journeyTrainId;
-	private Long ticketId;
 	private int source;
 	private int destination;
 	private String departureTime;
 	private int passengers;
 	private String journeyDate;
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="TICKET_ID")
+	private Ticket ticket;
 	
 	public JourneyDetails() {
 		
-	}
-	
-	public JourneyDetails(Long journeyTrainId, Long ticketId, int source, int destination, int passengers, String departureTime, String journeyDate)
-	{
-		super();
-		this.journeyTrainId = journeyTrainId;
-		this.ticketId = ticketId;
-		this.source = source;
-		this.destination = destination;
-		this.departureTime = departureTime;
-		this.passengers = passengers;
-		this.journeyDate = journeyDate;
 	}
 	
 	public Long getJourneyId() {
@@ -48,12 +41,6 @@ public class JourneyDetails {
 	}
 	public void setJourneyTrainId(Long journeyTrainId) {
 		this.journeyTrainId = journeyTrainId;
-	}
-	public Long getTicketId() {
-		return ticketId;
-	}
-	public void setTicketId(Long ticketId) {
-		this.ticketId = ticketId;
 	}
 	public int getSource() {
 		return source;
@@ -87,6 +74,22 @@ public class JourneyDetails {
 
 	public void setJourneyDate(String journeyDate) {
 		this.journeyDate = journeyDate;
+	}
+
+	public String getDepartureTime() {
+		return departureTime;
+	}
+
+	public void setDepartureTime(String departureTime) {
+		this.departureTime = departureTime;
+	}
+
+	public Ticket getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
 	}
 	
 }
