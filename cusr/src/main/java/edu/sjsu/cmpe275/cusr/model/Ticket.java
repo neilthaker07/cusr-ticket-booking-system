@@ -15,17 +15,11 @@ public class Ticket {
 	private Long ticketId;
 	private Long userId;
 	private boolean isDeleted;
+	private boolean isCancelled;
 	
 	public Ticket()
 	{
 		
-	}
-	
-	public Ticket(Long userId, Boolean isDeleted)
-	{
-		super();
-		this.userId = userId;
-		this.isDeleted = isDeleted;
 	}
 	
 	public Long getTicketId() {
@@ -40,10 +34,20 @@ public class Ticket {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	public boolean getIsDeleted() {
+
+	public boolean isCancelled() {
+		return isCancelled;
+	}
+
+	public void setCancelled(boolean isCancelled) {
+		this.isCancelled = isCancelled;
+	}
+
+	public boolean isDeleted() {
 		return isDeleted;
 	}
-	public void setIsDeleted(boolean isDeleted) {
+
+	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
