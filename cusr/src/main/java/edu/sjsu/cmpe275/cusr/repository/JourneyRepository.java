@@ -8,14 +8,13 @@ import edu.sjsu.cmpe275.cusr.model.JourneyDetails;
 
 public interface JourneyRepository extends JpaRepository<JourneyDetails, Long>{
 
-	/*@Query("select sum(j.passengers) FROM journey_details j WHERE j.journey_train_id = :journey_train_id and j.journey_date = :journey_date and "
-			+ " 1 = (case when (( :searchedFromStation >= j.source && :searchedToStation<= j.destination ) OR ( :searchedFromStation < j.source && :searchedToStation<= j.destination && :searchedToStation>j.source ) "
-			+ " OR ( :searchedFromStation < j.source && :searchedToStation> j.destination ) OR ( :searchedFromStation > j.source && :searchedFromStation< j.destination && :searchedToStation>j.destination )) then 1 else 2 end) ")
-	    int getTotalBookedSeats(
-	    		@Param("journey_train_id") Long journey_train_id,
-	    		@Param("journey_date") String journey_date,
+	@Query("select sum(j.passengers) FROM JourneyDetails j WHERE j.journeyTrainId = :journeyTrainId and j.journeyDate=:journeyDate "
+			+ " and 1 = (case when (( :searchedFromStation >= j.source and :searchedToStation<= j.destination ) OR ( :searchedFromStation < j.source and :searchedToStation<= j.destination and :searchedToStation>j.source )  "
+			+ " OR ( :searchedFromStation < j.source and :searchedToStation> j.destination ) OR ( :searchedFromStation > j.source and :searchedFromStation< j.destination and :searchedToStation>j.destination )) then 1 else 2 end) ")      
+	int findByJourneyTrainIdAndJourneyDate(
+	    		@Param("journeyTrainId") Long journeyTrainId,
+	    		@Param("journeyDate") String journeyDate,
 	    		@Param("searchedFromStation") int searchedFromStation,
-	    		@Param("searchedToStation") int searchedToStation,
-	    		@Param("passengers") int passengers
-	    		);*/
+	    		@Param("searchedToStation") int searchedToStation
+	    		);
 }

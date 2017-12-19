@@ -1,0 +1,1 @@
+insert into journey_details (departure_time,destination,journey_date,journey_train_id,passengers,source,ticket_id) values ('0700','6','15-12-17','1000','10','3','55');

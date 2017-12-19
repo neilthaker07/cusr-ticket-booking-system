@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import edu.sjsu.cmpe275.cusr.model.SearchTrain;
+import edu.sjsu.cmpe275.cusr.repository.JourneyRepository;
 
 @Component
 public class SearchTrainService {
@@ -37,6 +39,12 @@ public class SearchTrainService {
 	*/
 	private ArrayList<Character> indexmappingExpressTrains  = new ArrayList<Character>();
 	private ArrayList<Character> indexmappingExpressTrainsSB = new ArrayList<Character>();
+	
+	
+	
+	@Autowired 
+	JourneyRepository journeyRepository;
+	
 	
 	/*public SearchTrainService()
 	{
@@ -428,11 +436,49 @@ public class SearchTrainService {
 		}
 		return -1;
 	}
-	public Boolean is_connection_between_dep_arrival_available(Character departure_station_current_ind,Character arrival_station_current_ind,Integer time_current, String Dep_date)
-{
-		return true;
-	//call query to get back Boolean for connection 
-}
+	public Boolean is_connection_between_dep_arrival_available(Character fromStation,Character toStation,Integer time_current, String journeyDate)
+	{	
+		Map<Character, Integer> stations = new HashMap<Character, Integer>();
+		stations.put('A',1);
+		stations.put('B',2);
+		stations.put('C',3);
+		stations.put('D',4);
+		stations.put('E',5);
+		stations.put('F',6);
+		stations.put('G',7);
+		stations.put('H',8);
+		stations.put('I',9);
+		stations.put('J',10);
+		stations.put('K',11);
+		stations.put('L',12);
+		stations.put('M',13);
+		stations.put('N',14);
+		stations.put('O',15);
+		stations.put('P',16);
+		stations.put('Q',17);
+		stations.put('R',18);
+		stations.put('S',19);
+		stations.put('T',20);
+		stations.put('U',21);
+		stations.put('V',22);
+		stations.put('W',23);
+		stations.put('X',24);
+		stations.put('Y',25);
+		stations.put('Z',26);
+		
+		//call query to get back Boolean for connection 
+		int bookedTickets = journeyRepository.findByJourneyTrainIdAndJourneyDate((long)1000, journeyDate, stations.get(fromStation), stations.get(toStation));
+		int passengers = 3; // dynamic
+		int totalTrainSeats = 50; // dynamic
+		if(bookedTickets > (totalTrainSeats - passengers))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
 	
 	public void get_json_data_for_hm(Character Departure,Character Arrival, HashMap<Character,ArrayList<Integer>> hm,String TicketType )
 	 {

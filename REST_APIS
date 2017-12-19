@@ -93,3 +93,10 @@ POST
 
 
 
+localhost:8080/dbQuery
+GET
+false: when seats are not available
+true: when seats are availabl.e
+
+
+

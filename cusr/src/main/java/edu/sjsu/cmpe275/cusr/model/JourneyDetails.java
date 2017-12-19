@@ -1,7 +1,5 @@
 package edu.sjsu.cmpe275.cusr.model;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,15 +17,15 @@ public class JourneyDetails {
 	private Long ticketId;
 	private int source;
 	private int destination;
-	private Date departureTime;
+	private String departureTime;
 	private int passengers;
-	private Date journeyDate;
+	private String journeyDate;
 	
 	public JourneyDetails() {
 		
 	}
 	
-	public JourneyDetails(Long journeyTrainId, Long ticketId, int source, int destination, int passengers, Date departureTime, Date journeyDate)
+	public JourneyDetails(Long journeyTrainId, Long ticketId, int source, int destination, int passengers, String departureTime, String journeyDate)
 	{
 		super();
 		this.journeyTrainId = journeyTrainId;
@@ -69,10 +67,10 @@ public class JourneyDetails {
 	public void setDestination(int destination) {
 		this.destination = destination;
 	}
-	public Date getDepTime() {
+	public String getDepTime() {
 		return departureTime;
 	}
-	public void setDepTime(Date departureTime) {
+	public void setDepTime(String departureTime) {
 		this.departureTime = departureTime;
 	}
 	public int getPassengers() {
@@ -83,11 +81,11 @@ public class JourneyDetails {
 		this.passengers = passengers;
 	}
 
-	public Date getJourneyDate() {
+	public String getJourneyDate() {
 		return journeyDate;
 	}
 
-	public void setJourneyDate(Date journeyDate) {
+	public void setJourneyDate(String journeyDate) {
 		this.journeyDate = journeyDate;
 	}
 	
