@@ -93,3 +93,25 @@ POST
 
 
 
+localhost:8080/dbQuery
+GET
+false: when seats are not available
+true: when seats are availabl.e
+
+
+
+Saving final ticket:
+userId = 10
+http://localhost:8080/finalTicket/10?price=8
+POST
+{	  "journeyTrainId": "1000",
+	  "source": "3",
+	  "destination": "6",
+	  "passengers": "38",
+	  "journeyDate": "11-11-2017",
+	  "departureTime": "0900"
+}
+
+response:
+journey saved
+
