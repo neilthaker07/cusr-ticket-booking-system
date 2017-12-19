@@ -34,7 +34,8 @@ public class JourneyService {
 	{
 		Ticket ticket = new Ticket();
 		ticket.setUserId(userId);
-		ticket.setIsDeleted(false);
+		ticket.setDeleted(false);
+		ticket.setCancelled(false);
 		
 		ticketService.saveTicket(ticket);
 		

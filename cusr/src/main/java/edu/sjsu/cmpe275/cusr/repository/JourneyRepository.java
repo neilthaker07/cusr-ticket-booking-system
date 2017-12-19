@@ -17,4 +17,7 @@ public interface JourneyRepository extends JpaRepository<JourneyDetails, Long>{
 	    		@Param("searchedFromStation") int searchedFromStation,
 	    		@Param("searchedToStation") int searchedToStation
 	    		);
+	
+	@Query("FROM JourneyDetails j where j.ticket.ticketId = :ticketId")
+	JourneyDetails findOneByTicket(@Param("ticketId") Long ticketId);
 }
