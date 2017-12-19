@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import edu.sjsu.cmpe275.cusr.model.JourneyDetails;
+import edu.sjsu.cmpe275.cusr.model.Ticket;
+import edu.sjsu.cmpe275.cusr.model.Transaction;
 import edu.sjsu.cmpe275.cusr.repository.JourneyRepository;
 
 @Component
@@ -11,18 +13,37 @@ public class JourneyService {
 	
 	@Autowired 
 	JourneyRepository journeyRepository;
+	
+	@Autowired
+	TicketService ticketService;
+	
+	@Autowired
+	TransactionService transactionService;
 
-	/**
-	 * Save journey details 
-	 * @param journey
-	 */
-	public void saveJourney(JourneyDetails journey)
+	/*public void saveJourney(JourneyDetails journey)
 	{
 		journeyRepository.save(journey);
-	}
+	}*/
 	
 	public JourneyDetails getJourneyById(Long journeyId)
 	{
 		return journeyRepository.findOne(journeyId);
+	}
+	
+	public void saveFinalTicket(JourneyDetails journeyDetails, Double price, Long userId)
+	{
+		Ticket ticket = new Ticket();
+		ticket.setUserId(userId);
+		ticket.setIsDeleted(false);
+		
+		ticketService.saveTicket(ticket);
+		
+		journeyDetails.setTicket(ticket);
+		journeyRepository.save(journeyDetails);
+		
+		Transaction transaction = new Transaction();
+		transaction.setPrice(price);
+		transaction.setTicket(ticket);
+		transactionService.saveTicketTransaction(transaction);
 	}
 }

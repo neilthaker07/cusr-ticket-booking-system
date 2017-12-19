@@ -16,8 +16,8 @@ public class TicketService {
 	 * To save the ticket
 	 * @param ticket
 	 */
-	public void saveTicket(Ticket ticket)
+	public Ticket saveTicket(Ticket ticket)
 	{
-		ticketRepository.save(ticket);
+		return ticketRepository.save(ticket);
 	}
 }
