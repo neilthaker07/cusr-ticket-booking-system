@@ -32,6 +32,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript">
 
 $(document).ready(function(){
+	
+	var isUserLoggedIn = localStorage.getItem("isUserLoggedIn");
+	if(isUserLoggedIn != ""){
+		window.location="search_results.html";
+	}
 
 	$("#login-form").submit(function(event) {
 

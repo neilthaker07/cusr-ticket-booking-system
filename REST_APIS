@@ -22,5 +22,74 @@ Train Searching:
 
 http://localhost:8080/search
 POST
-{"departure_station":"A", "arrival_station":"Z", "dep_time":"600", "ticket_type":"express", 
-"conn_num":"0","round_tr":"false", "pass_num":"1", "exact_time":"true","dep_date":"15-15-2017"}
+{"departure_station":"Z", "arrival_station":"A", "dep_time":"600", "ticket_type":"Express", "conn_num":"0",
+"round_tr":"false", "pass_num":"1", "exact_time":"true","dep_date":"15-15-2017"}
+
+* Response : 
+
+[
+  {
+    "fiveTrains": [
+      {
+        "passengers": "1",
+        "arrival_time": "647",
+        "journeyTime": "647",
+        "departure_station": "F",
+        "trainType": "NB",
+        "price": "1",
+        "departure_date": "15-15-2017",
+        "arrival_station": "A",
+        "departure_time": "647"
+      },
+      {
+        "passengers": "1",
+        "arrival_time": "647",
+        "journeyTime": "647",
+        "departure_station": "F",
+        "trainType": "NB",
+        "price": "1",
+        "departure_date": "15-15-2017",
+        "arrival_station": "A",
+        "departure_time": "647"
+      },
+      {
+        "passengers": "1",
+        "arrival_time": "647",
+        "journeyTime": "647",
+        "departure_station": "F",
+        "trainType": "NB",
+        "price": "1",
+        "departure_date": "15-15-2017",
+        "arrival_station": "A",
+        "departure_time": "647"
+      },
+      {
+        "passengers": "1",
+        "arrival_time": "647",
+        "journeyTime": "647",
+        "departure_station": "F",
+        "trainType": "NB",
+        "price": "1",
+        "departure_date": "15-15-2017",
+        "arrival_station": "A",
+        "departure_time": "647"
+      },
+      {
+        "passengers": "1",
+        "arrival_time": "647",
+        "journeyTime": "647",
+        "departure_station": "F",
+        "trainType": "NB",
+        "price": "1",
+        "departure_date": "15-15-2017",
+        "arrival_station": "A",
+        "departure_time": "647"
+      }
+    ]
+  }
+]
+
+
+
+
+
