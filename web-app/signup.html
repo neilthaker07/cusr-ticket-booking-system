@@ -45,9 +45,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		  	.then(function(user) {
 			       firebaseUser = firebase.auth().currentUser;
 			       saveUserInfoToDatabase(firebaseUser.uid, firebaseUser.email);
-             localStorage.setItem("isUserLoggedIn",true);
-						 localStorage.setItem("emailAddress",firebaseUser.email);
-						 window.location = "search_results.html";
         })
 			.catch(function(error) {
 			  var errorCode = error.code;

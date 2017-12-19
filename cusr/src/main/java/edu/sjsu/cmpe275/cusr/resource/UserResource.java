@@ -29,6 +29,17 @@ public class UserResource {
 		
 		userService.saveUser(user);
 		
-		return "XYZ";
+		return "Success";
+	}
+	
+	/** To get the system user id created in the database
+	 * @param id
+	 */
+	@RequestMapping(method=RequestMethod.GET, value="/user")
+	public long getSystemUserId(@RequestParam String emailAddress){
+		
+		long userId = userService.getUserId(emailAddress);
+		
+		return userId;
 	}
 }

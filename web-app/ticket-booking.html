@@ -45,11 +45,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <!--//Metis Menu -->
 <script type="text/javascript">
 
+//TODO: To be replaced with the TicketID returned from the First AJAX call
 var passengerNumber = 2;
+var ticketID = 100;
 
 $(document).ready(function(){
 
 	var isUserLoggedIn = localStorage.getItem("isUserLoggedIn");
+	var sysUserId = localStorage.getItem("sysUserId");
 
 	// If user directly opens the page, redirect him back to login
 	if(isUserLoggedIn !== "" && isUserLoggedIn !== null){
@@ -86,8 +89,6 @@ $(document).ready(function(){
 		}
 		event.preventDefault();
 
-		//TODO: To be replaced with the TicketID returned from the First AJAX call
-		var ticketID = 100;
 		savePassengerInforamtion(passengers, ticketID);
 
 	});
@@ -105,6 +106,11 @@ function preparePassengerInfoTable(numeberOfPassenger){
 	}
 
 	$("#passenger-information").append(passengerRows);
+}
+
+function saveJourneyDetails(){
+
+
 }
 
 function savePassengerInforamtion(paxObj, ticketId){
