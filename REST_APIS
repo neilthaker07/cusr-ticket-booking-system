@@ -115,3 +115,12 @@ POST
 response:
 journey saved
 
+
+
+Cancel Ticket:
+
+localhost:8080/cancelTicket
+PUT
+{"ticketId":"4", "isCancelled":"0","isDeleted":0, "userId":"55"
+}
+
