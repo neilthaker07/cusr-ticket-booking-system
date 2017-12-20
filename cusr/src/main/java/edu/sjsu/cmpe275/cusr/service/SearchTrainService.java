@@ -110,6 +110,18 @@ public class SearchTrainService {
 		
 			next_train =0;
 		}
+		
+		
+		/*for(int i=0;i<regularTrainSchedule.length;i++)
+		{
+			for(int j=0;j<regularTrainSchedule[i].length;j++)
+			{
+				System.out.println();
+				System.out.print(regularTrainSchedule[i][j]+", ");
+				
+			}
+		}
+		*/
 	}
 	public void populateExpressTrainSchedule()
 	{
@@ -162,10 +174,10 @@ public class SearchTrainService {
 	
 	public void populate_IndexMapping()
 	{
-		indexmappingExpressTrains.addAll(Arrays.asList('A','F','K','P','U','Z'));
-		this.indexmappingExpressTrainsSB.addAll(Arrays.asList('Z','U','P','K','F','A'));
-		indexmappingRegularTrains.addAll(Arrays.asList('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'));
-		this.indexmappingRegularTrainsSB.addAll(Arrays.asList('Z','Y','X','W','V','U','T','S','R','Q','P','O','N','M','L','K','J','I','H','G','F','E','D','C','B','A'));
+		indexmappingExpressTrainsSB.addAll(Arrays.asList('A','F','K','P','U','Z'));
+		this.indexmappingExpressTrains.addAll(Arrays.asList('Z','U','P','K','F','A'));
+		indexmappingRegularTrainsSB.addAll(Arrays.asList('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'));
+		this.indexmappingRegularTrains.addAll(Arrays.asList('Z','Y','X','W','V','U','T','S','R','Q','P','O','N','M','L','K','J','I','H','G','F','E','D','C','B','A'));
 		
 	}
 	 public void AddExpressStations(Character c)
@@ -214,7 +226,7 @@ public class SearchTrainService {
 
 			}
 		}
-		 //southBound trains B->A
+		 //northBound trains B->A
 		 else
 		 {
 			 
@@ -280,15 +292,20 @@ public class SearchTrainService {
 	 	}
 	 	else if(TicketType.equals("Regular"))
 	 	{
-	 		lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num);
+	 		System.out.println("Step 1 "+Departure.getClass().getName());
+	 		return lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num);
 	 	}
 	 	else
 	 	{
+	 		System.out.println("Step 1 "+Departure.getClass().getName());
 	 		if(Math.abs(this.indexmappingRegularTrains.indexOf(Departure)-this.indexmappingRegularTrains.indexOf(Arrival)) > 5)
 	 		{
+	 			System.out.println("step 2 "+Departure instanceof String);
+	 			System.out.println("step 2 2 "+Departure.getClass().getName());
 	 			//Both are express train
 		 		if(this.indexmappingExpressTrainsSB.indexOf(Departure)!= -1 && this.indexmappingExpressTrainsSB.indexOf(Arrival)!= -1 )
 		 		{
+		 			System.out.println("step 3 ");
 		 			lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num);	
 		 		}
 		 		//Departure is express
@@ -331,7 +348,7 @@ public class SearchTrainService {
 	public ArrayList<HashMap<String,String>> lookRegularTrainsFinal(Character Departure,Character Arrival,Integer Time,String Dep_date,int Passanger_num,ArrayList<Character> indexMRTrains,int conn_num)
 	{
 		ArrayList<HashMap<String,String>> hm_arr = new ArrayList<HashMap<String,String>>();
-		HashMap<String,String> hm = new HashMap<String,String>();
+		HashMap<String,String> hm = null;
 		HashMap<Integer,Boolean> hm_visitied_stations = new HashMap<Integer,Boolean>();
 		int departure_station_current_ind =indexMRTrains.indexOf(Departure);
 		int arrival_station_current_ind= departure_station_current_ind +1;
@@ -340,14 +357,13 @@ public class SearchTrainService {
 		int stationIndexRegularArrival =  indexMRTrains.indexOf(Arrival);
 		int counter = 0;
 		
-		
 		if(conn_num == 0)
 		{
 				while(departure_station_current_ind < arrival_station_current_ind && arrival_station_current_ind <= stationIndexRegularArrival)
 				{
-					if(is_connection_between_dep_arrival_available(indexMRTrains.get(departure_station_current_ind),indexMRTrains.get(arrival_station_current_ind),current_depture_time,Dep_date))
+					if(is_connection_between_dep_arrival_available(departure_station_current_ind,arrival_station_current_ind,current_depture_time,Dep_date))
 					{
-						hm.clear();
+						hm = new HashMap<String,String>();
 						hm.put("departure_station",String.valueOf(indexMRTrains.get(departure_station_current_ind)));
 						hm.put("arrival_station",String.valueOf(indexMRTrains.get(arrival_station_current_ind)));
 						hm.put("departure_time",String.valueOf(current_depture_time));
@@ -383,7 +399,7 @@ public class SearchTrainService {
 		{
 			while( counter <= conn_num && departure_station_current_ind < arrival_station_current_ind && arrival_station_current_ind <= stationIndexRegularArrival && (departure_station_current_ind >= 0 && departure_station_current_ind >= stationIndexRegularDeparture) )
 			{
-				if(is_connection_between_dep_arrival_available(indexMRTrains.get(departure_station_current_ind),indexMRTrains.get(arrival_station_current_ind),current_depture_time,Dep_date))
+				if(is_connection_between_dep_arrival_available(departure_station_current_ind,arrival_station_current_ind,current_depture_time,Dep_date))
 				{
 					hm.clear();
 					hm.put("departure_station",String.valueOf(indexMRTrains.get(departure_station_current_ind)));
@@ -436,38 +452,10 @@ public class SearchTrainService {
 		}
 		return -1;
 	}
-	public Boolean is_connection_between_dep_arrival_available(Character fromStation,Character toStation,Integer time_current, String journeyDate)
+	public Boolean is_connection_between_dep_arrival_available(int fromStation,int toStation,Integer time_current, String journeyDate)
 	{	
-		Map<Character, Integer> stations = new HashMap<Character, Integer>();
-		stations.put('A',1);
-		stations.put('B',2);
-		stations.put('C',3);
-		stations.put('D',4);
-		stations.put('E',5);
-		stations.put('F',6);
-		stations.put('G',7);
-		stations.put('H',8);
-		stations.put('I',9);
-		stations.put('J',10);
-		stations.put('K',11);
-		stations.put('L',12);
-		stations.put('M',13);
-		stations.put('N',14);
-		stations.put('O',15);
-		stations.put('P',16);
-		stations.put('Q',17);
-		stations.put('R',18);
-		stations.put('S',19);
-		stations.put('T',20);
-		stations.put('U',21);
-		stations.put('V',22);
-		stations.put('W',23);
-		stations.put('X',24);
-		stations.put('Y',25);
-		stations.put('Z',26);
-		
 		//call query to get back Boolean for connection 
-		int bookedTickets = journeyRepository.findByJourneyTrainIdAndJourneyDate((long)1000, journeyDate, stations.get(fromStation), stations.get(toStation));
+		int bookedTickets = journeyRepository.findByJourneyTrainIdAndJourneyDate((long)1000, journeyDate, fromStation, toStation);
 		int passengers = 3; // dynamic
 		int totalTrainSeats = 50; // dynamic
 		if(bookedTickets > (totalTrainSeats - passengers))
