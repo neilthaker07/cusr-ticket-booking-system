@@ -25,6 +25,9 @@ POST
 {"departure_station":"Z", "arrival_station":"A", "dep_time":"600", "ticket_type":"Express", "conn_num":"0",
 "round_tr":"false", "pass_num":"1", "exact_time":"true","dep_date":"15-15-2017"}
 
+{"departure_station":"D", "arrival_station":"A", "dep_time":"911", "ticket_type":"Regular", "conn_num":"0",
+"round_tr":"false", "pass_num":"1", "exact_time":"true","dep_date":"15-15-2017"}
+
 * Response : 
 
 [
@@ -89,8 +92,72 @@ POST
   }
 ]
 
+RESPONSE
+*****
+[
+    {
+        "fiveTrains": [
+            {
+                "passengers": "1",
+                "arrival_time": "932",
+                "journeyTime": "21",
+                "trainType": "NB",
+                "depature_station": "D",
+                "price": "1.0",
+                "departure_date": "15-15-2017",
+                "arrival_station": "A",
+                "departure_time": "911"
+            },
+            {
+                "passengers": "1",
+                "arrival_time": "947",
+                "journeyTime": "21",
+                "trainType": "NB",
+                "depature_station": "D",
+                "price": "1.0",
+                "departure_date": "15-15-2017",
+                "arrival_station": "A",
+                "departure_time": "926"
+            },
+            {
+                "passengers": "1",
+                "arrival_time": "962",
+                "journeyTime": "21",
+                "trainType": "NB",
+                "depature_station": "D",
+                "price": "1.0",
+                "departure_date": "15-15-2017",
+                "arrival_station": "A",
+                "departure_time": "941"
+            },
+            {
+                "passengers": "1",
+                "arrival_time": "1032",
+                "journeyTime": "21",
+                "trainType": "NB",
+                "depature_station": "D",
+                "price": "1.0",
+                "departure_date": "15-15-2017",
+                "arrival_station": "A",
+                "departure_time": "1011"
+            },
+            {
+                "passengers": "1",
+                "arrival_time": "1047",
+                "journeyTime": "21",
+                "trainType": "NB",
+                "depature_station": "D",
+                "price": "1.0",
+                "departure_date": "15-15-2017",
+                "arrival_station": "A",
+                "departure_time": "1026"
+            }
+        ]
+    }
+]
 
 
+*****
 
 
 localhost:8080/dbQuery
