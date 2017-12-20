@@ -1,5 +1,7 @@
 package edu.sjsu.cmpe275.cusr.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -46,5 +48,9 @@ public class TicketService {
 	{
 		Ticket ticket = ticketRepository.findOne(id);
 		return ticket;
+	}
+	
+	public List<Ticket> getTicketByUserId(long id){
+		return ticketRepository.getTicketsByUserId(id);
 	}
 }

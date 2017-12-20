@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "TRANSACTION")
 public class Transaction {
@@ -16,9 +18,12 @@ public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long transcationId;
+	
 	private Double price;
+	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="TICKET_ID")
+	@JsonBackReference
 	private Ticket ticket;
 	
 	public Transaction()
