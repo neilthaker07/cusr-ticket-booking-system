@@ -46,8 +46,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript">
 
 //TODO: To be replaced with the TicketID returned from the First AJAX call
-var passengerNumber = 2;
-var ticketID = 100;
+var passengerNumber;
+
 
 var sysUserId = localStorage.getItem("sysUserId");
 var bookingdata=localStorage.getItem('bookingdata');
@@ -77,6 +77,8 @@ $(document).ready(function(){
 
 	
 	prepareJourneyDetails(bookingData);
+
+	passengerNumber= bookingData['passengers'];
 
 	preparePassengerInfoTable(passengerNumber);
 

@@ -161,8 +161,8 @@ for(var i=0;i<stations.length;i++)
         var $arrival_station = $("#arrival_station").val();
         var $departure_time = $("#departure_time").val();
         var $departure_date = $("#departure_date").val();
-        var $ticket_type = train_type_selected;
-        var $no_of_pass = $("#no_of_passangers").val();
+        var $no_of_pass = $("#passenger_no").val();
+        var $ticket_type = $('input[name=radio_type_train]:checked').val();
         var $round_trip = $("#checkbox_round_trip").is(":checked");
 
         if(departure_station == "" || departure_date == "" || departure_time == "" || arrival_station == "")
@@ -179,8 +179,8 @@ for(var i=0;i<stations.length;i++)
 
             departure_station : $departure_station,
             arrival_station : $arrival_station,
-            dep_time: "615",
-            ticket_type: "Regular",
+            dep_time: $departure_time,
+            ticket_type: $ticket_type,
             conn_num: "0",
             round_tr: $round_trip,
             pass_num: $no_of_pass,
@@ -215,6 +215,7 @@ for(var i=0;i<stations.length;i++)
                        
                         for(var i=0; i<showData.length;i++)
                          {
+                            console.log("Data for departure:" + showData[i].departure_station);
                                 $("#search_result").append("<form class='form-horizontal' id=bookingdata_"+i+
                                     "> <div class='form-group' style='border :1px solid black'> <table style='width:100%'> <tr> <th>Source:</th><th>Destination: </th><th>No Of Passenger:</th> <th>Departure Time:</th><th>Arrival Time: </th></tr><tr><td>"+
                                     "<label id= dpt_station_"+i+">"+ showData[i].departure_station +"</label></td><td>"+"<label id= arv_station_"+i+">"+showData[i].arrival_station + "</label></td><td>"+"<label id= passenger_"+i+">"+ showData[i].passengers+

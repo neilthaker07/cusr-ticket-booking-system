@@ -71,12 +71,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="js/search_results.js"> </script>
 
 
-
-
-<!-- sending booking data to ticket-booking.html -->
-<script type="text/javascript" src="js/bookingdata.js" ></script>
-
-
 <link href="css/demo-page.css" rel="stylesheet" media="all">
 <link href="css/hover.css" rel="stylesheet" media="all">
 <!--//Metis Menu -->
@@ -180,13 +174,26 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                             <label for="departure_date" class="col-sm-2 control-label">Departure Date<span style="color:red; font-size: 15px">*</span></label>
                                             <div class="col-sm-8">
                                                 <input id="departure_date" type="date"></div>
-                                                </div>
+                                            </div>
                                                 <div class="form-group" id="round_trip_div" hidden="hidden">
                                                 <label for="arrival_date" class="col-sm-2 control-label">Arrival Date<span style="color:red; font-size: 15px">*</span></label>
                                             <div class="col-sm-8">
                                                 <input id="arrival_date" type="date"></div>
 
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="passenger_no" class="col-sm-2 control-label">No of Passenger<span style="color:red; font-size: 15px">*</span></label>
+                                            <div class="col-sm-8"><select name="passenger_no" id="passenger_no" class="form-control1">
+                                                <option value="">--Please Select No of Passenger--</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select></div>
+                                        </div>
+
                                         <div class="form-group">
                                                 <div class="checkbox-inline1">
                                                 <label for="checkbox_exact_time" class="col-sm-2 control-label">Check This for exact time</label>
@@ -197,9 +204,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                             <label class="col-sm-2 control-label">Ticket Type</label>
                                             <div class="col-sm-8">
                                                 <div class="radio block">
-                                                <label for="radio_type_train1"><input id="radio_type_train1" name="radio_type_train" type="radio" checked="checked" value="any"> Any</label>
-                                                <label for="radio_type_train2"><input type="radio" id="radio_type_train2" name="radio_type_train" value="express" > Express</label>
-                                                <label for="radio_type_train3"><input type="radio" id="radio_type_train3" name="radio_type_train" value="regular" >Regular</label></div>
+                                                <label for="radio_type_train1"><input id="radio_type_train1" id="radio_type_train" name="radio_type_train" type="radio" checked="checked" value="any"> Any</label>
+                                                <label for="radio_type_train2"><input type="radio" id="radio_type_train2" name="radio_type_train" value="Express" > Express</label>
+                                                <label for="radio_type_train3"><input type="radio" id="radio_type_train3" name="radio_type_train" value="Regular" >Regular</label></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
