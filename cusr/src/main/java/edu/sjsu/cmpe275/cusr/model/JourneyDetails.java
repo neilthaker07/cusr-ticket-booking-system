@@ -6,8 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "JOURNEY_DETAILS")
@@ -22,8 +24,10 @@ public class JourneyDetails {
 	private String departureTime;
 	private int passengers;
 	private String journeyDate;
-	@OneToOne(fetch=FetchType.LAZY)
+	
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="TICKET_ID")
+	@JsonBackReference
 	private Ticket ticket;
 	
 	public JourneyDetails() {
