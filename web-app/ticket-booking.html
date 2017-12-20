@@ -49,10 +49,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 var passengerNumber = 2;
 var ticketID = 100;
 
+var sysUserId = localStorage.getItem("sysUserId");
+var bookingdata=localStorage.getItem('bookingdata');
+var bookingData = JSON.parse(bookingdata);
+
+
+
 $(document).ready(function(){
 
 	var isUserLoggedIn = localStorage.getItem("isUserLoggedIn");
-	var sysUserId = localStorage.getItem("sysUserId");
 
 	// If user directly opens the page, redirect him back to login
 	if(isUserLoggedIn !== "" && isUserLoggedIn !== null){
@@ -70,9 +75,7 @@ $(document).ready(function(){
 	});
 
 
-	var bookingdata=localStorage.getItem('bookingdata');
-	var bookingData = JSON.parse(bookingdata);
-
+	
 	prepareJourneyDetails(bookingData);
 
 	preparePassengerInfoTable(passengerNumber);
@@ -95,8 +98,7 @@ $(document).ready(function(){
 		}
 		event.preventDefault();
 
-		savePassengerInforamtion(passengers, ticketID);
-
+		saveTicketInforamtion(passengers, bookingData);
 	});
 });
 
@@ -125,10 +127,36 @@ function preparePassengerInfoTable(numeberOfPassenger){
 	$("#passenger-information").append(passengerRows);
 }
 
-function saveJourneyDetails(){
 
-	
-                       
+function saveTicketInforamtion(passengers, bookingData){
+
+	var bookingObj = new Object();
+	bookingObj.journeyTrainId = bookingData['trainNo'];
+	bookingObj.source = bookingData['departure_station'];
+	bookingObj.destination = bookingData['arrival_station'];
+	bookingObj.passengers = bookingData['passengers'];
+	bookingObj.journeyDate = bookingData['departure_date'];
+	bookingObj.departureTime = bookingData['departure_time'];
+
+	var bookingObjString = JSON.stringify(bookingObj);
+
+	alert(bookingObjString);
+
+	$.ajax({
+     url:  'http://localhost:8080/finalTicket/'+sysUserId+'?price='+bookingData['price'],
+     method: "POST",
+     data: jQuery.param({ journeyDetailString: bookingObjString}),
+     error: function(xhr, status, error) {
+        alert(error);
+     },
+     success: function(data) {
+      	alert("ticket Saved...");
+      	var ticketId = data;
+      	savePassengerInforamtion(passengers, ticketId);
+
+
+     },
+  });
 
 }
 
@@ -145,6 +173,7 @@ function savePassengerInforamtion(paxObj, ticketId){
      },
      success: function(data) {
       	alert("Passengers Saved...");
+
      },
   });
 
