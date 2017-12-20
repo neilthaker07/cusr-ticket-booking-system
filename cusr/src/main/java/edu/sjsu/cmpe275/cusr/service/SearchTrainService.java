@@ -327,7 +327,7 @@ public class SearchTrainService {
 	 			}
 	 			temp =  lookAnyTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num,this.regularTrainSchedule);
 	 			Time = 	get_available_time_from_station(indexmappingRegularTrainsSB.indexOf(Departure),Time+15,this.regularTrainSchedule);
-	 			temp_store.put("depature_station",temp.get(0).get("departure_station"));
+	 			temp_store.put("departure_station",temp.get(0).get("departure_station"));
 	 			temp_store.put("arrival_station",temp.get(temp.size()-1).get("arrival_station"));
 	 			temp_store.put("passengers",temp.get(0).get("passengers")); 
 				temp_store.put("departure_time",temp.get(0).get("departure_time")); 

@@ -13,6 +13,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>{
 	@Query("update Ticket t set t.isCancelled=1 where t.ticketId = :ticketId ")
 	int setIsCancelledFor( @Param("ticketId") Long ticketId);
 	
-	@Query("FROM Ticket t WHERE t.userId = :userid")
+	@Query("FROM Ticket t WHERE t.userId = :userid AND t.isCancelled = 0")
     List<Ticket> getTicketsByUserId(@Param("userid") long userid);
 }

@@ -10,7 +10,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <title>California Ultra Speed Rail | Search Trains</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Baxster Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+<meta name="keywords" content="Baxster Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Bootstrap Core CSS -->
@@ -20,7 +20,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <!-- font CSS -->
 <link rel="icon" href="favicon.ico" type="image/x-icon" >
 <!-- font-awesome icons -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
+<link href="css/font-awesome.css" rel="stylesheet">
 <!-- //font-awesome icons -->
 <!-- chart -->
 <script src="js/Chart.js"></script>
@@ -30,7 +30,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="js/modernizr.custom.js"></script>
 <!--webfonts-->
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-<!--//webfonts--> 
+<!--//webfonts-->
 <!--animate-->
 <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
 <script src="js/wow.min.js"></script>
@@ -65,22 +65,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 		});
     });
 
-   
-    
+
+
 </script>
 <script src="js/search_results.js"> </script>
-
-
-
-
-<!-- sending booking data to ticket-booking.html -->
-<script type="text/javascript" src="js/bookingdata.js" ></script>
 
 
 <link href="css/demo-page.css" rel="stylesheet" media="all">
 <link href="css/hover.css" rel="stylesheet" media="all">
 <!--//Metis Menu -->
-</head> 
+</head>
 <body class="cbp-spmenu-push">
     <div class="main-content">
         <!--left-fixed -navigation-->
@@ -88,17 +82,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <div class="navbar-collapse">
                 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right dev-page-sidebar mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar" id="cbp-spmenu-s1">
                     <div class="scrollbar scrollbar1">
-                        <ul class="nav" id="side-menu">
-                            <li>
-                                <a href="index.html"><i class="fa fa-home nav_icon"></i>Dashboard</a>
-                            </li>
-                            <li>
-                                <a href="index.html"><i class="fa fa-file-text nav_icon"></i>Booking History</a>
-                            </li>
-                            <li>
-                               <a id="logout" href="#"><i class="fa fa-sign-out nav_icon"></i>Logout</a>
-                            </li>
-                        </ul>
+                       <ul class="nav" id="side-menu">
+							<li>
+									<a href="search_results.html"><i class="fa fa-search nav_icon"></i>Search Trains</a>
+							</li>
+							<li>
+									<a href="booking-history.html"><i class="fa fa-file-text nav_icon"></i>Booking History</a>
+							</li>
+							<li>
+								<a id="logout" href="#"><i class="fa fa-sign-out nav_icon"></i>Logout</a>
+							</li>
+						</ul>
                     </div>
                     <!-- //sidebar-collapse -->
                 </nav>
@@ -111,9 +105,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 <!--logo -->
                 <div class="logo">
                     <a href="index.html">
-                        <ul>    
+                        <ul>
                             <li><img src="images/logo1.png" alt="" /></li>
-                            <li><h1>Baxster</h1></li>
+                            <li><h1>CUSR</h1></li>
                             <div class="clearfix"> </div>
                         </ul>
                     </a>
@@ -123,19 +117,19 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             </div>
             <!--search-box-->
                 <div class="search-box">
-                    
+
                 </div>
                 <!--//end-search-box-->
             <div class="header-right">
-                
+
                 <!--notification menu end -->
-                
+
                 <!--toggle button start-->
                 <button id="showLeftPush"><i class="fa fa-bars"></i></button>
                 <!--toggle button end-->
-                <div class="clearfix"> </div>               
+                <div class="clearfix"> </div>
             </div>
-            <div class="clearfix"> </div>   
+            <div class="clearfix"> </div>
         </div>
         <!-- //header-ends -->
         <!-- main content start-->
@@ -180,33 +174,46 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                             <label for="departure_date" class="col-sm-2 control-label">Departure Date<span style="color:red; font-size: 15px">*</span></label>
                                             <div class="col-sm-8">
                                                 <input id="departure_date" type="date"></div>
-                                                </div>
+                                            </div>
                                                 <div class="form-group" id="round_trip_div" hidden="hidden">
                                                 <label for="arrival_date" class="col-sm-2 control-label">Arrival Date<span style="color:red; font-size: 15px">*</span></label>
                                             <div class="col-sm-8">
                                                 <input id="arrival_date" type="date"></div>
 
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="passenger_no" class="col-sm-2 control-label">No of Passenger<span style="color:red; font-size: 15px">*</span></label>
+                                            <div class="col-sm-8"><select name="passenger_no" id="passenger_no" class="form-control1">
+                                                <option value="">--Please Select No of Passenger--</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select></div>
+                                        </div>
+
                                         <div class="form-group">
                                                 <div class="checkbox-inline1">
                                                 <label for="checkbox_exact_time" class="col-sm-2 control-label">Check This for exact time</label>
                                                     <input id="checkbox_exact_time" type="checkbox"></div>
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Ticket Type</label>
                                             <div class="col-sm-8">
                                                 <div class="radio block">
-                                                <label for="radio_type_train1"><input id="radio_type_train1" name="radio_type_train" type="radio" checked="checked" value="any"> Any</label>
-                                                <label for="radio_type_train2"><input type="radio" id="radio_type_train2" name="radio_type_train" value="express" > Express</label>
-                                                <label for="radio_type_train3"><input type="radio" id="radio_type_train3" name="radio_type_train" value="regular" >Regular</label></div>
+                                                <label for="radio_type_train1"><input id="radio_type_train1" id="radio_type_train" name="radio_type_train" type="radio" checked="checked" value="any"> Any</label>
+                                                <label for="radio_type_train2"><input type="radio" id="radio_type_train2" name="radio_type_train" value="Express" > Express</label>
+                                                <label for="radio_type_train3"><input type="radio" id="radio_type_train3" name="radio_type_train" value="Regular" >Regular</label></div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label  class="col-sm-2 control-label">Number of Connections</label>
                                             <div class="col-sm-8">
                                                 <div class="radio block"><label for="radio_connection_number1"><input id="radio_connection_number1"  name="radio_connection_number" type="radio" checked="checked" value="any"> Any</label>
-                                                    <label for="radio_connection_number2"><input id="radio_connection_number2" name="radio_connection_number" 
+                                                    <label for="radio_connection_number2"><input id="radio_connection_number2" name="radio_connection_number"
                                                     type="radio"  value="one">One</label>
                                                     <label for="radio_connection_number3"><input type="radio" id="radio_connection_number3" name="radio_connection_number1" value="none" disabled="">None</label></div>
                                             </div>
@@ -232,14 +239,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                     <div id="output"></div>
                                     <div id="output22"></div>
                                     <script src="js/search_results.js"></script>
-                                            
+
                                     <button id="myButton" class="btn btn-default" onclick="getTickets();">Testing Button
                                     </button>
-                                    
+
                                     <script type="text/javascript">
                                        /* document.getElementById("myButton").onclick =function () {
-                                            console.log("bang1111 "+output.innerHTML);*/    
-                                        /*  
+                                            console.log("bang1111 "+output.innerHTML);*/
+                                        /*
                                             location.href = "ticket_confirm.html?output="+output.innerHTML;
                                         };*/
                                     </script>
@@ -258,303 +265,27 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                             });
                                         });
                                     </script>
-                                --> 
+                                -->
 
 
 								</div>
 							</div>
 						</div>
 					</div>
-				
+
 				</div>
 				<!--//grids-->
 			</div>
 		</div>
 		<!--footer-->
 		 <div class="dev-page">
-	 
-            <div class="dev-page-footer dev-page-footer-fixed"> 
+
+            <div class="dev-page-footer dev-page-footer-fixed">
                 <!-- container -->
                 <div class="container">
                     <div class="copyright">
-                        <p>© 2016 Baxster . All Rights Reserved . Design by <a href="http://w3layouts.com/">W3layouts</a></p> 
+                        <p>© 2017 CUSR . All Rights Reserved . Design by <a href="http://w3layouts.com/">W3layouts</a></p>
                     </div>
-                    <!-- page footer buttons -->
-                    <ul class="dev-page-footer-buttons">                    
-                        <li><a href="#footer_content_1" class="dev-page-footer-container-open"><span class="glyphicon glyphicon glyphicon-sort" aria-hidden="true"></span></a></li>                    
-                        <li><a href="#footer_content_2" class="dev-page-footer-container-open"><span class="glyphicon glyphicon glyphicon-signal" aria-hidden="true"></span></a></li>
-                        <li><a href="#footer_content_3" class="dev-page-footer-container-open"><span class="glyphicon glyphicon glyphicon glyphicon-file" aria-hidden="true"></span></a></li>
-                    </ul>
-                    <!-- //page footer buttons -->
-                    <!-- page footer container -->
-                    <div class="dev-page-footer-container">
-                        
-                        <!-- loader and close button -->
-                        <div class="dev-page-footer-container-layer">
-                            <a href="#" class="dev-page-footer-container-layer-button"></a>
-                        </div>
-                        <!-- //loader and close button -->                    
-                        
-                        <!-- informers -->
-                        <div class="dev-page-footer-container-content" id="footer_content_1">                        
-                            <div class="block-hdnews">
-                                  <div class="list-wrpaaer" style="height:200px;">
-                                     <ul class="list-aggregate" id="marquee-horizontal">
-                                       <li class="fat-l" style="width:300px">
-                                        <a href="#">Lorem ipsum dolor</a>
-                                        <p>
-                                           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.                                        
-                                         </p>
-                                       </li>
-                                       
-                                       <li class="fat-l" style="width:300px">
-                                        <a href="#">Consectetur</a>
-                                        <p>
-                                           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.                                        
-                                         </p>
-                                       </li>
-                                       
-                                       <li class="fat-l" style="width:300px">
-                                         <a href="#">Adipiscing elit</a>
-                                         <p>
-                                           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.                                        
-                                         </p>
-                                       </li>
-
-                                       <li class="fat-l" style="width:300px">
-                                        <a href="#">Lorem ipsum dolor</a>
-                                         <p>
-                                           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.                                        
-                                         </p>
-                                       </li>
-                                        <li class="fat-l" style="width:300px">
-                                        <a href="#">Consectetur</a>
-                                         <p>
-                                           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.                                        
-                                         </p>
-                                       </li>
-                                       
-                                       <li class="fat-l" style="width:300px">
-                                         <a href="#">Adipiscing elit</a>
-                                         <p>
-                                           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.                                        
-                                         </p>
-                                       </li>
-
-                                     </ul>
-                                  </div><!-- list-wrpaaer -->
-
-                              </div> <!-- block-hdnews -->
-
-                        <script type="text/javascript">
-                          
-                          $(function(){
-
-
-                          $('#marquee-vertical').marquee();  
-                          $('#marquee-horizontal').marquee({direction:'horizontal', delay:0, timing:50});  
-
-                        });
-
-                        </script>                   
-                        </div>
-                        <!-- //informers -->
-                        
-                        <!-- informers -->
-                        <div class="dev-page-footer-container-content" id="footer_content_2">   
-                            <div class="graphs">
-                                <div class="col-md-4 graph-points">
-                                    <div class="graph-left">
-                                       <script type="text/javascript">
-                                          // Generate data
-                                          
-                                          var data = [];
-                                          
-                                          var time = new Date('Dec 1, 2013 12:00').valueOf();
-                                          
-                                          var h = Math.floor(Math.random() * 100);
-                                          var l = h - Math.floor(Math.random() * 20);
-                                          var o = h - Math.floor(Math.random() * (h - l));
-                                          var c = h - Math.floor(Math.random() * (h - l));
-
-                                          var v = Math.floor(Math.random() * 1000);
-                                          
-                                          for (var i = 0; i < 30; i++) {
-                                            data.push([time, o, h, l, c, v]);
-                                            h += Math.floor(Math.random() * 10 - 5);
-                                            l = h - Math.floor(Math.random() * 20);
-                                            o = h - Math.floor(Math.random() * (h - l));
-                                            c = h - Math.floor(Math.random() * (h - l));
-                                            v += Math.floor(Math.random() * 100 - 50);
-                                            time += 30 * 60000; // Add 30 minutes
-                                          }
-                                        </script>
-                                        <div id="example-1"></div>
-                                        <script type="text/javascript">
-                                          $(function() {
-                                            $('#example-1').jqCandlestick({
-                                              data: data,
-                                              theme: 'light',
-                                              series: [{
-                                              }],
-                                            });
-                                          });
-                                        </script>
-                                    </div>
-                                    <div class="graph-right">
-                                        <h3>TODAY'S STATS</h3>
-                                        <p>Duis aute irure dolor in reprehenderit.</p>
-                                        <ul>
-                                            <li>Earning: $400 USD</li>
-                                            <li>Items Sold: 20 Items</li>
-                                            <li>Last Hour Sales: $34 USD</li>
-                                        </ul>
-                                    </div>
-                                    <div class="clearfix"> </div>
-                                </div>
-                                <div class="col-md-4 bar-grid">
-                                    <div class="graph-left">
-                                        <canvas id="line"></canvas>
-                                            <script>
-                                                    var lineChartData = {
-                                                        labels : ["Mon","Tue","Wed","Thu","Fri","Sat","Mon"],
-                                                        datasets : [
-                                                            {
-                                                                fillColor : "rgba(202, 202, 202, 0)",
-                                                                strokeColor : "#3E495A",
-                                                                pointColor : "#fbfbfb",
-                                                                pointStrokeColor : "#fbfbfb",
-                                                                data : [20,35,45,30,10,65,40]
-                                                            }
-                                                        ]
-                                                        
-                                                    };
-                                                    new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
-                                            </script>
-                                    </div>
-                                    <div class="graph-right">
-                                        <h3>TODAY'S STATS</h3>
-                                        <p>Duis aute irure dolor in reprehenderit.</p>
-                                        <ul>
-                                            <li>Earning: $400 USD</li>
-                                            <li>Items Sold: 20 Items</li>
-                                            <li>Last Hour Sales: $34 USD</li>
-                                        </ul>
-                                    </div>
-                                    <div class="clearfix"> </div>
-                                </div>
-                                <div class="col-md-4 switch-right">
-                                    <div class="graph-left">
-                                        <canvas id="bar"></canvas>
-                                            <script>
-                                                var barChartData = {
-                                                    labels : ["Mon","Tue","Wed","Thu","Fri","Sat","Mon","Tue","Wed","Thu"],
-                                                    datasets : [
-                                                        {
-                                                            fillColor : "#fbc02d",
-                                                            strokeColor : "#fbc02d",
-                                                            highlightFill: "rgba(220,220,220,0.75)",
-                                                            highlightStroke: "rgba(220,220,220,1)",
-                                                            data : [25,40,50,65,55,30,20,10,6,4]
-                                                        },
-                                                        {
-                                                            fillColor : "#3E495A",
-                                                            strokeColor : "#3E495A",
-                                                            data : [30,45,55,70,40,25,15,8,5,2]
-                                                        }
-                                                    ]
-                                                    
-                                                };
-                                                    new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
-                                            </script>
-                                    </div>
-                                    <div class="graph-right">
-                                        <h3>TODAY'S STATS</h3>
-                                        <p>Duis aute irure dolor in reprehenderit.</p>
-                                        <ul>
-                                            <li>Earning: $400 USD</li>
-                                            <li>Items Sold: 20 Items</li>
-                                            <li>Last Hour Sales: $34 USD</li>
-                                        </ul>
-                                    </div>
-                                    <div class="clearfix"> </div>
-                                </div>
-                                
-                                <div class="clearfix"> </div>
-                            </div>
-                        </div>
-                        <!-- //informers -->
-                        
-                        <!-- projects -->
-                        <div class="dev-page-footer-container-content" id="footer_content_3">                        
-                            <div class="social">
-                                <div class="col-md-3 top-comment-grid">
-                                    <div class="comments">
-                                        <div class="comments-icon">
-                                            <i class="fa fa-comments"></i>
-                                        </div>
-                                        <div class="comments-info">
-                                            <h3>85</h5>
-                                            <a href="#">Comments</a>
-                                        </div>
-                                        <div class="clearfix"> </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 top-comment-grid">
-                                    <div class="comments likes">
-                                        <div class="comments-icon">
-                                            <i class="fa fa-facebook"></i>
-                                        </div>
-                                        <div class="comments-info likes-info">
-                                            <h3>2150</h5>
-                                            <a href="#">Likes</a>
-                                        </div>
-                                        <div class="clearfix"> </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 top-comment-grid">
-                                    <div class="comments tweets">
-                                        <div class="comments-icon">
-                                            <i class="fa fa-twitter"></i>
-                                        </div>
-                                        <div class="comments-info tweets-info">
-                                            <h3>325</h5>
-                                            <a href="#">Tweets</a>
-                                        </div>
-                                        <div class="clearfix"> </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 top-comment-grid">
-                                    <div class="comments views">
-                                        <div class="comments-icon">
-                                            <i class="fa fa-eye"></i>
-                                        </div>
-                                        <div class="comments-info views-info">
-                                            <h3>471</h5>
-                                            <a href="#">Views</a>
-                                        </div>
-                                        <div class="clearfix"> </div>
-                                    </div>
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                        </div>
-                        <!-- //projects -->
-                    </div>
-                <!-- //page footer container -->
-                
                 </div>
                 <!-- //container -->
             </div>
@@ -568,14 +299,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
                 showLeftPush = document.getElementById( 'showLeftPush' ),
                 body = document.body;
-                
+
             showLeftPush.onclick = function() {
                 classie.toggle( this, 'active' );
                 classie.toggle( body, 'cbp-spmenu-push-toright' );
                 classie.toggle( menuLeft, 'cbp-spmenu-open' );
                 disableOther( 'showLeftPush' );
             };
-            
+
 
             function disableOther( button ) {
                 if( button !== 'showLeftPush' ) {
@@ -583,8 +314,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 }
             }
         </script>
-    <!-- Bootstrap Core JavaScript --> 
-        
+    <!-- Bootstrap Core JavaScript -->
+
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
         <script type="text/javascript" src="js/dev-loaders.js"></script>
@@ -594,11 +325,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
         <script type="text/javascript" src="js/jquery.jqcandlestick.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/jqcandlestick.css" />
-        
+
         <!--max-plugin-->
         <script type="text/javascript" src="js/plugins.js"></script>
         <!--//max-plugin-->
-        
+
         <!--scrolling js-->
         <script src="js/jquery.nicescroll.js"></script>
         <script src="js/scripts.js"></script>
