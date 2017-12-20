@@ -30,7 +30,7 @@ public class JourneyService {
 		return journeyRepository.findOne(journeyId);
 	}
 	
-	public void saveFinalTicket(JourneyDetails journeyDetails, Double price, Long userId)
+	public Long saveFinalTicket(JourneyDetails journeyDetails, Double price, Long userId)
 	{
 		Ticket ticket = new Ticket();
 		ticket.setUserId(userId);
@@ -46,5 +46,7 @@ public class JourneyService {
 		transaction.setPrice(price);
 		transaction.setTicket(ticket);
 		transactionService.saveTicketTransaction(transaction);
+		
+		return ticket.getTicketId(); 
 	}
 }
