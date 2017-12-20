@@ -44,6 +44,8 @@ public class SearchTrainService {
 	
 	@Autowired 
 	JourneyRepository journeyRepository;
+	@Autowired
+	TicketPriceService ticketPriceService;
 	
 	
 	/*public SearchTrainService()
@@ -215,7 +217,7 @@ public class SearchTrainService {
 		 
 		 HashMap<Character,ArrayList<Integer>> trainSchedules =  new HashMap<Character,ArrayList<Integer>>();
 		 ArrayList<HashMap<String,String>> trainsList = new ArrayList<HashMap<String,String>>();
-		 //north bound trains. eg: A->B
+		 //south bound trains. eg: A->B
 		 if(Departure < Arrival)
 		{
 			if (TicketType == "Express") {
@@ -293,7 +295,25 @@ public class SearchTrainService {
 	 	else if(TicketType.equals("Regular"))
 	 	{
 	 		System.out.println("Step 1 "+Departure.getClass().getName());
-	 		return lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num);
+	 		
+	 			ArrayList<HashMap<String,String>> temp =  new ArrayList<HashMap<String,String>>();
+	 			HashMap<String,String> temp_store = new HashMap<String,String>();
+	 			temp =  lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num);
+	 			
+	 			temp_store.put("depature_station",temp.get(0).get("departure_station"));
+	 			temp_store.put("arrival_station",temp.get(temp.size()-1).get("arrival_station"));
+	 			temp_store.put("passangers",temp.get(0).get("passangers"));
+				temp_store.put("departure_time",temp.get(0).get("depature_time"));
+				temp_store.put("departure_date",temp.get(0).get("depature_date"));
+				temp_store.put("arrival_time",String.valueOf(Integer.valueOf(temp.get(temp.size()-1).get("depature_time")+5))); // Calculate arrival time: remaining
+				double price =  ticketPriceService.ticketPriceBetweenStations(Departure, Arrival,TicketType);
+				temp_store.put("price",String.valueOf(price)); // price calculation : remaining
+				temp_store.put("journeyTime",String.valueOf(Integer.valueOf(temp.get(temp.size()-1).get("depature_time"))-Integer.valueOf(temp.get(0).get("depature_time")))); // journey time : remaining
+				temp_store.put("trainType","NB");  // train type : remaining
+				
+				trainsList.add(temp_store);
+	 		 
+	 			
 	 	}
 	 	else
 	 	{

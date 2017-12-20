@@ -1,7 +1,6 @@
 package edu.sjsu.cmpe275.cusr.resource;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,5 +44,12 @@ public class TicketResource {
 		return new ResponseEntity<Object>(entities, HttpStatus.OK);
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="/tickets/{userid}")
+	public List<Ticket> getTicketForUser(@PathVariable long userid){
+		
+		List<Ticket> ticketList = ticketService.getTicketByUserId(userid);
+		return ticketList;
+		
+	}
 }
 
