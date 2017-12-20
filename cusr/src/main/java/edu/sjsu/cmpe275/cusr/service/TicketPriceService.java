@@ -109,7 +109,7 @@ public class TicketPriceService {
 		stations.put('Z',25);
 	}
 	
-	public boolean isTicketAvailable(Long trainId, String journeyDate, Character fromStation, Character toStation, int passengers, int totalTrainSeats)
+	public boolean isTicketAvailable(String trainNo, String journeyDate, Character fromStation, Character toStation, int passengers, int totalTrainSeats)
 	{
 	/*	String qry = "select sum(passengers) from journey_details where journey_train_id = 1000 and journey_date = 2012-04-23 11:25:44 "
 				+ "and 1 = (case when (( 3 >= source && 6<= destination ) OR (  3 < source && 6<= destination && 6>source )"
@@ -117,7 +117,7 @@ public class TicketPriceService {
 	*/
 		allStations();
 
-		int bookedTickets = journeyRepository.findByJourneyTrainIdAndJourneyDate(trainId, journeyDate, stations.get(fromStation), stations.get(toStation));
+		int bookedTickets = journeyRepository.findByJourneyTrainIdAndJourneyDate(trainNo, journeyDate, stations.get(fromStation), stations.get(toStation));
 		if(bookedTickets > (totalTrainSeats - passengers))
 		{
 			return false;
