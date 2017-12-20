@@ -2,6 +2,7 @@ package edu.sjsu.cmpe275.cusr.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,15 +24,15 @@ public class Ticket {
 	private boolean isDeleted;
 	private boolean isCancelled;
 	
-	@OneToMany(mappedBy = "ticket")
+	@OneToMany(mappedBy = "ticket", cascade=CascadeType.REMOVE)
 	@JsonManagedReference
 	private List<JourneyDetails> journeyList;
 	
-	@OneToOne(mappedBy = "ticket")
+	@OneToOne(mappedBy = "ticket", cascade=CascadeType.REMOVE)
 	@JsonManagedReference
 	private Transaction transaction;
 	
-	@OneToMany(mappedBy = "ticket")
+	@OneToMany(mappedBy = "ticket", cascade=CascadeType.REMOVE)
 	@JsonManagedReference
 	private List<Passenger> passengerList;
 	
