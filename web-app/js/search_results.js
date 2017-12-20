@@ -179,8 +179,8 @@ for(var i=0;i<stations.length;i++)
 
             departure_station : $departure_station,
             arrival_station : $arrival_station,
-            dep_time: $departure_time,
-            ticket_type: "Express",
+            dep_time: "615",
+            ticket_type: "Regular",
             conn_num: "0",
             round_tr: $round_trip,
             pass_num: $no_of_pass,
@@ -245,6 +245,7 @@ for(var i=0;i<stations.length;i++)
     });
 
 });
+
 
 
 function bookingdataFun0(bookdata)
