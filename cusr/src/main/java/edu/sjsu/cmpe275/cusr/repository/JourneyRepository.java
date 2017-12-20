@@ -26,7 +26,7 @@ public interface JourneyRepository extends JpaRepository<JourneyDetails, Long>{
 	@Query("FROM JourneyDetails j where j.ticket.ticketId = :ticketId")
 	ArrayList<JourneyDetails> findManyByTicket(@Param("ticketId") Long ticketId);
 	
-	@Query("FROM JourneyDetails j where j.journeyTrainId = :journeyTrainId and j.journeyDate = :journeyDate ")
-	ArrayList<JourneyDetails> findByTrainIdAndJourneyDate(@Param("journeyTrainId") Long journeyTrainId, @Param("journeyDate") String journeyDate);
+	@Query("FROM JourneyDetails j where j.trainNo = :trainNo and j.journeyDate = :journeyDate ")
+	ArrayList<JourneyDetails> findByTrainIdAndJourneyDate(@Param("trainNo") String trainNo, @Param("journeyDate") String journeyDate);
 	
 }

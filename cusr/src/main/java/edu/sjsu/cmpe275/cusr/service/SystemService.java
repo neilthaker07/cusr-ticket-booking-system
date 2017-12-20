@@ -38,12 +38,12 @@ public class SystemService {
 		}
 	}
 
-	public double systemReport(long trainId, String date) {
+	public double systemReport(String trainNo, String date) {
 		
-		ArrayList<JourneyDetails> journeyDetails=journeyService.findByTrainIdAndJourneyDate(trainId, date);
+		ArrayList<JourneyDetails> journeyDetails=journeyService.findByTrainIdAndJourneyDate(trainNo, date);
 		
 		double finalStat=0;
-		int trainCapacity=1000;
+		int trainCapacity=trainService.findTrainByTrainNo(trainNo).getCapacity();
 		
 		for(JourneyDetails jDetails : journeyDetails )
 		{
