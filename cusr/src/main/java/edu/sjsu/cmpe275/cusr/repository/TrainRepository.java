@@ -15,4 +15,7 @@ public interface TrainRepository extends JpaRepository<Train, Long>{
 	@Modifying
 	@Query("UPDATE Train t set t.capacity = :trainCapacity")
 	void updateTrainCapacity(@Param("trainCapacity") int trainCapacity);
+	
+	@Query("FROM Train t where t.trainNo = :trainNo")
+	Train findTrainByTrainNo(@Param("trainNo") String trainNo);
 }
