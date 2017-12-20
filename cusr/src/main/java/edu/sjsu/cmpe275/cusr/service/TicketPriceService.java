@@ -30,11 +30,11 @@ public class TicketPriceService {
 		double d = stationDiff / 5.0;
         double finalRate = Math.ceil(d);
         
-		if(ticketType.equals("express"))
+		if(ticketType.equalsIgnoreCase("express"))
 		{
 			finalRate*=2; // express, price double 
 		}
-		
+		finalRate++;
 		System.out.println("final rate : "+finalRate); // searching time price rate
 		return finalRate;
 	}

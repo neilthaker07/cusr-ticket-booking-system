@@ -27,7 +27,7 @@ public class SearchTrainResource {
 	@RequestMapping(method=RequestMethod.POST, value="/search")
 	public ResponseEntity<Object> searchTrain(@RequestBody SearchTrain searchTrain)
 	{
-		ArrayList<HashMap<String,String>> fiveResults = searchTrainService.findTrain(searchTrain);
+		ArrayList<HashMap<String,Object>> fiveResults = searchTrainService.findTrain(searchTrain);
 		
 		List<JSONObject> entities = new ArrayList<JSONObject>();
         JSONObject entity = new JSONObject();
