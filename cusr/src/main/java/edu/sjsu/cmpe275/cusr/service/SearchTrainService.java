@@ -126,21 +126,18 @@ public class SearchTrainService {
 		*/
 	}
 	public void populateExpressTrainSchedule()
+	{int start_time=600;
+	int next_train = 0;
+	int offset =  28;
+	for(int i=0;i<expressTrainsSchedule.length;i++)
 	{
-		int start_time=615;
-		int next_train = 0;
-		int offset =  8;
-		 int[][] regularTrainSchedule = new int[26][45];
-
-	for(int i=0;i<regularTrainSchedule.length;i++)
-	{
-		for(int j=0;j<regularTrainSchedule[i].length;j++)
+		for(int j=0;j<expressTrainsSchedule[i].length;j++)
 		{
 			if(i!=0)
 			{
 		            next_train =0;
 		            
-				start_time = regularTrainSchedule[i-1][j]+offset;
+				start_time = expressTrainsSchedule[i-1][j]+offset;
 			
 				if(start_time % 100 > 60 )
 				{
@@ -152,7 +149,7 @@ public class SearchTrainService {
 				    start_time +=100;
 				    start_time += offset-off;
 				}
-				regularTrainSchedule[i][j] = start_time;
+				expressTrainsSchedule[i][j] = start_time;
 			}
 			else{
 			if(next_train >= 45)
@@ -161,25 +158,24 @@ public class SearchTrainService {
 			    start_time +=100;
 			}
 			
-			if(start_time + next_train %100 != 0)
+			if((start_time + next_train) %100 == 0)
 			{
-				regularTrainSchedule[i][j] = start_time + next_train;
-				next_train += 15;
+				expressTrainsSchedule[i][j] = start_time + next_train;
+				next_train += 100;
 			}
 			}
 		}
 	
 		next_train =0;
-	}
-	
+}
 	}
 	
 	public void populate_IndexMapping()
 	{
-		indexmappingExpressTrainsSB.addAll(Arrays.asList('A','F','K','P','U','Z'));
-		this.indexmappingExpressTrains.addAll(Arrays.asList('Z','U','P','K','F','A'));
-		indexmappingRegularTrainsSB.addAll(Arrays.asList('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'));
-		this.indexmappingRegularTrains.addAll(Arrays.asList('Z','Y','X','W','V','U','T','S','R','Q','P','O','N','M','L','K','J','I','H','G','F','E','D','C','B','A'));
+		indexmappingExpressTrains.addAll(Arrays.asList('Z','U','P','K','F','A'));
+		this.indexmappingExpressTrainsSB.addAll(Arrays.asList('A','F','K','P','U','Z'));
+		indexmappingRegularTrains.addAll(Arrays.asList('Z','Y','X','W','V','U','T','S','R','Q','P','O','N','M','L','K','J','I','H','G','F','E','D','C','B','A'));
+		this.indexmappingRegularTrainsSB.addAll(Arrays.asList('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'));
 		
 	}
 	 public void AddExpressStations(Character c)
@@ -218,15 +214,146 @@ public class SearchTrainService {
 		 HashMap<Character,ArrayList<Integer>> trainSchedules =  new HashMap<Character,ArrayList<Integer>>();
 		 ArrayList<HashMap<String,String>> trainsList = new ArrayList<HashMap<String,String>>();
 		 //south bound trains. eg: A->B
-		 if(Departure < Arrival)
-		{
-			if (TicketType == "Express") {
+		if (Departure < Arrival) {
 
-			} else if (TicketType == "Regular") {
-
-			} else {
-
-			}
+			 
+			
+		 	if(TicketType.equals("Express"))
+		 	{
+		 		//Both are express train
+		 		if(this.indexmappingExpressTrainsSB.indexOf(Departure)!= -1 && this.indexmappingExpressTrainsSB.indexOf(Arrival)!= -1 )
+		 		{
+		 			trainsList = lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num,this.expressTrainsSchedule);	
+		 		}
+		 		//Departure is express
+		 		else if(this.indexmappingExpressTrainsSB.indexOf(Departure)!= -1)
+		 		{
+		 			for(int i=this.indexmappingExpressTrainsSB.size()-1;i> this.indexmappingExpressTrainsSB.indexOf(Departure);i--)
+					{
+						//check if arrival station is immediately after express station found
+						if(this.indexmappingExpressTrainsSB.get(i) <= Arrival)
+						{
+							//Get train info for Express train connections
+							lookRegularTrainsFinal(Departure,this.indexmappingExpressTrainsSB.get(i),Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num,this.expressTrainsSchedule);
+							//Get train info for Express to Regular train connection
+							//Change time to time from last reached station from above call.
+							lookRegularTrainsFinal(this.indexmappingExpressTrainsSB.get(i),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num,this.regularTrainSchedule);
+						}
+					}
+		 		}
+		 		//Arrival is express
+		 		else if(this.indexmappingExpressTrainsSB.indexOf(Arrival)!= -1)
+		 		{//Improve by iterating through expressinedex only
+		 			for(int i=this.indexmappingRegularTrainsSB.indexOf(Departure);i<this.indexmappingRegularTrainsSB.size();i++)
+					{
+						if(this.indexmappingExpressTrainsSB.contains(this.indexmappingRegularTrainsSB.get(i)) && this.indexmappingRegularTrainsSB.get(i)< Arrival)
+						{
+							//Get train from Regular to express
+							lookRegularTrainsFinal(Departure,this.indexmappingExpressTrainsSB.get(i),Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num,this.regularTrainSchedule);
+							//Get train from express to express
+							lookRegularTrainsFinal(this.indexmappingExpressTrainsSB.get(i),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num,this.expressTrainsSchedule);
+						}
+					}
+		 		}
+		 		else
+		 		{
+		 			for(int i=this.indexmappingExpressTrainsSB.size()-1;i> this.indexmappingExpressTrainsSB.indexOf(Departure);i--)
+					{
+						//check if arrival station is immediately after express station found
+						if(this.indexmappingExpressTrainsSB.get(i) <= Arrival)
+						{
+							for(int j=this.indexmappingRegularTrainsSB.indexOf(Departure);j<this.indexmappingRegularTrainsSB.size();j++)
+							{
+								if(this.indexmappingExpressTrainsSB.contains(this.indexmappingRegularTrainsSB.get(j)) && this.indexmappingRegularTrainsSB.get(j)< Arrival)
+								{
+									lookRegularTrainsFinal(Departure,this.indexmappingExpressTrainsSB.get(i),Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num,this.regularTrainSchedule);
+									lookRegularTrainsFinal(this.indexmappingExpressTrainsSB.get(i),this.indexmappingExpressTrainsSB.get(j),Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num,this.expressTrainsSchedule);
+									lookRegularTrainsFinal(this.indexmappingExpressTrainsSB.get(j),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num,this.regularTrainSchedule);
+									
+									
+								}
+							}
+						}
+						}
+		 		}
+		 	}
+		 	else if(TicketType.equals("Regular"))
+		 	{
+		 		
+	 			
+	 			int total_return =0;
+	 			while(total_return < 5 )
+	 			{
+	 				ArrayList<HashMap<String,String>> temp =  new ArrayList<HashMap<String,String>>();
+	 	 			HashMap<String,String> temp_store = new HashMap<String,String>();
+	 			
+	 			if(Time < 0)
+	 			{
+	 				break;
+	 			}
+	 			temp =  lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num,this.regularTrainSchedule);
+	 			Time = 	get_available_time_from_station(indexmappingRegularTrainsSB.indexOf(Departure),Time+15,this.regularTrainSchedule);
+	 			temp_store.put("depature_station",temp.get(0).get("departure_station"));
+	 			temp_store.put("arrival_station",temp.get(temp.size()-1).get("arrival_station"));
+	 			temp_store.put("passengers",temp.get(0).get("passengers")); 
+				temp_store.put("departure_time",temp.get(0).get("departure_time")); 
+				temp_store.put("departure_date",temp.get(0).get("departure_date")); 
+				temp_store.put("arrival_time",String.valueOf(Integer.valueOf(temp.get(temp.size()-1).get("departure_time"))+5)); // Calculate arrival time: remaining
+				double price =  ticketPriceService.ticketPriceBetweenStations(Departure, Arrival,TicketType);
+				temp_store.put("price",String.valueOf(price)); // price calculation : remaining
+				temp_store.put("journeyTime",String.valueOf(Integer.valueOf(temp.get(temp.size()-1).get("departure_time"))-Integer.valueOf(temp.get(0).get("departure_time"))+5)); // journey time : remaining
+				temp_store.put("trainType","SB");  // train type : remaining
+				trainsList.add(temp_store);
+				total_return++;
+	 			}
+	 			
+	 	}
+		 	else
+		 	{
+		 		System.out.println("Step 1 "+Departure.getClass().getName());
+		 		if(Math.abs(this.indexmappingRegularTrainsSB.indexOf(Departure)-this.indexmappingRegularTrainsSB.indexOf(Arrival)) > 5)
+		 		{
+		 			System.out.println("step 2 "+Departure instanceof String);
+		 			System.out.println("step 2 2 "+Departure.getClass().getName());
+		 			//Both are express train
+			 		if(this.indexmappingExpressTrainsSB.indexOf(Departure)!= -1 && this.indexmappingExpressTrainsSB.indexOf(Arrival)!= -1 )
+			 		{
+			 			System.out.println("step 3 ");
+			 			lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num,this.expressTrainsSchedule);	
+			 		}
+			 		//Departure is express
+			 		else if(this.indexmappingExpressTrainsSB.indexOf(Departure)!= -1)
+			 		{
+			 			for(int i=this.indexmappingExpressTrainsSB.size();i> this.indexmappingExpressTrainsSB.indexOf(Departure);i--)
+						{
+							//check if arrival station is immediately after express station found
+							if(this.indexmappingExpressTrainsSB.get(i) <= Arrival)
+							{
+								//Get train info for Express train connections
+								lookRegularTrainsFinal(Departure,this.indexmappingExpressTrainsSB.get(i),Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num,this.expressTrainsSchedule);
+								//Get train info for Express to Regular train connection
+								lookRegularTrainsFinal(this.indexmappingExpressTrainsSB.get(i),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num,this.regularTrainSchedule);
+							}
+						}
+			 		}
+			 		//Arrival is express
+			 		else
+			 		{
+			 			for(int i=this.indexmappingRegularTrainsSB.indexOf(Departure);i<this.indexmappingRegularTrainsSB.size();i++)
+						{
+							if(this.indexmappingExpressTrainsSB.contains(this.indexmappingRegularTrainsSB.get(i)) && this.indexmappingRegularTrainsSB.get(i)< Arrival)
+							{
+								//Get train from Regular to express
+								lookRegularTrainsFinal(Departure,this.indexmappingExpressTrainsSB.get(i),Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num,this.regularTrainSchedule);
+								//Get train from express to express
+								lookRegularTrainsFinal(this.indexmappingExpressTrainsSB.get(i),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num,this.expressTrainsSchedule);
+							}
+						}
+			 		}
+		 		}
+		 		lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num,this.regularTrainSchedule);	
+		 	}
+			 
 		}
 		 //northBound trains B->A
 		 else
@@ -236,54 +363,54 @@ public class SearchTrainService {
 	 	if(TicketType.equals("Express"))
 	 	{
 	 		//Both are express train
-	 		if(this.indexmappingExpressTrainsSB.indexOf(Departure)!= -1 && this.indexmappingExpressTrainsSB.indexOf(Arrival)!= -1 )
+	 		if(this.indexmappingExpressTrains.indexOf(Departure)!= -1 && this.indexmappingExpressTrains.indexOf(Arrival)!= -1 )
 	 		{
-	 			trainsList = lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num);	
+	 			trainsList = lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrains,Connections_num,this.expressTrainsSchedule);	
 	 		}
 	 		//Departure is express
-	 		else if(this.indexmappingExpressTrainsSB.indexOf(Departure)!= -1)
+	 		else if(this.indexmappingExpressTrains.indexOf(Departure)!= -1)
 	 		{
-	 			for(int i=this.indexmappingExpressTrainsSB.size()-1;i> this.indexmappingExpressTrainsSB.indexOf(Departure);i--)
+	 			for(int i=this.indexmappingExpressTrains.size()-1;i> this.indexmappingExpressTrains.indexOf(Departure);i--)
 				{
 					//check if arrival station is immediately after express station found
-					if(this.indexmappingExpressTrainsSB.get(i) <= Arrival)
+					if(this.indexmappingExpressTrains.get(i) <= Arrival)
 					{
 						//Get train info for Express train connections
-						lookRegularTrainsFinal(Departure,this.indexmappingExpressTrainsSB.get(i),Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num);
+						lookRegularTrainsFinal(Departure,this.indexmappingExpressTrains.get(i),Time,Dep_Date,Passanger_num,this.indexmappingExpressTrains,Connections_num,this.expressTrainsSchedule);
 						//Get train info for Express to Regular train connection
 						//Change time to time from last reached station from above call.
-						lookRegularTrainsFinal(this.indexmappingExpressTrainsSB.get(i),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num);
+						lookRegularTrainsFinal(this.indexmappingExpressTrains.get(i),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrains,Connections_num,this.regularTrainSchedule);
 					}
 				}
 	 		}
 	 		//Arrival is express
-	 		else if(this.indexmappingExpressTrainsSB.indexOf(Arrival)!= -1)
+	 		else if(this.indexmappingExpressTrains.indexOf(Arrival)!= -1)
 	 		{//Improve by iterating through expressinedex only
-	 			for(int i=this.indexmappingRegularTrainsSB.indexOf(Departure);i<this.indexmappingRegularTrainsSB.size();i++)
+	 			for(int i=this.indexmappingRegularTrains.indexOf(Departure);i<this.indexmappingRegularTrains.size();i++)
 				{
-					if(this.indexmappingExpressTrainsSB.contains(this.indexmappingRegularTrainsSB.get(i)) && this.indexmappingRegularTrainsSB.get(i)< Arrival)
+					if(this.indexmappingExpressTrains.contains(this.indexmappingRegularTrains.get(i)) && this.indexmappingRegularTrains.get(i)< Arrival)
 					{
 						//Get train from Regular to express
-						lookRegularTrainsFinal(Departure,this.indexmappingExpressTrainsSB.get(i),Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num);
+						lookRegularTrainsFinal(Departure,this.indexmappingExpressTrains.get(i),Time,Dep_Date,Passanger_num,this.indexmappingRegularTrains,Connections_num,this.regularTrainSchedule);
 						//Get train from express to express
-						lookRegularTrainsFinal(this.indexmappingExpressTrainsSB.get(i),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num);
+						lookRegularTrainsFinal(this.indexmappingExpressTrains.get(i),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrains,Connections_num,this.expressTrainsSchedule);
 					}
 				}
 	 		}
 	 		else
 	 		{
-	 			for(int i=this.indexmappingExpressTrainsSB.size()-1;i> this.indexmappingExpressTrainsSB.indexOf(Departure);i--)
+	 			for(int i=this.indexmappingExpressTrains.size()-1;i> this.indexmappingExpressTrains.indexOf(Departure);i--)
 				{
 					//check if arrival station is immediately after express station found
-					if(this.indexmappingExpressTrainsSB.get(i) <= Arrival)
+					if(this.indexmappingExpressTrains.get(i) <= Arrival)
 					{
-						for(int j=this.indexmappingRegularTrainsSB.indexOf(Departure);j<this.indexmappingRegularTrainsSB.size();j++)
+						for(int j=this.indexmappingRegularTrains.indexOf(Departure);j<this.indexmappingRegularTrains.size();j++)
 						{
-							if(this.indexmappingExpressTrainsSB.contains(this.indexmappingRegularTrainsSB.get(j)) && this.indexmappingRegularTrainsSB.get(j)< Arrival)
+							if(this.indexmappingExpressTrains.contains(this.indexmappingRegularTrains.get(j)) && this.indexmappingRegularTrains.get(j)< Arrival)
 							{
-								lookRegularTrainsFinal(Departure,this.indexmappingExpressTrainsSB.get(i),Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num);
-								lookRegularTrainsFinal(this.indexmappingExpressTrainsSB.get(i),this.indexmappingRegularTrainsSB.get(j),Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num);
-								lookRegularTrainsFinal(this.indexmappingExpressTrainsSB.get(j),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num);
+								lookRegularTrainsFinal(Departure,this.indexmappingExpressTrains.get(i),Time,Dep_Date,Passanger_num,this.indexmappingRegularTrains,Connections_num,this.regularTrainSchedule);
+								lookRegularTrainsFinal(this.indexmappingExpressTrains.get(i),this.indexmappingExpressTrains.get(j),Time,Dep_Date,Passanger_num,this.indexmappingExpressTrains,Connections_num,this.expressTrainsSchedule);
+								lookRegularTrainsFinal(this.indexmappingExpressTrains.get(j),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrains,Connections_num,this.regularTrainSchedule);
 								
 								
 							}
@@ -294,27 +421,35 @@ public class SearchTrainService {
 	 	}
 	 	else if(TicketType.equals("Regular"))
 	 	{
-	 		System.out.println("Step 1 "+Departure.getClass().getName());
 	 		
-	 			ArrayList<HashMap<String,String>> temp =  new ArrayList<HashMap<String,String>>();
-	 			HashMap<String,String> temp_store = new HashMap<String,String>();
-	 			temp =  lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num);
-	 			
-	 			temp_store.put("depature_station",temp.get(0).get("departure_station"));
-	 			temp_store.put("arrival_station",temp.get(temp.size()-1).get("arrival_station"));
-	 			temp_store.put("passangers",temp.get(0).get("passangers"));
-				temp_store.put("departure_time",temp.get(0).get("depature_time"));
-				temp_store.put("departure_date",temp.get(0).get("depature_date"));
-				temp_store.put("arrival_time",String.valueOf(Integer.valueOf(temp.get(temp.size()-1).get("depature_time")+5))); // Calculate arrival time: remaining
-				double price =  ticketPriceService.ticketPriceBetweenStations(Departure, Arrival,TicketType);
-				temp_store.put("price",String.valueOf(price)); // price calculation : remaining
-				temp_store.put("journeyTime",String.valueOf(Integer.valueOf(temp.get(temp.size()-1).get("depature_time"))-Integer.valueOf(temp.get(0).get("depature_time")))); // journey time : remaining
-				temp_store.put("trainType","NB");  // train type : remaining
-				
-				trainsList.add(temp_store);
-	 		 
-	 			
-	 	}
+ 			
+ 			int total_return =0;
+ 			while(total_return < 5 )
+ 			{
+ 				ArrayList<HashMap<String,String>> temp =  new ArrayList<HashMap<String,String>>();
+ 	 			HashMap<String,String> temp_store = new HashMap<String,String>();
+ 			
+ 			if(Time < 0)
+ 			{
+ 				break;
+ 			}
+ 			temp =  lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrains,Connections_num,this.regularTrainSchedule);
+ 			Time = 	get_available_time_from_station(indexmappingRegularTrains.indexOf(Departure),Time+15,this.regularTrainSchedule);
+ 			temp_store.put("depature_station",temp.get(0).get("departure_station"));
+ 			temp_store.put("arrival_station",temp.get(temp.size()-1).get("arrival_station"));
+ 			temp_store.put("passengers",temp.get(0).get("passengers")); 
+			temp_store.put("departure_time",temp.get(0).get("departure_time")); 
+			temp_store.put("departure_date",temp.get(0).get("departure_date")); 
+			temp_store.put("arrival_time",String.valueOf(Integer.valueOf(temp.get(temp.size()-1).get("departure_time"))+5)); // Calculate arrival time: remaining
+			double price =  ticketPriceService.ticketPriceBetweenStations(Departure, Arrival,TicketType);
+			temp_store.put("price",String.valueOf(price)); // price calculation : remaining
+			temp_store.put("journeyTime",String.valueOf(Integer.valueOf(temp.get(temp.size()-1).get("departure_time"))-Integer.valueOf(temp.get(0).get("departure_time"))+5)); // journey time : remaining
+			temp_store.put("trainType","NB");  // train type : remaining
+			trainsList.add(temp_store);
+			total_return++;
+ 			}
+ 			
+ 	}
 	 	else
 	 	{
 	 		System.out.println("Step 1 "+Departure.getClass().getName());
@@ -323,56 +458,56 @@ public class SearchTrainService {
 	 			System.out.println("step 2 "+Departure instanceof String);
 	 			System.out.println("step 2 2 "+Departure.getClass().getName());
 	 			//Both are express train
-		 		if(this.indexmappingExpressTrainsSB.indexOf(Departure)!= -1 && this.indexmappingExpressTrainsSB.indexOf(Arrival)!= -1 )
+		 		if(this.indexmappingExpressTrains.indexOf(Departure)!= -1 && this.indexmappingExpressTrains.indexOf(Arrival)!= -1 )
 		 		{
 		 			System.out.println("step 3 ");
-		 			lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num);	
+		 			lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrains,Connections_num,this.expressTrainsSchedule);	
 		 		}
 		 		//Departure is express
-		 		else if(this.indexmappingExpressTrainsSB.indexOf(Departure)!= -1)
+		 		else if(this.indexmappingExpressTrains.indexOf(Departure)!= -1)
 		 		{
-		 			for(int i=this.indexmappingExpressTrainsSB.size();i> this.indexmappingExpressTrainsSB.indexOf(Departure);i--)
+		 			for(int i=this.indexmappingExpressTrains.size();i> this.indexmappingExpressTrains.indexOf(Departure);i--)
 					{
 						//check if arrival station is immediately after express station found
-						if(this.indexmappingExpressTrainsSB.get(i) <= Arrival)
+						if(this.indexmappingExpressTrains.get(i) <= Arrival)
 						{
 							//Get train info for Express train connections
-							lookRegularTrainsFinal(Departure,this.indexmappingExpressTrainsSB.get(i),Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num);
+							lookRegularTrainsFinal(Departure,this.indexmappingExpressTrains.get(i),Time,Dep_Date,Passanger_num,this.indexmappingExpressTrains,Connections_num,this.expressTrainsSchedule);
 							//Get train info for Express to Regular train connection
-							lookRegularTrainsFinal(this.indexmappingExpressTrainsSB.get(i),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num);
+							lookRegularTrainsFinal(this.indexmappingExpressTrains.get(i),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrains,Connections_num,this.regularTrainSchedule);
 						}
 					}
 		 		}
 		 		//Arrival is express
 		 		else
 		 		{
-		 			for(int i=this.indexmappingRegularTrainsSB.indexOf(Departure);i<this.indexmappingRegularTrainsSB.size();i++)
+		 			for(int i=this.indexmappingRegularTrains.indexOf(Departure);i<this.indexmappingRegularTrains.size();i++)
 					{
-						if(this.indexmappingExpressTrainsSB.contains(this.indexmappingRegularTrainsSB.get(i)) && this.indexmappingRegularTrainsSB.get(i)< Arrival)
+						if(this.indexmappingExpressTrains.contains(this.indexmappingRegularTrains.get(i)) && this.indexmappingRegularTrains.get(i)< Arrival)
 						{
 							//Get train from Regular to express
-							lookRegularTrainsFinal(Departure,this.indexmappingExpressTrainsSB.get(i),Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num);
+							lookRegularTrainsFinal(Departure,this.indexmappingExpressTrains.get(i),Time,Dep_Date,Passanger_num,this.indexmappingRegularTrains,Connections_num,this.regularTrainSchedule);
 							//Get train from express to express
-							lookRegularTrainsFinal(this.indexmappingExpressTrainsSB.get(i),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrainsSB,Connections_num);
+							lookRegularTrainsFinal(this.indexmappingExpressTrains.get(i),Arrival,Time,Dep_Date,Passanger_num,this.indexmappingExpressTrains,Connections_num,this.expressTrainsSchedule);
 						}
 					}
 		 		}
 	 		}
-	 		lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrainsSB,Connections_num);	
+	 		lookRegularTrainsFinal(Departure,Arrival,Time,Dep_Date,Passanger_num,this.indexmappingRegularTrains,Connections_num,this.regularTrainSchedule);	
 	 	}
 		 }
 		 get_json_data_for_hm( Departure, Arrival,trainSchedules,TicketType);
 		 return trainsList;
 
 	 }
-	public ArrayList<HashMap<String,String>> lookRegularTrainsFinal(Character Departure,Character Arrival,Integer Time,String Dep_date,int Passanger_num,ArrayList<Character> indexMRTrains,int conn_num)
+	public ArrayList<HashMap<String,String>> lookRegularTrainsFinal(Character Departure,Character Arrival,Integer Time,String Dep_date,int Passanger_num,ArrayList<Character> indexMRTrains,int conn_num,int[][] schedular)
 	{
 		ArrayList<HashMap<String,String>> hm_arr = new ArrayList<HashMap<String,String>>();
 		HashMap<String,String> hm = null;
 		HashMap<Integer,Boolean> hm_visitied_stations = new HashMap<Integer,Boolean>();
 		int departure_station_current_ind =indexMRTrains.indexOf(Departure);
 		int arrival_station_current_ind= departure_station_current_ind +1;
-		int current_depture_time=get_available_time_from_station(departure_station_current_ind,Time);
+		int current_depture_time=get_available_time_from_station(departure_station_current_ind,Time,schedular);
 		int stationIndexRegularDeparture =  indexMRTrains.indexOf(Departure);
 		int stationIndexRegularArrival =  indexMRTrains.indexOf(Arrival);
 		int counter = 0;
@@ -381,7 +516,7 @@ public class SearchTrainService {
 		{
 				while(departure_station_current_ind < arrival_station_current_ind && arrival_station_current_ind <= stationIndexRegularArrival)
 				{
-					if(is_connection_between_dep_arrival_available(departure_station_current_ind,arrival_station_current_ind,current_depture_time,Dep_date))
+					if(is_connection_between_dep_arrival_available(departure_station_current_ind,arrival_station_current_ind,current_depture_time,Dep_date,Passanger_num))
 					{
 						hm = new HashMap<String,String>();
 						hm.put("departure_station",String.valueOf(indexMRTrains.get(departure_station_current_ind)));
@@ -397,14 +532,14 @@ public class SearchTrainService {
 						hm_arr.add(hm);
 						departure_station_current_ind ++;
 						arrival_station_current_ind ++;	
-						current_depture_time = get_available_time_from_station(departure_station_current_ind,current_depture_time+5);
+						current_depture_time = get_available_time_from_station(departure_station_current_ind,current_depture_time+5,schedular);
 					}
 					else
 					{
 						hm_arr.clear();
 						departure_station_current_ind =indexMRTrains.indexOf(Departure);
 						arrival_station_current_ind= departure_station_current_ind +1;
-						current_depture_time =get_available_time_from_station(departure_station_current_ind,Time+15);
+						current_depture_time =get_available_time_from_station(departure_station_current_ind,Time+15,schedular);
 						
 						if(current_depture_time == -1)
 						{
@@ -419,7 +554,7 @@ public class SearchTrainService {
 		{
 			while( counter <= conn_num && departure_station_current_ind < arrival_station_current_ind && arrival_station_current_ind <= stationIndexRegularArrival && (departure_station_current_ind >= 0 && departure_station_current_ind >= stationIndexRegularDeparture) )
 			{
-				if(is_connection_between_dep_arrival_available(departure_station_current_ind,arrival_station_current_ind,current_depture_time,Dep_date))
+				if(is_connection_between_dep_arrival_available(departure_station_current_ind,arrival_station_current_ind,current_depture_time,Dep_date, Passanger_num))
 				{
 					hm.clear();
 					hm.put("departure_station",String.valueOf(indexMRTrains.get(departure_station_current_ind)));
@@ -430,13 +565,13 @@ public class SearchTrainService {
 					departure_station_current_ind ++;
 					arrival_station_current_ind ++;	
 					hm_visitied_stations.put(departure_station_current_ind,false);
-					current_depture_time = get_available_time_from_station(departure_station_current_ind,current_depture_time+5);
+					current_depture_time = get_available_time_from_station(departure_station_current_ind,current_depture_time+5,schedular);
 					
 				}
 				else
 				{
 					
-					current_depture_time = get_available_time_from_station(departure_station_current_ind,current_depture_time+15);
+					current_depture_time = get_available_time_from_station(departure_station_current_ind,current_depture_time+15,schedular);
 					if(current_depture_time == -1)
 					{
 						hm_visitied_stations.replace(departure_station_current_ind, false);
@@ -461,22 +596,23 @@ public class SearchTrainService {
 		}
 		return hm_arr;
 	}
-	public int get_available_time_from_station(int index,int time)
+	public int get_available_time_from_station(int index,int time,int[][] schedule)
 	{
-		for(int j=0;j<this.regularTrainSchedule[index].length;j++)
+		for(int j=0;j<schedule[index].length;j++)
 		{
-			if(this.regularTrainSchedule[index][j] >= time)
+			if(schedule[index][j] >= time)
 			{
-			 return this.regularTrainSchedule[index][j] ;
+			 return schedule[index][j] ;
 			}
 		}
 		return -1;
 	}
-	public Boolean is_connection_between_dep_arrival_available(int fromStation,int toStation,Integer time_current, String journeyDate)
+	
+	
+	public Boolean is_connection_between_dep_arrival_available(int fromStation,int toStation,Integer time_current, String journeyDate, int passengers)
 	{	
 		//call query to get back Boolean for connection 
 		int bookedTickets = journeyRepository.findByJourneyTrainIdAndJourneyDate((long)1000, journeyDate, fromStation, toStation);
-		int passengers = 3; // dynamic
 		int totalTrainSeats = 50; // dynamic
 		if(bookedTickets > (totalTrainSeats - passengers))
 		{
