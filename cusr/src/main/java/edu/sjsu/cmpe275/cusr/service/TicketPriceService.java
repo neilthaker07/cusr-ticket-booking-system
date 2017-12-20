@@ -1,6 +1,5 @@
 package edu.sjsu.cmpe275.cusr.service;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import edu.sjsu.cmpe275.cusr.model.JourneyDetails;
-import edu.sjsu.cmpe275.cusr.model.Ticket;
 import edu.sjsu.cmpe275.cusr.repository.JourneyRepository;
-import edu.sjsu.cmpe275.cusr.repository.TicketRepository;
 
 @Component
 public class TicketPriceService {
@@ -29,15 +26,10 @@ public class TicketPriceService {
 	public double ticketPriceBetweenStations(Character fromStation, Character toStation, String ticketType)
 	{
 		allStations();
-		fromStation = 'C';
-		toStation = 'P';
-		
 		int stationDiff = Math.abs(stations.get(toStation) - stations.get(fromStation));
 		double d = stationDiff / 5.0;
-	
         double finalRate = Math.ceil(d);
         
-        ticketType = "regular";
 		if(ticketType.equals("express"))
 		{
 			finalRate*=2; // express, price double 

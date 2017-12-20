@@ -49,10 +49,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 var passengerNumber = 2;
 var ticketID = 100;
 
+var sysUserId = localStorage.getItem("sysUserId");
+var bookingdata=localStorage.getItem('bookingdata');
+var bookingData = JSON.parse(bookingdata);
+
+
+
 $(document).ready(function(){
 
 	var isUserLoggedIn = localStorage.getItem("isUserLoggedIn");
-	var sysUserId = localStorage.getItem("sysUserId");
 
 	// If user directly opens the page, redirect him back to login
 	if(isUserLoggedIn !== "" && isUserLoggedIn !== null){
@@ -68,6 +73,10 @@ $(document).ready(function(){
 		localStorage.removeItem("emailAddress");
 		window.location = "login.html";
 	});
+
+
+	
+	prepareJourneyDetails(bookingData);
 
 	preparePassengerInfoTable(passengerNumber);
 
@@ -89,10 +98,20 @@ $(document).ready(function(){
 		}
 		event.preventDefault();
 
-		savePassengerInforamtion(passengers, ticketID);
-
+		saveTicketInforamtion(passengers, bookingData);
 	});
 });
+
+function prepareJourneyDetails(bookingData)
+{
+
+	 $("#ticket_booking_data").append("<form class='form-horizontal' id=bookingdata_"+
+                                    "> <div class='form-group' style='border :1px solid black'> <table style='width:100%'> <tr> <th>Source:</th><th>Destination: </th><th>No Of Passenger:</th> <th>Departure Time:</th><th>Arrival Time: </th></tr><tr><td>"+
+                                    "<label id= dpt_station_"+">"+ bookingData['departure_station'] +"</label></td><td>"+"<label id= arv_station_"+">"+bookingData['arrival_station'] + "</label></td><td>"+"<label id= passenger_"+">"+ bookingData['passengers'] +
+                                    "</label></td><td>"+"<label id= dpt_time_"+">"+ bookingData['departure_time'] +"</label></td><td>"+"<label id= arv_time_"+">"+ bookingData['arrival_time']+"</label></td></tr><tr><th>Date: </th> <th>Price:</th><th>Total Time: </th><th>Type: </th></tr><tr><td>"+
+                              		"<label id= dpt_date_"+">"+ bookingData['departure_date']+"</label></td><td>"+"<label id= price_"+">"+ bookingData['price'] +"</label></td><td>"+"<label id= journey_Time_"+">"+ bookingData['journeyTime']+"</label></td><td>"+"<label id= t_type_"+
+                                    ">"+ bookingData['trainType']+"</label></td><td></td></tr></table></div></form>");
+}
 
 function preparePassengerInfoTable(numeberOfPassenger){
 
@@ -104,12 +123,40 @@ function preparePassengerInfoTable(numeberOfPassenger){
 			"<td><input type='text' class='form-control1' id='age-passenger-"+ i +"' placeholder='Age'></td>" +
 			"</tr>";
 	}
-
+	
 	$("#passenger-information").append(passengerRows);
 }
 
-function saveJourneyDetails(){
 
+function saveTicketInforamtion(passengers, bookingData){
+
+	var bookingObj = new Object();
+	bookingObj.journeyTrainId = bookingData['trainNo'];
+	bookingObj.source = bookingData['departure_station'];
+	bookingObj.destination = bookingData['arrival_station'];
+	bookingObj.passengers = bookingData['passengers'];
+	bookingObj.journeyDate = bookingData['departure_date'];
+	bookingObj.departureTime = bookingData['departure_time'];
+
+	var bookingObjString = JSON.stringify(bookingObj);
+
+	alert(bookingObjString);
+
+	$.ajax({
+     url:  'http://localhost:8080/finalTicket/'+sysUserId+'?price='+bookingData['price'],
+     method: "POST",
+     data: jQuery.param({ journeyDetailString: bookingObjString}),
+     error: function(xhr, status, error) {
+        alert(error);
+     },
+     success: function(data) {
+      	alert("ticket Saved...");
+      	var ticketId = data;
+      	savePassengerInforamtion(passengers, ticketId);
+
+
+     },
+  });
 
 }
 
@@ -126,6 +173,7 @@ function savePassengerInforamtion(paxObj, ticketId){
      },
      success: function(data) {
       	alert("Passengers Saved...");
+
      },
   });
 
@@ -197,86 +245,15 @@ function savePassengerInforamtion(paxObj, ticketId){
 					<div class="progressbar-heading grids-heading">
 						<h2>Train Information</h2>
 					</div>
-					<div class="panel panel-widget">
-						<div class="block-page">
+					 <div class="forms">
+                            <div class="form-three widget-shadow">
+                                <div id="ticket_booking_data" data-example-id="form-validation-states-with-icons">
 
-							<table style="width:100%" border ="0">
-							 <tr>
-								 <th>Source:</th>
-								 <th>Destination: </th>
-								 <th>No Of Passenger:</th>
-								 <th>Departure Time:</th>
-								 <th>Arrival Time: </th>
+                                </div>
+                            </div>
+                        </div>
 
-							 </tr>
-							 <tr>
-								 <td>A</td>
-								 <td>Z</td>
-								 <td>1000</td>
-								 <td>9:00am</td>
-								 <td>9:30am</td>
-							 </tr>
-
-							 <tr>
-								 <th>Date: </th>
-								 <th>Price:</th>
-								 <th>Total Time: </th>
-								 <th>Type: </th>
-								 <th></th>
-								 <th></th>
-							 </tr>
-							 <tr>
-
-								 <td>05/12/17</td>
-								 <td>$3</td>
-								 <td>11 minute</td>
-								 <td>SB</td>
-
-							 </tr>
-
-						 </table>
-							 <div style="border-top-style: dashed">
-							 <table style="width:100%" border ="0">
-							 <tr>
-								 <th>Source:</th>
-								 <th>Destination: </th>
-								 <th>No Of Passenger:</th>
-								 <th>Departure Time:</th>
-								 <th>Arrival Time: </th>
-
-							 </tr>
-							 <tr>
-								 <td>A</td>
-								 <td>Z</td>
-								 <td>1000</td>
-								 <td>9:00am</td>
-								 <td>9:30am</td>
-							 </tr>
-
-							 <tr>
-								 <th>Date: </th>
-								 <th>Price:</th>
-								 <th>Total Time: </th>
-								 <th>Type: </th>
-								 <th></th>
-								 <th></th>
-							 </tr>
-							 <tr>
-
-								 <td>05/12/17</td>
-								 <td>$3</td>
-								 <td>11 minute</td>
-								 <td>SB</td>
-
-								 <td>
-								 </td>
-							 </tr>
-
-						 </table>
-
-						</div>
-					</div>
-				</div>
+					
 				<!--//grids-->
 
 				<div class="progressbar-heading grids-heading">
