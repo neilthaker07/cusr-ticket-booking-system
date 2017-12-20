@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.sjsu.cmpe275.cusr.model.Ticket;
 import edu.sjsu.cmpe275.cusr.model.User;
 import edu.sjsu.cmpe275.cusr.service.EmailService;
+import edu.sjsu.cmpe275.cusr.service.TicketService;
 import edu.sjsu.cmpe275.cusr.service.UserService;
 
 @RestController
@@ -28,6 +31,9 @@ public class EmailResource {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	TicketService ticketService;
+	
 	private JavaMailSender mailSender;
 
     public void setMailSender(JavaMailSender mailSender) {
@@ -36,11 +42,11 @@ public class EmailResource {
 
 	
 	@RequestMapping(method=RequestMethod.POST, value="/confirmEmail/{id}")
-	public void sendConfrimationEmail(@PathVariable Long id){
+	public void sendConfrimationEmail(@PathVariable Long ticketId){
 		
-		long userId= emailService.findUserbyTicketId(id);
+		Ticket ticket= ticketService.getTicketById(ticketId);
 		
-		User user=userService.getUserById(userId);
+		User user=userService.getUserById(ticket.getUserId());
 		
 		String email="afreens.patel@gmail.com";
 		
@@ -56,7 +62,7 @@ public class EmailResource {
                         "Dear user " + user + " "
                             + "User id"
                             + ", thank you for buying new tickets. Your ticket number is :  "
-                            + id );
+                             );
             }
         };
 
