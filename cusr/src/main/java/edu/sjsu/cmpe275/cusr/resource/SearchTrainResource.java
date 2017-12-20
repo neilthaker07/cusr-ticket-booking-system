@@ -36,4 +36,5 @@ public class SearchTrainResource {
         
 		return new ResponseEntity<Object>(entities, HttpStatus.OK);
 	}
+	
 }
