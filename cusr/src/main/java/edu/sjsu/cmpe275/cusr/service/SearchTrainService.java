@@ -27,7 +27,7 @@ public class SearchTrainService {
 	/*Contains schedule for each regular train
 	eg: regularTrain[0] = [915,930,945..] where 0=A
 	*/
-	private int[][] regularTrainSchedule = new int [regularTrainCount][60];
+	private int[][] regularTrainSchedule = new int [regularTrainCount][45];
 	/* contains scheule for express trains
 	eg:expressTrainsSchedule[0]=[9,10,11..] where 0=A;
 	*/
@@ -252,7 +252,8 @@ public class SearchTrainService {
 		 			temp_store.put("passengers",temp.get(0).get("passengers")); 
 					temp_store.put("departure_time",temp.get(0).get("departure_time")); 
 					temp_store.put("departure_date",temp.get(0).get("departure_date")); 
-					temp_store.put("arrival_time",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time"))+25)); 
+					int arrivalTime =  format_time(Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time"))),25);
+					temp_store.put("arrival_time",arrivalTime); 
 					double price =  ticketPriceService.ticketPriceBetweenStations(Departure, Arrival,TicketType);
 					temp_store.put("price",String.valueOf(price));
 					temp_store.put("journeyTime",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time")))-Integer.valueOf(String.valueOf(temp.get(0).get("departure_time")))+25); // journey time : remaining
@@ -334,7 +335,8 @@ public class SearchTrainService {
 	 			temp_store.put("passengers",temp.get(0).get("passengers")); 
 				temp_store.put("departure_time",temp.get(0).get("departure_time")); 
 				temp_store.put("departure_date",temp.get(0).get("departure_date")); 
-				temp_store.put("arrival_time",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time"))+5)); 
+				int arrivalTime =  format_time(Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time"))),5);
+				temp_store.put("arrival_time",arrivalTime); 
 				double price =  ticketPriceService.ticketPriceBetweenStations(Departure, Arrival,TicketType);
 				temp_store.put("price",String.valueOf(price));
 				temp_store.put("journeyTime",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time")))-Integer.valueOf(String.valueOf(temp.get(0).get("departure_time")))+5); // journey time : remaining
@@ -373,7 +375,9 @@ public class SearchTrainService {
 			 			temp_store.put("passengers",temp.get(0).get("passengers")); 
 						temp_store.put("departure_time",temp.get(0).get("departure_time")); 
 						temp_store.put("departure_date",temp.get(0).get("departure_date")); 
-						temp_store.put("arrival_time",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time"))+25)); 
+						int arrivalTime =  format_time(Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time"))),25);
+						temp_store.put("arrival_time",arrivalTime); 
+						
 						double price =  ticketPriceService.ticketPriceBetweenStations(Departure, Arrival,TicketType);
 						temp_store.put("price",String.valueOf(price));
 						temp_store.put("journeyTime",String.valueOf(Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time")))-Integer.valueOf(String.valueOf(temp.get(0).get("departure_time")))+25)); // journey time : remaining
@@ -430,7 +434,10 @@ public class SearchTrainService {
 	 			temp_store.put("passengers",temp.get(0).get("passengers")); 
 				temp_store.put("departure_time",temp.get(0).get("departure_time")); 
 				temp_store.put("departure_date",temp.get(0).get("departure_date")); 
-				temp_store.put("arrival_time",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time"))+5)); 
+				int arrivalTime =  format_time(Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time"))),5);
+				temp_store.put("arrival_time",arrivalTime); 
+				
+				temp_store.put("arrival_time",arrivalTime); 
 				double price =  ticketPriceService.ticketPriceBetweenStations(Departure, Arrival,TicketType);
 				temp_store.put("price",String.valueOf(price));
 				temp_store.put("journeyTime",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time")))-Integer.valueOf(String.valueOf(temp.get(0).get("departure_time")))+5); // journey time : remaining
@@ -470,7 +477,9 @@ public class SearchTrainService {
 	 			temp_store.put("passengers",temp.get(0).get("passengers")); 
 				temp_store.put("departure_time",temp.get(0).get("departure_time")); 
 				temp_store.put("departure_date",temp.get(0).get("departure_date")); 
-				temp_store.put("arrival_time",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time")))+25); 
+				int arrivalTime =  format_time(Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time"))),25);
+				temp_store.put("arrival_time",arrivalTime); 
+				
 				double price =  ticketPriceService.ticketPriceBetweenStations(Departure, Arrival,TicketType);
 				temp_store.put("price",String.valueOf(price));
 				temp_store.put("journeyTime",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time")))-Integer.valueOf(String.valueOf(temp.get(0).get("departure_time")))+25); // journey time : remaining
@@ -552,7 +561,8 @@ public class SearchTrainService {
  			temp_store.put("passengers",temp.get(0).get("passengers")); 
 			temp_store.put("departure_time",temp.get(0).get("departure_time")); 
 			temp_store.put("departure_date",temp.get(0).get("departure_date")); 
-			temp_store.put("arrival_time",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time")))+5); 
+			int arrivalTime =  format_time(Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time"))),5);
+			temp_store.put("arrival_time",arrivalTime);  
 			double price =  ticketPriceService.ticketPriceBetweenStations(Departure, Arrival,TicketType);
 			temp_store.put("price",String.valueOf(price)); 
 			temp_store.put("journeyTime",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time")))-Integer.valueOf(String.valueOf(temp.get(0).get("departure_time")))+5); // journey time : remaining
@@ -590,7 +600,8 @@ public class SearchTrainService {
 		 			temp_store.put("passengers",temp.get(0).get("passengers")); 
 					temp_store.put("departure_time",temp.get(0).get("departure_time")); 
 					temp_store.put("departure_date",temp.get(0).get("departure_date")); 
-					temp_store.put("arrival_time",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time")))+25); 
+					int arrivalTime =  format_time(Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time"))),25);
+					temp_store.put("arrival_time",arrivalTime); 
 					double price =  ticketPriceService.ticketPriceBetweenStations(Departure, Arrival,TicketType);
 					temp_store.put("price",String.valueOf(price));
 					temp_store.put("journeyTime",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time")))-Integer.valueOf(String.valueOf(temp.get(0).get("departure_time")))+25); // journey time : remaining
@@ -647,7 +658,8 @@ public class SearchTrainService {
 	 			temp_store.put("passengers",temp.get(0).get("passengers")); 
 				temp_store.put("departure_time",temp.get(0).get("departure_time")); 
 				temp_store.put("departure_date",temp.get(0).get("departure_date")); 
-				temp_store.put("arrival_time",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time")))+25); 
+				int arrivalTime =  format_time(Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time"))),25);
+				temp_store.put("arrival_time",arrivalTime); 
 				double price =  ticketPriceService.ticketPriceBetweenStations(Departure, Arrival,TicketType);
 				temp_store.put("price",String.valueOf(price));
 				temp_store.put("journeyTime",Integer.valueOf(String.valueOf(temp.get(temp.size()-1).get("departure_time")))-Integer.valueOf(String.valueOf(temp.get(0).get("departure_time")))+25); // journey time : remaining
@@ -798,13 +810,23 @@ public class SearchTrainService {
 		return  new ArrayList<HashMap<String,Object>>(trainsList.subList(0,5));	
 
 	}
+	public int format_time(int time,int offset)
+	{
+		int total_time = time+offset;
+		
+		if(total_time % 100 > 60 )
+		{
+			total_time -= offset;
+		    int rem = total_time % 100;
+		    total_time -= rem;
+		    int off =  60-rem;
+		    total_time +=100;
+		    total_time += offset-off;
+		}
+		return total_time;
+	}
 	
-	public void get_json_data_for_hm(Character Departure,Character Arrival, HashMap<Character,ArrayList<Integer>> hm,String TicketType )
-	 {
-		System.out.println("NEIL TESTING");
-		System.out.println(hm);
-		System.out.println("NEIL TESTING");
-	 }
+	
 	
 //	public HashMap<Character,ArrayList<Integer>> lookExpressTrains(Character Departure,Character Arrival,Integer Time,String Dep_date,int Passanger_num,ArrayList<Character> indexMExTrains)
 //	{
