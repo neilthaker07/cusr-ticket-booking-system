@@ -18,7 +18,7 @@ public class JourneyDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long journeyId;
-	private Long journeyTrainId;
+	private String trainNo;
 	private int source;
 	private int destination;
 	private String departureTime;
@@ -39,12 +39,6 @@ public class JourneyDetails {
 	}
 	public void setJourneyId(Long journeyId) {
 		this.journeyId = journeyId;
-	}
-	public Long getJourneyTrainId() {
-		return journeyTrainId;
-	}
-	public void setJourneyTrainId(Long journeyTrainId) {
-		this.journeyTrainId = journeyTrainId;
 	}
 	public int getSource() {
 		return source;
@@ -94,6 +88,14 @@ public class JourneyDetails {
 
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
+	}
+
+	public String getTrainNo() {
+		return trainNo;
+	}
+
+	public void setTrainNo(String trainNo) {
+		this.trainNo = trainNo;
 	}
 	
 }

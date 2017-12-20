@@ -81,35 +81,35 @@ public class TicketPriceService {
 	Map<Character, Integer> stations = new HashMap<Character, Integer>();
 	public void allStations()
 	{
-		stations.put('A',1);
-		stations.put('B',2);
-		stations.put('C',3);
-		stations.put('D',4);
-		stations.put('E',5);
-		stations.put('F',6);
-		stations.put('G',7);
-		stations.put('H',8);
-		stations.put('I',9);
-		stations.put('J',10);
-		stations.put('K',11);
-		stations.put('L',12);
-		stations.put('M',13);
-		stations.put('N',14);
-		stations.put('O',15);
-		stations.put('P',16);
-		stations.put('Q',17);
-		stations.put('R',18);
-		stations.put('S',19);
-		stations.put('T',20);
-		stations.put('U',21);
-		stations.put('V',22);
-		stations.put('W',23);
-		stations.put('X',24);
-		stations.put('Y',25);
-		stations.put('Z',26);
+		stations.put('A',0);
+		stations.put('B',1);
+		stations.put('C',2);
+		stations.put('D',3);
+		stations.put('E',4);
+		stations.put('F',5);
+		stations.put('G',6);
+		stations.put('H',7);
+		stations.put('I',8);
+		stations.put('J',9);
+		stations.put('K',10);
+		stations.put('L',11);
+		stations.put('M',12);
+		stations.put('N',13);
+		stations.put('O',14);
+		stations.put('P',15);
+		stations.put('Q',16);
+		stations.put('R',17);
+		stations.put('S',18);
+		stations.put('T',19);
+		stations.put('U',20);
+		stations.put('V',21);
+		stations.put('W',22);
+		stations.put('X',23);
+		stations.put('Y',24);
+		stations.put('Z',25);
 	}
 	
-	public boolean isTicketAvailable(Long trainId, String journeyDate, Character fromStation, Character toStation, int passengers, int totalTrainSeats)
+	public boolean isTicketAvailable(String trainNo, String journeyDate, Character fromStation, Character toStation, int passengers, int totalTrainSeats)
 	{
 	/*	String qry = "select sum(passengers) from journey_details where journey_train_id = 1000 and journey_date = 2012-04-23 11:25:44 "
 				+ "and 1 = (case when (( 3 >= source && 6<= destination ) OR (  3 < source && 6<= destination && 6>source )"
@@ -117,7 +117,7 @@ public class TicketPriceService {
 	*/
 		allStations();
 
-		int bookedTickets = journeyRepository.findByJourneyTrainIdAndJourneyDate(trainId, journeyDate, stations.get(fromStation), stations.get(toStation));
+		int bookedTickets = journeyRepository.findByJourneyTrainIdAndJourneyDate(trainNo, journeyDate, stations.get(fromStation), stations.get(toStation));
 		if(bookedTickets > (totalTrainSeats - passengers))
 		{
 			return false;
