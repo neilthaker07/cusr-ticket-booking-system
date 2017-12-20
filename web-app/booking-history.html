@@ -66,9 +66,29 @@ $(document).ready(function(){
 		localStorage.removeItem("emailAddress");
 		window.location = "login.html";
 	});
-
 });
 
+function cancelTicket(id){
+	if (confirm('Are you sure you want to cancel this ticket?')) {
+			cancelTicketCallToServer(id);
+	}
+}
+
+function cancelTicketCallToServer(id) {
+
+	$.ajax({
+     url:  'http://localhost:8080/cancelTicket',
+     method: "POST",
+		 data: jQuery.param({ ticketId: id}) ,
+     error: function(xhr, status, error) {
+        alert(error);
+     },
+     success: function(data) {
+			 	$("#"+id).remove();
+				alert("Train Ticket Sucessfully Cancelled..");
+     },
+  });
+}
 
 function getBookingHistory(userid){
 
@@ -79,10 +99,64 @@ function getBookingHistory(userid){
         alert(error);
      },
      success: function(data) {
-      	
+			 data.forEach(function (ticket){
+
+				 var ticketId = ticket.ticketId;
+				 var journeyList = ticket.journeyList;
+				 var passengerNo = ticket.passengerList.length;
+
+				 var ticketDOM = generateEntireTicketDOM(ticket);
+				 $("#booking-history-grid").append(ticketDOM);
+
+				 var journeyDOM = generateJourneyDetailsDOM(journeyList, passengerNo);
+				 $("#ticketBody-"+ticketId).append(journeyDOM);
+			 });
      },
   });
 
+}
+
+function generateEntireTicketDOM(ticket){
+
+	var ticketDOM = "<div id='"+ ticket.ticketId +"' class='panel panel-widget'>" +
+		"<div class='block-page'>" +
+		"<div style='margin-bottom:1em'><h4>TicketID #"+ ticket.ticketId +"</h4></div>" +
+		"<div style='margin-bottom:1em'>Price: $"+ ticket.transaction.price +"</div>" +
+		"<table id='ticketBody-"+ ticket.ticketId +"' class='table table-bordered'>" +
+			 "<tr>" +
+				 "<th>Source</th>" +
+				 "<th>Destination</th>" +
+				 "<th>Train Number</th>" +
+				 "<th>No Of Passenger</th>" +
+				 "<th>Departure Time</th>" +
+				 "<th>Arrival Time</th>" +
+				 "<th>Date</th>" +
+			 "</tr>" +
+		 "</table>" +
+	 "</div>" +
+	"<button onclick='cancelTicket("+ ticket.ticketId +")' style='background-color:#fd5c63;color:#fff' type='button' class='cancel-ticket btn btn-default'>Cancel Booking</button>" +
+"</div>" ;
+
+return ticketDOM;
+}
+
+function generateJourneyDetailsDOM(journeyList, passengerNumber){
+
+	var journeyDetailsDOM  = "";
+	journeyList.forEach(function(journey){
+
+		journeyDetailsDOM = journeyDetailsDOM + "<tr>" +
+			 "<td>"+ journey.source +"</td>" +
+			 "<td>"+ journey.destination +"</td>" +
+			 "<td>"+ "NB9999" +"</td>" +
+			 "<td>"+ passengerNumber +"</td>" +
+			 "<td>"+ journey.departureTime+"</td>" +
+			 "<td>"+ "00:00" +"</td>" +
+			 "<td>"+ journey.journeyDate+"</td>" +
+		 "</tr>";
+	});
+
+	return journeyDetailsDOM;
 }
 
 </script>
@@ -147,56 +221,12 @@ function getBookingHistory(userid){
 		<div id="page-wrapper">
 			<div class="main-page">
 				<!--grids-->
-				<div class="grids">
+				<div id="booking-history-grid" class="grids">
 					<div class="progressbar-heading grids-heading">
 						<h2>Booking History</h2>
 					</div>
 
-					<div class="panel panel-widget">
-						<div class="block-page">
-							<div style="margin-bottom:1em"><h4>TicketID #12</h4></div>
-							<div style="margin-bottom:1em">Price: $14</div>
-							<table class="table table-bordered">
-							 <tr>
-								 <th>Source</th>
-								 <th>Destination</th>
-								 <th>Train Number</th>
-								 <th>No Of Passenger</th>
-								 <th>Departure Time</th>
-								 <th>Arrival Time</th>
-								 <th>Date</th>
-							 </tr>
-							 <tr>
-								 <td>A</td>
-								 <td>Z</td>
-								 <td>NB2000</td>
-								 <td>1000</td>
-								 <td>9:00am</td>
-								 <td>9:30am</td>
-								 <td>05/12/17</td>
-							 </tr>
-							 <tr>
-								<td>A</td>
-								<td>Z</td>
-								 <td>NB2000</td>
-								<td>1000</td>
-								<td>9:00am</td>
-								<td>9:30am</td>
-								<td>05/12/17</td>
-							</tr>
-							<tr>
-								<td>A</td>
-								<td>Z</td>
-								<td>NB2000</td>
-								<td>1000</td>
-								<td>9:00am</td>
-								<td>9:30am</td>
-								<td>05/12/17</td>
-							</tr>
-						 </table>
-					 </div>
-					<button style="background-color:#fd5c63;color:#fff" type="button" class="btn btn-default" id="search_btn">Cancel Booking</button>
-				</div>
+
 				<!--//grids-->
 
 			</div>

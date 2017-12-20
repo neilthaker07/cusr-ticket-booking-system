@@ -1,5 +1,7 @@
 package edu.sjsu.cmpe275.cusr.repository;
 
+import java.util.ArrayList;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,4 +22,7 @@ public interface JourneyRepository extends JpaRepository<JourneyDetails, Long>{
 	
 	@Query("FROM JourneyDetails j where j.ticket.ticketId = :ticketId")
 	JourneyDetails findOneByTicket(@Param("ticketId") Long ticketId);
+	
+	@Query("FROM JourneyDetails j where j.ticket.ticketId = :ticketId")
+	ArrayList<JourneyDetails> findManyByTicket(@Param("ticketId") Long ticketId);
 }
