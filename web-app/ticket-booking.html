@@ -69,6 +69,13 @@ $(document).ready(function(){
 		window.location = "login.html";
 	});
 
+
+	var bookingdata=localStorage.getItem('bookingdata');
+	console.log('retrievedObject: ', JSON.parse(bookingdata));
+	var bookingData = JSON.parse(bookingdata);
+
+	prepareJourneyDetails(bookingData);
+
 	preparePassengerInfoTable(passengerNumber);
 
 	$("#passenger-info-form").submit(function(event) {
@@ -94,6 +101,17 @@ $(document).ready(function(){
 	});
 });
 
+function prepareJourneyDetails(bookingData)
+{
+
+	 $("#ticket_booking_data").append("<form class='form-horizontal' id=bookingdata_"+
+                                    "> <div class='form-group' style='border :1px solid black'> <table style='width:100%'> <tr> <th>Source:</th><th>Destination: </th><th>No Of Passenger:</th> <th>Departure Time:</th><th>Arrival Time: </th></tr><tr><td>"+
+                                    "<label id= dpt_station_"+">"+ bookingData['departure_station'] +"</label></td><td>"+"<label id= arv_station_"+">"+bookingData['arrival_station'] + "</label></td><td>"+"<label id= passenger_"+">"+ bookingData['passengers'] +
+                                    "</label></td><td>"+"<label id= dpt_time_"+">"+ bookingData['departure_time'] +"</label></td><td>"+"<label id= arv_time_"+">"+ bookingData['arrival_time']+"</label></td></tr><tr><th>Date: </th> <th>Price:</th><th>Total Time: </th><th>Type: </th></tr><tr><td>"+
+                              		"<label id= dpt_date_"+">"+ bookingData['departure_date']+"</label></td><td>"+"<label id= price_"+">"+ bookingData['price'] +"</label></td><td>"+"<label id= journey_Time_"+">"+ bookingData['journeyTime']+"</label></td><td>"+"<label id= t_type_"+
+                                    ">"+ bookingData['trainType']+"</label></td><td></td></tr></table></div></form>");
+}
+
 function preparePassengerInfoTable(numeberOfPassenger){
 
 	var passengerRows = "";
@@ -104,12 +122,14 @@ function preparePassengerInfoTable(numeberOfPassenger){
 			"<td><input type='text' class='form-control1' id='age-passenger-"+ i +"' placeholder='Age'></td>" +
 			"</tr>";
 	}
-
+	
 	$("#passenger-information").append(passengerRows);
 }
 
 function saveJourneyDetails(){
 
+	
+                       
 
 }
 
@@ -197,86 +217,15 @@ function savePassengerInforamtion(paxObj, ticketId){
 					<div class="progressbar-heading grids-heading">
 						<h2>Train Information</h2>
 					</div>
-					<div class="panel panel-widget">
-						<div class="block-page">
+					 <div class="forms">
+                            <div class="form-three widget-shadow">
+                                <div id="ticket_booking_data" data-example-id="form-validation-states-with-icons">
 
-							<table style="width:100%" border ="0">
-							 <tr>
-								 <th>Source:</th>
-								 <th>Destination: </th>
-								 <th>No Of Passenger:</th>
-								 <th>Departure Time:</th>
-								 <th>Arrival Time: </th>
+                                </div>
+                            </div>
+                        </div>
 
-							 </tr>
-							 <tr>
-								 <td>A</td>
-								 <td>Z</td>
-								 <td>1000</td>
-								 <td>9:00am</td>
-								 <td>9:30am</td>
-							 </tr>
-
-							 <tr>
-								 <th>Date: </th>
-								 <th>Price:</th>
-								 <th>Total Time: </th>
-								 <th>Type: </th>
-								 <th></th>
-								 <th></th>
-							 </tr>
-							 <tr>
-
-								 <td>05/12/17</td>
-								 <td>$3</td>
-								 <td>11 minute</td>
-								 <td>SB</td>
-
-							 </tr>
-
-						 </table>
-							 <div style="border-top-style: dashed">
-							 <table style="width:100%" border ="0">
-							 <tr>
-								 <th>Source:</th>
-								 <th>Destination: </th>
-								 <th>No Of Passenger:</th>
-								 <th>Departure Time:</th>
-								 <th>Arrival Time: </th>
-
-							 </tr>
-							 <tr>
-								 <td>A</td>
-								 <td>Z</td>
-								 <td>1000</td>
-								 <td>9:00am</td>
-								 <td>9:30am</td>
-							 </tr>
-
-							 <tr>
-								 <th>Date: </th>
-								 <th>Price:</th>
-								 <th>Total Time: </th>
-								 <th>Type: </th>
-								 <th></th>
-								 <th></th>
-							 </tr>
-							 <tr>
-
-								 <td>05/12/17</td>
-								 <td>$3</td>
-								 <td>11 minute</td>
-								 <td>SB</td>
-
-								 <td>
-								 </td>
-							 </tr>
-
-						 </table>
-
-						</div>
-					</div>
-				</div>
+					
 				<!--//grids-->
 
 				<div class="progressbar-heading grids-heading">
