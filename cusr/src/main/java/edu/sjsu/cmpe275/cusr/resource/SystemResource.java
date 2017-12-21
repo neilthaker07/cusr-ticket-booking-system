@@ -21,5 +21,16 @@ public class SystemResource {
 		systemService.resetSystem(trainCapacity);
 		return "SUCCESS";
 	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/systemReport")
+	public double systemReport(@RequestParam long trainId, @RequestParam String date)
+	{
+		
+
+		System.out.println(":::::::::::trainId ::::: ::::: " +trainId  + "::::::" + date) ;
+		double value= systemService.systemReport(trainId, date);
+		return value;
+		
+	}
 
 }

@@ -27,6 +27,6 @@ public class TicketPriceResource {
 	@RequestMapping(method = RequestMethod.GET, value="/dbQuery")
 	public boolean dbQuery()
 	{
-		return ticketPriceService.isTicketAvailable((long)1000, "15-12-17", 'C', 'F',3, 50);
+		return ticketPriceService.isTicketAvailable("SB0600", "15-12-17", 'C', 'F',3, 50);
 	}
 }

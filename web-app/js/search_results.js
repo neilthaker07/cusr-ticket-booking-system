@@ -292,9 +292,9 @@ for(var i=0;i<stations.length;i++)
                                 $("#search_result").append("<form class='form-horizontal' id=bookingdata_"+i+
                                     "> <div class='form-group' style='border :1px solid black'> <table style='width:100%'> <tr> <th>Source:</th><th>Destination: </th><th>No Of Passenger:</th> <th>Departure Time:</th><th>Arrival Time: </th></tr><tr><td>"+
                                     "<label id= dpt_station_"+i+">"+ showData[i].departure_station +"</label></td><td>"+"<label id= arv_station_"+i+">"+showData[i].arrival_station + "</label></td><td>"+"<label id= passenger_"+i+">"+ showData[i].passengers+
-                                    "</label></td><td>"+"<label id= dpt_time_"+i+">"+showData[i].departure_time+"</label></td><td>"+"<label id= arv_time_"+i+">"+ showData[i].arrival_time +"</label></td></tr><tr><th>Date: </th> <th>Price:</th><th>Total Time: </th><th>Type: </th></tr><tr><td>"+
-                                    "<label id= dpt_date_"+i+">"+ showData[i].departure_date +"</label></td><td>"+"<label id= price_"+i+">"+showData[i].price+"</label></td><td>"+"<label id= journey_Time_"+i+">"+showData[i].journeyTime+"</label></td><td>"+"<label id= t_type_"+i+
-                                    ">"+showData[i].trainType+"</label></td><td><button type='button'"+" id=book_btn_"+i+" style='color:red'" + "onClick=bookingdataFun"+i + "("+JSON.stringify(showData[i])+");"+ " >Book</button></td></tr></table></div></form>");
+                                    "</label></td><td>"+"<label id= dpt_time_"+i+">"+showData[i].departure_time+"</label></td><td>"+"<label id= arv_time_"+i+">"+ showData[i].arrival_time +"</label></td></tr><tr><th>Date: </th> <th>Price:</th><th>Total Time: </th><th>Train No: </th></tr><tr><td>"+
+                                    "<label id= dpt_date_"+i+">"+ showData[i].departure_date +"</label></td><td>"+"<label id= price_"+i+">"+showData[i].price+"</label></td><td>"+"<label id= journey_Time_"+i+">"+showData[i].journeyTime+"</label></td><td>"+"<label id= t_num_"+i+
+                                    ">"+showData[i].trainNo+"</label></td><td><button type='button'"+" id=book_btn_"+i+" style='color:red'" + "onClick=bookingdataFun"+i + "("+JSON.stringify(showData[i])+");"+ " >Book</button></td></tr></table></div></form>");
                         }
                         
 

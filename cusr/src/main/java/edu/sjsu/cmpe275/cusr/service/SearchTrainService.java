@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import edu.sjsu.cmpe275.cusr.model.SearchTrain;
 import edu.sjsu.cmpe275.cusr.repository.JourneyRepository;
+import edu.sjsu.cmpe275.cusr.repository.TrainRepository;
 
 @Component
 public class SearchTrainService {
@@ -48,7 +49,8 @@ public class SearchTrainService {
 	JourneyRepository journeyRepository;
 	@Autowired
 	TicketPriceService ticketPriceService;
-	
+	@Autowired
+	TrainRepository trainRepository;
 	
 	/*public SearchTrainService()
 	{
@@ -788,16 +790,17 @@ public class SearchTrainService {
 	
 	
 	public Boolean is_connection_between_dep_arrival_available(int fromStation,int toStation,Integer time_current, String journeyDate, int passengers)
-	{	
-		//call query to get back Boolean for connection 
-		int bookedTickets = journeyRepository.findByJourneyTrainIdAndJourneyDate((long)1000, journeyDate, fromStation, toStation);
-		int totalTrainSeats = 50; // dynamic
-		if(bookedTickets > (totalTrainSeats - passengers))
-		{
+	{
+		String trainNo = (time_current < 1000 ? ("0".concat(String.valueOf(time_current)))
+				: String.valueOf(time_current)).concat(fromStation > toStation ? "NB" : "SB");
+
+		// call query to get back Boolean for connection
+		int bookedTickets = journeyRepository.findByJourneyTrainIdAndJourneyDate(trainNo, journeyDate, fromStation,
+				toStation);
+		int totalTrainSeats = trainRepository.findTrainByTrainNo(trainNo).getCapacity();
+		if (bookedTickets > (totalTrainSeats - passengers)) {
 			return false;
-		}
-		else
-		{
+		} else {
 			return true;
 		}
 	}

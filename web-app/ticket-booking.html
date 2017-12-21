@@ -110,9 +110,9 @@ function prepareJourneyDetails(bookingData)
 	 $("#ticket_booking_data").append("<form class='form-horizontal' id=bookingdata_"+
                                     "> <div class='form-group' style='border :1px solid black'> <table style='width:100%'> <tr> <th>Source:</th><th>Destination: </th><th>No Of Passenger:</th> <th>Departure Time:</th><th>Arrival Time: </th></tr><tr><td>"+
                                     "<label id= dpt_station_"+">"+ bookingData['departure_station'] +"</label></td><td>"+"<label id= arv_station_"+">"+bookingData['arrival_station'] + "</label></td><td>"+"<label id= passenger_"+">"+ bookingData['passengers'] +
-                                    "</label></td><td>"+"<label id= dpt_time_"+">"+ bookingData['departure_time'] +"</label></td><td>"+"<label id= arv_time_"+">"+ bookingData['arrival_time']+"</label></td></tr><tr><th>Date: </th> <th>Price:</th><th>Total Time: </th><th>Type: </th></tr><tr><td>"+
+                                    "</label></td><td>"+"<label id= dpt_time_"+">"+ bookingData['departure_time'] +"</label></td><td>"+"<label id= arv_time_"+">"+ bookingData['arrival_time']+"</label></td></tr><tr><th>Date: </th> <th>Price:</th><th>Total Time: </th><th>Train No: </th></tr><tr><td>"+
                               		"<label id= dpt_date_"+">"+ bookingData['departure_date']+"</label></td><td>"+"<label id= price_"+">"+ bookingData['price'] +"</label></td><td>"+"<label id= journey_Time_"+">"+ bookingData['journeyTime']+"</label></td><td>"+"<label id= t_type_"+
-                                    ">"+ bookingData['trainType']+"</label></td><td></td></tr></table></div></form>");
+                                    ">"+ bookingData['trainNo']+"</label></td><td></td></tr></table></div></form>");
 }
 
 function preparePassengerInfoTable(numeberOfPassenger){
@@ -139,6 +139,7 @@ function saveTicketInforamtion(passengers, bookingData){
 	bookingObj.passengers = bookingData['passengers'];
 	bookingObj.journeyDate = bookingData['departure_date'];
 	bookingObj.departureTime = bookingData['departure_time'];
+	bookingObj.trainNo = bookingData['trainNo'];
 
 	var bookingObjString = JSON.stringify(bookingObj);
 
