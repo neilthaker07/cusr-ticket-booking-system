@@ -58,12 +58,7 @@ public class JourneyDetails {
 	public void setDestination(int destination) {
 		this.destination = destination;
 	}
-	public String getDepTime() {
-		return departureTime;
-	}
-	public void setDepTime(String departureTime) {
-		this.departureTime = departureTime;
-	}
+
 	public int getPassengers() {
 		return passengers;
 	}

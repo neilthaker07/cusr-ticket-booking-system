@@ -84,8 +84,12 @@ function cancelTicketCallToServer(id) {
         alert(error);
      },
      success: function(data) {
+			 if(data === "SUCCESS"){
 			 	$("#"+id).remove();
 				alert("Train Ticket Sucessfully Cancelled..");
+			}else{
+				alert("Ticket Cannot be Cancelled");
+			}
      },
   });
 }
