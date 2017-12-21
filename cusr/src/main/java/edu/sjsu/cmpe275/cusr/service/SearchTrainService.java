@@ -722,7 +722,36 @@ public class SearchTrainService {
 	 }
 	private int getTrainIndex(Character Departure, String ticketType,String bound,int time,Character arrival) {
 		// TODO Auto-generated method stub
-		if(ticketType.equals("Express"))
+		
+		int aa=0;
+		for(int i=0;i<expressTrainsSchedule.length;i++)
+		{
+			for(int j=0;j<expressTrainsSchedule[i].length;j++)
+			{
+				
+				if(expressTrainsSchedule[i][j]==time)
+				{
+					aa = expressTrainsSchedule[0][j];
+					break;
+				}
+			}
+		}
+		
+		for(int i=0;i<regularTrainSchedule.length;i++)
+		{
+			for(int j=0;j<regularTrainSchedule[i].length;j++)
+			{
+				
+				if(regularTrainSchedule[i][j]==time)
+				{
+					aa = regularTrainSchedule[0][j];
+					break;
+				}
+			}
+		}
+		
+		return aa;
+		/*if(ticketType.equals("Express"))
 		{
 			if(bound.equals("NB"))
 			{
@@ -765,7 +794,7 @@ public class SearchTrainService {
 				int departureTime = diff>1 ? (time - (diff*(5+3))) : (time - (diff*8));
 				return departureTime;
 			}
-		}
+		}*/
 		
 	}
 	public ArrayList<HashMap<String,Object>> lookAnyTrainsFinal(Character Departure,Character Arrival,Integer Time,String Dep_date,int Passanger_num,ArrayList<Character> indexMRTrains,int conn_num,int[][] schedular)
@@ -885,11 +914,42 @@ public class SearchTrainService {
 	
 	public Boolean is_connection_between_dep_arrival_available(int fromStation,int toStation,Integer time_current, String journeyDate, int passengers)
 	{
-		String trainNo = getTrainName(fromStation, toStation, time_current);
+		
+		int aa = 0;
+		for(int i=0;i<expressTrainsSchedule.length;i++)
+		{
+			for(int j=0;j<expressTrainsSchedule[i].length;j++)
+			{
+				
+				if(expressTrainsSchedule[i][j]==time_current)
+				{
+					aa = expressTrainsSchedule[0][j];
+					break;
+				}
+			}
+		}
+		
+		for(int i=0;i<regularTrainSchedule.length;i++)
+		{
+			for(int j=0;j<regularTrainSchedule[i].length;j++)
+			{
+				
+				if(regularTrainSchedule[i][j]==time_current)
+				{
+					aa = regularTrainSchedule[0][j];
+					break;
+				}
+			}
+		}
+		
+		
+		String trainNo = getTrainName(fromStation, toStation, aa);
 
+		
 		// call query to get back Boolean for connection
 		int bookedTickets = journeyRepository.findByJourneyTrainIdAndJourneyDate(trainNo, journeyDate, fromStation,
 				toStation);
+		
 		int totalTrainSeats = trainRepository.findTrainByTrainNo(trainNo).getCapacity();
 		if (bookedTickets > (totalTrainSeats - passengers)) {
 			return false;
