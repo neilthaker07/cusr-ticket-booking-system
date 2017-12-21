@@ -33,17 +33,16 @@ public class TicketResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/cancelTicket")
-	public ResponseEntity<Object> cancelTicket(@RequestParam long ticketId)
+	public String cancelTicket(@RequestParam long ticketId)
 	{
 		Ticket ticket = ticketService.getTicketById(ticketId);
-		Ticket cancelledTicket = ticketService.cancelTicket(ticket);
+		boolean cancelledTicket = ticketService.cancelTicket(ticket);
 		
-		List<JSONObject> entities = new ArrayList<JSONObject>();
-	    JSONObject entity = new JSONObject();
-	    entity.put("cancelledTicket", cancelledTicket);
-	    entities.add(entity);
-	    
-		return new ResponseEntity<Object>(entities, HttpStatus.OK);
+		if(cancelledTicket){
+			return "SUCCESS";
+		}else{
+			return "ERROR";
+		}
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/tickets/{userid}")
