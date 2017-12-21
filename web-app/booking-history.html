@@ -134,7 +134,6 @@ function generateEntireTicketDOM(ticket){
 				 "<th>Train Number</th>" +
 				 "<th>No Of Passenger</th>" +
 				 "<th>Departure Time</th>" +
-				 "<th>Arrival Time</th>" +
 				 "<th>Date</th>" +
 			 "</tr>" +
 		 "</table>" +
@@ -153,10 +152,9 @@ function generateJourneyDetailsDOM(journeyList, passengerNumber){
 		journeyDetailsDOM = journeyDetailsDOM + "<tr>" +
 			 "<td>"+ journey.source +"</td>" +
 			 "<td>"+ journey.destination +"</td>" +
-			 "<td>"+ "NB9999" +"</td>" +
+			 "<td>"+ journey.trainNo +"</td>" +
 			 "<td>"+ passengerNumber +"</td>" +
 			 "<td>"+ journey.departureTime+"</td>" +
-			 "<td>"+ "00:00" +"</td>" +
 			 "<td>"+ journey.journeyDate+"</td>" +
 		 "</tr>";
 	});
