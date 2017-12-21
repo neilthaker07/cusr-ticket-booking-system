@@ -1,7 +1,8 @@
-# TEAM 6 #  
-# CMPE 275 Term Project #   
-   
-# Names #   
+# TEAM 6   
+# CMPE 275 Term Project    
+# California Ultra-Speed Rail (CUSR)   
+  
+# Names   
 Afreen Patel : 011811397 : afreensultana.patel@sjsu.edu    
 Bhakti Shah : 011498916 : bhakti.shah@sjsu.edu   
 Neil Thaker : 011538215 : neil.thaker@sjsu.edu  
@@ -9,7 +10,7 @@ Purvesh Kothari : 011548615 : purvesh.kothari@sjsu.edu
   
 URL: http://thepk.xyz/login.html   
   
-# Technologies & Concepts used #   
+# Technologies & Concepts used   
 Spring boot  
 REST APIs  
 Social Login Integration  
@@ -18,7 +19,7 @@ Transaction concept
 Amazon Web Services  
 Frontend : HTML, Javascript, JQuery, AJAX  
    
-# Build instructions #  
+# Build instructions  
 Step 1: Get code from bitbucket: git clone https://neilthaker07@bitbucket.org/neilthaker07/cusr-ticket-booking-system.git    
 Step 2: Create MySQL Database cusr_db using this query: CREATE DATABASE cusr_db;  
 Step 3: Go inside project folder cusr to start spring boot maven project on port 8080: mvn spring-boot:run  
@@ -26,7 +27,7 @@ Step 4: In Linux, go to this Apache folder : /var/www/html
 Step 5: Create folder cusr. Put all web-app content into this folder for UI Apache server on port 80  
 Step 6: Open browser and hit this URL: http://localhost/admin.html  
    
-# Step to use CUSR App #  
+# Step to use CUSR App    
 Step 1: To set the train capacity : http://thepk.xyz/admin.html OR  http://localhost/admin.html   
 Step 2: Sign up with proper user information : http://thepk.xyz/signup.html OR  http://localhost/signup.html  
 Step 3: Fill up the search train form : http://thepk.xyz/search_results.html  OR  http://localhost/search_results.html  
