@@ -58,7 +58,13 @@ $(document).ready(function(){
 function generateSystemReport(trainNo, jouneyDate){
 
 	$.ajax({
+
+		headers: { 
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json' 
+             },
      url:  'http://localhost:8080/systemReport?trainNo='+trainNo+'&date='+jouneyDate,
+     
      method: "POST",
      data: jQuery.param({ trainNo: trainNo, date: jouneyDate}),
      error: function(xhr, status, error) {
