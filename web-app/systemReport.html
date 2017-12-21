@@ -1,0 +1,256 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>California Ultra Speed Rail | Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Baxster Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<link rel="icon" href="favicon.ico" type="image/x-icon" >
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- chart -->
+<script src="js/Chart.js"></script>
+<!-- //chart -->
+ <!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+<script src="js/wow.min.js"></script>
+	<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	 $("#report_btn").on("click",function(){
+		var trainNo = $("#trainNo").val();
+		var jouneyDate = $("#journey_date").val();
+		generateSystemReport(trainNo, jouneyDate);
+		
+	});
+});
+
+function generateSystemReport(trainNo, jouneyDate){
+
+	$.ajax({
+     url:  'http://localhost:8080/systemReport?trainNo='+trainNo+'&date'+jouneyDate,
+     method: "POST",
+     data: jQuery.param({ trainNo: trainNo, date: jouneyDate}),
+     error: function(xhr, status, error) {
+        alert(error);
+     },
+     success: function(data) {
+      	alert("System report calculated...");
+      	var result=data;
+      	displaySystemReportStat(result);
+     },
+  });
+
+}
+
+
+function displaySystemReportStat(result){
+
+	$("#systemReportresult").append("<label>"+result+"</label>");
+	
+}
+
+
+</script>
+
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div class="sidebar" role="navigation">
+            <div class="navbar-collapse">
+				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right dev-page-sidebar mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar" id="cbp-spmenu-s1">
+					<div class="scrollbar scrollbar1">
+						<ul class="nav" id="side-menu">
+							<li>
+									<a href="login.html"><i class="fa fa-sign-in nav_icon"></i>Login</a>
+							</li>
+							<li>
+									<a href="signup.html"><i class="fa fa-plus-circle nav_icon"></i>Sign up</a>
+							</li>
+						</ul>
+					</div>
+					<!-- //sidebar-collapse -->
+				</nav>
+			</div>
+		</div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div class="sticky-header header-section ">
+			<div class="header-left">
+				<!--logo -->
+				<div class="logo">
+					<a href="index.html">
+						<ul>
+							<li><img src="images/logo1.png" alt="" /></li>
+							<li><h1>CUSR</h1></li>
+							<div class="clearfix"> </div>
+						</ul>
+					</a>
+				</div>
+				<!--//logo-->
+				<div class="header-right header-right-grid">
+				</div>
+
+				<div class="clearfix"> </div>
+			</div>
+			<!--search-box-->
+				<div class="search-box">
+				</div>
+				<!--//end-search-box-->
+			<div class="header-right">
+				<!--toggle button start-->
+				<button id="showLeftPush"><i class="fa fa-bars"></i></button>
+				<!--toggle button end-->
+				<div class="clearfix"> </div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		  <div id="page-wrapper">
+            <div class="main-page">
+                <!--grids-->
+                <div class="grids">
+                    <div class="panel panel-widget forms-panel">
+                        <div class="progressbar-heading general-heading">
+                            <h4>System Report</h4>
+                        </div>
+                        <div class="forms">
+                                <h3 class="title1"></h3>
+                                <div class="form-three widget-shadow">
+                                    <form class="form-horizontal">
+                                        
+                                        <div class="form-group">
+                                            <label for="trainNo" class="col-sm-2 control-label">Train Number<span style="color:red; font-size: 15px">*</span></label>
+                                         	<div class="col-sm-8">
+                                                <input id="trainNo" type="text"></div>
+                                            </div>
+                                        </div>
+
+                                            <div class="form-group" >
+                                            <label for="journey_date" class="col-sm-2 control-label">Journey Date<span style="color:red; font-size: 15px">*</span></label>
+                                            <div class="col-sm-8">
+                                                <input id="journey_date" type="date"></div>
+                                            </div>
+                                                                                
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-default" id="report_btn">Generate</button>
+                                        </div>
+
+                                    </form>
+
+
+                                </div>
+                        </div>
+                    </div>
+				</div>
+
+				 <div  class="panel panel-widget forms-panel">
+                        <div class="progressbar-heading general-heading">
+                            <h4>System Report Result</h4>
+                        </div>
+                        <div class="forms">
+                            <div class="form-three widget-shadow">
+                                <div id="systemReportresult" data-example-id="form-validation-states-with-icons">
+
+                          
+								</div>
+							</div>
+						</div>
+					</div>
+
+				<!--//grids-->
+			</div>
+		</div>
+		<!--footer-->
+		 <div class="dev-page">
+
+			<!-- page footer -->
+			<!-- dev-page-footer-closed dev-page-footer-fixed -->
+            <div class="dev-page-footer dev-page-footer-fixed">
+				<!-- container -->
+				<div class="container">
+					<div class="copyright">
+						<p>© 2017 CUSR . All Rights Reserved . Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+					</div>
+                </div>
+				<!-- //container -->
+            </div>
+            <!-- /page footer -->
+		</div>
+        <!--//footer-->
+	</div>
+	<!-- Classie -->
+		<script src="js/classie.js"></script>
+		<script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				showLeftPush = document.getElementById( 'showLeftPush' ),
+				body = document.body;
+
+			showLeftPush.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( body, 'cbp-spmenu-push-toright' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				disableOther( 'showLeftPush' );
+			};
+
+
+			function disableOther( button ) {
+				if( button !== 'showLeftPush' ) {
+					classie.toggle( showLeftPush, 'disabled' );
+				}
+			}
+		</script>
+	<!-- Bootstrap Core JavaScript -->
+
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="js/dev-loaders.js"></script>
+        <script type="text/javascript" src="js/dev-layout-default.js"></script>
+		<script type="text/javascript" src="js/jquery.marquee.js"></script>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+		<script type="text/javascript" src="js/jquery.jqcandlestick.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/jqcandlestick.css" />
+
+		<!--max-plugin-->
+		<script type="text/javascript" src="js/plugins.js"></script>
+		<!--//max-plugin-->
+
+		<!--scrolling js-->
+		<script src="js/jquery.nicescroll.js"></script>
+		<script src="js/scripts.js"></script>
+		<!--//scrolling js-->
+</body>
+</html>
