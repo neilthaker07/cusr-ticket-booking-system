@@ -23,6 +23,8 @@ Frontend : HTML, Javascript, JQuery, AJAX
 Step 1: Get code from bitbucket: git clone https://neilthaker07@bitbucket.org/neilthaker07/cusr-ticket-booking-system.git    
 Step 2: Create MySQL Database cusr_db using this query: CREATE DATABASE cusr_db;  
 Step 3: Go inside project folder cusr to start spring boot maven project on port 8080: mvn spring-boot:run  
+  Step 3.1: Export csv data into table : Train, using below command. Hit below command inside project folder(i.e. cusr-ticket-booking-system)   
+  Step 3.2: mysqlimport --ignore-lines=0 --fields-terminated-by=, --local -u root -p cusr_db train.csv    
 Step 4: In Linux, go to this Apache folder : /var/www/html  
 Step 5: Create folder cusr. Put all web-app content into this folder for UI Apache server on port 80  
 Step 6: Open browser and hit this URL: http://localhost/admin.html  
