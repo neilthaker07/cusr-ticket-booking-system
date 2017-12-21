@@ -23,12 +23,12 @@ public class SystemResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/systemReport")
-	public double systemReport(@RequestParam long trainId, @RequestParam String date)
+	public double systemReport(@RequestParam String trainNo, @RequestParam String date)
 	{
 		
 
-		System.out.println(":::::::::::trainId ::::: ::::: " +trainId  + "::::::" + date) ;
-		double value= systemService.systemReport(trainId, date);
+		System.out.println("::::::::::: trainNo :::::::::: " +trainNo  + "::::::::" + date) ;
+		double value= systemService.systemReport(trainNo, date);
 		return value;
 		
 	}
